@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Handroid project page: bridging dexterous hand and humanoid embodiments." />
+  <title>Handroid: Bridging Dexterous Hand and Humanoid</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --panel: #ffffff;
+      --soft: #f5f7fb;
+      --soft-2: #eef4f7;
+      --text: #111827;
+      --muted: #5b6472;
+      --line: rgba(17, 24, 39, 0.12);
+      --accent-hand: #B2E0F1;
+      --accent-human: #FBCEDB;
+      --shadow: 0 16px 40px rgba(17, 24, 39, 0.08);
+      --radius: 14px;
+      --max-width: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.55;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img,
+    video,
+    canvas {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(var(--max-width), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .wide-container {
+      width: min(1560px, calc(100% - 24px));
+      margin: 0 auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 58px;
+      gap: 20px;
+    }
+
+    .brand {
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .hero {
+      padding: 66px 0 28px;
+      text-align: center;
+    }
+
+    .title {
+      width: 100%;
+      max-width: 1560px;
+      margin: 0 auto 16px;
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: 1.04;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      max-width: 760px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .main-video {
+      margin: 26px auto 58px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #0b1020;
+      box-shadow: var(--shadow);
+    }
+
+    .video-frame {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      background:
+        linear-gradient(135deg, rgba(31, 138, 112, 0.26), transparent 42%),
+        linear-gradient(315deg, rgba(47, 95, 152, 0.28), transparent 44%),
+        #0d1324;
+    }
+
+    .video-frame video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .empty-video {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .empty-video {
+      display: grid;
+      place-items: center;
+      min-height: 100%;
+      padding: 28px;
+      color: rgba(255, 255, 255, 0.82);
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .empty-video span {
+      display: block;
+      color: rgba(255, 255, 255, 0.58);
+      font-size: 14px;
+      font-weight: 500;
+      margin-top: 8px;
+    }
+
+    .section-title {
+      margin: 0 0 18px;
+      font-size: 26px;
+      line-height: 1.2;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    section[id] {
+      scroll-margin-top: 76px;
+    }
+
+    .split-stage {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 30px;
+      align-items: start;
+      padding: 8px 0 58px;
+    }
+
+    .cad-stage {
+      padding-bottom: 42px;
+    }
+
+    .task-stage {
+      padding-top: 0;
+    }
+
+    .split-stage::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 34px;
+      left: 50%;
+      width: 1px;
+      background: var(--line);
+    }
+
+    .mode-panel {
+      min-width: 0;
+    }
+
+    .mode-heading {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .mode-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      flex: 0 0 auto;
+    }
+
+    .mode-dot.hand {
+      background: var(--accent-hand);
+    }
+
+    .mode-dot.humanoid {
+      background: var(--accent-human);
+    }
+
+    .mode-heading h2 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.2;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .step-box {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #20242b;
+      box-shadow: var(--shadow);
+    }
+
+    .step-media {
+      position: relative;
+      min-height: clamp(340px, 31vw, 500px);
+      aspect-ratio: 16 / 10;
+      background:
+        radial-gradient(circle at 50% 34%, rgba(255, 255, 255, 0.18), transparent 36%),
+        linear-gradient(145deg, #4c5159 0%, #2b3038 52%, #171b21 100%);
+    }
+
+    .step-media video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .step-viewer,
+    .cad-viewer {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 50% 34%, rgba(255, 255, 255, 0.18), transparent 36%),
+        linear-gradient(145deg, #4c5159 0%, #2b3038 52%, #171b21 100%);
+      --poster-color: #2b3038;
+    }
+
+    .step-viewer canvas,
+    .cad-viewer {
+      width: 100%;
+      height: 100%;
+    }
+
+    .step-media.hand {
+      background:
+        radial-gradient(circle at 30% 28%, rgba(31, 138, 112, 0.28), transparent 34%),
+        linear-gradient(145deg, #4c5159 0%, #2b3038 52%, #171b21 100%);
+    }
+
+    .step-media.humanoid {
+      background:
+        radial-gradient(circle at 72% 26%, rgba(47, 95, 152, 0.28), transparent 34%),
+        linear-gradient(145deg, #4c5159 0%, #2b3038 52%, #171b21 100%);
+    }
+
+    .interaction-hint {
+      position: absolute;
+      left: 14px;
+      bottom: 14px;
+      z-index: 2;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      max-width: calc(100% - 28px);
+      padding: 7px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.72);
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.2;
+      pointer-events: none;
+      backdrop-filter: blur(8px);
+    }
+
+    .video-section {
+      margin-top: 26px;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .video-card-wide,
+    .humanoid-video-grid .video-card {
+      grid-column: 1 / -1;
+    }
+
+    .video-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--panel);
+      box-shadow: 0 10px 28px rgba(17, 24, 39, 0.06);
+    }
+
+    .video-card .video-frame {
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .video-card h3 {
+      margin: 0;
+      padding: 12px 14px 4px;
+      font-size: 16px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .video-card p {
+      margin: 0;
+      padding: 0 14px 14px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .placeholder-note {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      background: var(--soft);
+      color: var(--muted);
+      padding: 28px 0 44px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    @media (max-width: 860px) {
+      .container {
+        width: min(100% - 28px, var(--max-width));
+      }
+
+      .wide-container {
+        width: min(100% - 16px, 1560px);
+      }
+
+      .nav-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 14px 0;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+        gap: 12px;
+      }
+
+      .hero {
+        padding-top: 44px;
+      }
+
+      .split-stage {
+        grid-template-columns: 1fr;
+        gap: 44px;
+      }
+
+      .video-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .split-stage::before {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="nav">
+    <div class="wide-container nav-inner">
+      <a class="brand" href="#top">Handroid</a>
+      <div class="nav-links" aria-label="Page navigation">
+        <a href="#cad">CAD</a>
+        <a href="#task">Task</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <header class="hero wide-container">
+      <h1 class="title">Handroid: Bridging Dexterous Hand and Humanoid</h1>
+      <p class="subtitle">
+        Anonymous Release Version
+      </p>
+    </header>
+
+    <section id="long-horizon" class="wide-container" aria-labelledby="long-horizon-title">
+      <h2 id="long-horizon-title" class="section-title">Long-Horizon Task</h2>
+      <div class="main-video">
+        <div class="video-frame">
+          <!-- Main video across both dexterous hand and humanoid sections. -->
+          <video controls preload="metadata" poster="assets/images/overview-poster.jpg">
+            <source src="assets/videos/long-horizon-task.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </section>
+
+    <section id="cad" class="wide-container split-stage cad-stage" aria-label="Handroid CAD models by embodiment">
+      <div id="hand-form" class="mode-panel">
+        <div class="mode-heading">
+          <span class="mode-dot hand" aria-hidden="true"></span>
+          <h2>Dexterous Hand 3D Model</h2>
+        </div>
+
+        <figure class="step-box">
+          <div class="step-media hand">
+            <model-viewer
+              class="cad-viewer"
+              src="assets/cad/dex-hand.glb?v=20260610"
+              alt="Dexterous Hand CAD Model"
+              camera-controls
+              touch-action="pan-y"
+              interaction-prompt="none"
+              environment-image="neutral"
+              camera-orbit="0deg 75deg 90%"
+              exposure="0.55"
+              shadow-intensity="0.85"
+              shadow-softness="0.65">
+            </model-viewer>
+            <div class="interaction-hint" aria-hidden="true">
+              <span>Drag to rotate</span>
+              <span>Scroll to zoom</span>
+            </div>
+          </div>
+        </figure>
+      </div>
+
+      <div id="humanoid-form" class="mode-panel">
+        <div class="mode-heading">
+          <span class="mode-dot humanoid" aria-hidden="true"></span>
+          <h2>Humanoid 3D Model</h2>
+        </div>
+
+        <figure class="step-box">
+          <div class="step-media humanoid">
+            <model-viewer
+              class="cad-viewer"
+              src="assets/cad/humanoid.glb?v=20260610"
+              alt="Humanoid CAD Model"
+              camera-controls
+              touch-action="pan-y"
+              interaction-prompt="none"
+              environment-image="neutral"
+              camera-orbit="180deg 75deg auto"
+              exposure="0.55"
+              shadow-intensity="0.85"
+              shadow-softness="0.65">
+            </model-viewer>
+            <div class="interaction-hint" aria-hidden="true">
+              <span>Drag to rotate</span>
+              <span>Scroll to zoom</span>
+            </div>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <section id="task" class="wide-container split-stage task-stage" aria-label="Handroid task videos by embodiment">
+      <div class="mode-panel">
+        <div class="video-section">
+          <h2 class="section-title">Dex-Hand Videos</h2>
+          <div class="video-grid">
+            <article class="video-card video-card-wide">
+              <div class="video-frame">
+                <video controls preload="metadata" poster="assets/images/dex-hand-dp-grasping-poster.jpg">
+                  <source src="assets/videos/dex-hand-dp-grasping.mp4" type="video/mp4">
+                </video>
+              </div>
+              <h3>DP Grasping</h3>
+              <p>Dexterous hand grasping task.</p>
+            </article>
+
+            <article class="video-card">
+              <div class="video-frame">
+                <video controls preload="metadata" poster="assets/images/dex-hand-finger-teleop-poster.jpg">
+                  <source src="assets/videos/dex-hand-finger-teleop.mp4" type="video/mp4">
+                </video>
+              </div>
+              <h3>Finger Teleop</h3>
+              <p>Finger-level teleoperation behavior.</p>
+            </article>
+
+            <article class="video-card">
+              <div class="video-frame">
+                <video controls preload="metadata" poster="assets/images/dex-hand-bottle-cap-placement-poster.jpg">
+                  <source src="assets/videos/dex-hand-bottle-cap-placement.mp4" type="video/mp4">
+                </video>
+              </div>
+              <h3>Bottle Cap Placement</h3>
+              <p>Precise placement with dexterous hand control.</p>
+            </article>
+
+            <article class="video-card video-card-wide">
+              <div class="video-frame">
+                <video controls preload="metadata" poster="assets/images/dex-hand-cube-rotation-poster.jpg">
+                  <source src="assets/videos/dex-hand-cube-rotation.mp4" type="video/mp4">
+                </video>
+              </div>
+              <h3>Cube Rotation</h3>
+              <p>In-hand cube rotation task.</p>
+            </article>
+
+            <article class="video-card">
+              <div class="video-frame">
+                <video controls preload="metadata" poster="assets/images/dex-hand-cup-hanging-poster.jpg">
+                  <source src="assets/videos/dex-hand-cup-hanging.mp4" type="video/mp4">
+                </video>
+              </div>
+              <h3>Cup Hanging</h3>
+              <p>Cup manipulation and hanging behavior.</p>
+            </article>
+
+            <article class="video-card">
+              <div class="video-frame">
+                <video controls preload="metadata" poster="assets/images/dex-hand-cup-stacking-poster.jpg">
+                  <source src="assets/videos/dex-hand-cup-stacking.mp4" type="video/mp4">
+                </video>
+              </div>
+              <h3>Cup Stacking</h3>
+              <p>Stacking task with dexterous hand execution.</p>
+            </article>
+
+            <article class="video-card">
+              <div class="video-frame">
+                <video controls preload="metadata" poster="assets/images/dex-hand-dual-object-grasping-poster.jpg">
+                  <source src="assets/videos/dex-hand-dual-object-grasping.mp4" type="video/mp4">
+                </video>
+              </div>
+              <h3>Dual-Object Grasping</h3>
+              <p>Coordinated grasping over two objects.</p>
+            </article>
+
+            <article class="video-card">
+              <div class="video-frame">
+                <video controls preload="metadata" poster="assets/images/dex-hand-glove-removal-poster.jpg">
+                  <source src="assets/videos/dex-hand-glove-removal.mp4" type="video/mp4">
+                </video>
+              </div>
+              <h3>Glove Removal</h3>
+              <p>Contact-rich glove removal task.</p>
+            </article>
+
+            <article class="video-card">
+              <div class="video-frame">
+                <video controls preload="metadata" poster="assets/images/dex-hand-paper-grasping-poster.jpg">
+                  <source src="assets/videos/dex-hand-paper-grasping.mp4" type="video/mp4">
+                </video>
+              </div>
+              <h3>Paper Grasping</h3>
+              <p>Thin-object grasping with fine control.</p>
+            </article>
+
+            <article class="video-card">
+              <div class="video-frame">
+                <video controls preload="metadata" poster="assets/images/dex-hand-pouring-water-poster.jpg">
+                  <source src="assets/videos/dex-hand-pouring-water.mp4" type="video/mp4">
+                </video>
+              </div>
+              <h3>Pouring Water</h3>
+              <p>Dexterous pouring behavior.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+
+      <div class="mode-panel">
+        <div class="video-section">
+          <h2 class="section-title">Humanoid Form Videos</h2>
+          <div class="video-grid humanoid-video-grid">
+            <article class="video-card">
+              <div class="video-frame">
+                <video controls preload="metadata" poster="assets/images/humanoid-pick-and-place-poster.jpg">
+                  <source src="assets/videos/humanoid-pick-and-place.mp4" type="video/mp4">
+                </video>
+              </div>
+              <h3>Pick &amp; Place</h3>
+              <p>Object pick-and-place behavior in humanoid form.</p>
+            </article>
+
+            <article class="video-card">
+              <div class="video-frame">
+                <video controls preload="metadata" poster="assets/images/humanoid-pull-up-poster.jpg">
+                  <source src="assets/videos/humanoid-pull-up.mp4" type="video/mp4">
+                </video>
+              </div>
+              <h3>Pull-up</h3>
+              <p>Whole-body pull-up behavior.</p>
+            </article>
+
+            <article class="video-card">
+              <div class="video-frame">
+                <video controls preload="metadata" poster="assets/images/humanoid-push-up-poster.jpg">
+                  <source src="assets/videos/humanoid-push-up.mp4" type="video/mp4">
+                </video>
+              </div>
+              <h3>Push-up</h3>
+              <p>Whole-body push-up behavior.</p>
+            </article>
+
+            <article class="video-card">
+              <div class="video-frame">
+                <video controls preload="metadata" poster="assets/images/humanoid-locomotion-command-poster.jpg">
+                  <source src="assets/videos/humanoid-locomotion-command.mp4" type="video/mp4">
+                </video>
+              </div>
+              <h3>Locomotion Command</h3>
+              <p>Command-following locomotion behavior.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      Handroid: Bridging Dexterous Hand and Humanoid
+    </div>
+  </footer>
+
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+</body>
+</html>
