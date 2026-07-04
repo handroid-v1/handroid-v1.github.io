@@ -174,7 +174,15 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 28px 64px;
-      margin: 54px auto 0;
+      margin: 38px auto 0;
+    }
+
+    .resource-divider {
+      width: min(1780px, calc(100% - 160px));
+      height: 13px;
+      margin: 34px auto 0;
+      border-top: 3px solid #5f5f5f;
+      border-bottom: 8px solid #5f5f5f;
     }
 
     .resource-link {
@@ -504,6 +512,14 @@
         margin-top: 34px;
       }
 
+      .resource-divider {
+        width: calc(100% - 32px);
+        height: 10px;
+        margin-top: 28px;
+        border-top-width: 2px;
+        border-bottom-width: 6px;
+      }
+
       .resource-link {
         min-width: 130px;
         min-height: 60px;
@@ -582,6 +598,7 @@
         <span><sup>*</sup>University of North Carolina at Chapel Hill</span>
         <span><sup>&dagger;</sup>Stanford University</span>
       </div>
+      <div class="resource-divider" aria-hidden="true"></div>
       <div class="resource-links" aria-label="Project resources">
         <a class="resource-link" href="#">
           <img class="resource-icon" src="assets/icons/paper.svg" alt="" aria-hidden="true">
