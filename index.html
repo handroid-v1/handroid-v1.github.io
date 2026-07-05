@@ -85,11 +85,7 @@
     }
 
     .brand {
-      color: #000;
-      font-family: Georgia, "Times New Roman", Times, serif;
-      font-size: 34px;
-      font-weight: 700;
-      line-height: 1;
+      font-weight: 800;
       letter-spacing: 0;
     }
 
@@ -98,20 +94,18 @@
       flex-wrap: nowrap;
       align-items: center;
       justify-content: flex-end;
-      gap: 12px;
-      color: #000;
-      font-family: Georgia, "Times New Roman", Times, serif;
-      font-size: 34px;
-      font-weight: 700;
-      line-height: 1;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
     }
 
     .nav-links a:hover {
-      color: #333;
+      color: var(--text);
     }
 
     .nav-separator {
-      color: #000;
+      color: var(--muted);
     }
 
     .hero {
@@ -228,6 +222,35 @@
       height: 34px;
       flex: 0 0 auto;
       filter: invert(1);
+    }
+
+    .abstract-section {
+      padding: 34px 24px 56px;
+      background: #fff;
+    }
+
+    .abstract-inner {
+      width: min(1660px, calc(100% - 40px));
+      margin: 0 auto;
+      color: #000;
+      font-family: Georgia, "Times New Roman", Times, serif;
+    }
+
+    .abstract-title {
+      margin: 0 0 28px;
+      text-align: center;
+      font-size: 34px;
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .abstract-text {
+      margin: 0;
+      font-size: 32px;
+      line-height: 1.28;
+      text-align: justify;
+      letter-spacing: 0;
     }
 
     .main-video {
@@ -495,11 +518,6 @@
         padding: 0 12px;
       }
 
-      .brand,
-      .nav-links {
-        font-size: 26px;
-      }
-
       .nav-links {
         gap: 12px;
       }
@@ -552,6 +570,25 @@
         height: 27px;
       }
 
+      .abstract-section {
+        padding: 28px 16px 42px;
+      }
+
+      .abstract-inner {
+        width: min(100% - 16px, 1660px);
+      }
+
+      .abstract-title {
+        margin-bottom: 18px;
+        font-size: 28px;
+      }
+
+      .abstract-text {
+        font-size: 22px;
+        line-height: 1.34;
+        text-align: left;
+      }
+
       .split-stage {
         grid-template-columns: 1fr;
         gap: 44px;
@@ -577,6 +614,14 @@
 
       .authors {
         font-size: 22px;
+      }
+
+      .abstract-title {
+        font-size: 25px;
+      }
+
+      .abstract-text {
+        font-size: 19px;
       }
 
       .resource-link {
@@ -643,6 +688,15 @@
         </a>
       </div>
     </header>
+
+    <section id="abstract" class="abstract-section" aria-labelledby="abstract-title">
+      <div class="abstract-inner">
+        <h2 id="abstract-title" class="abstract-title">Abstract</h2>
+        <p class="abstract-text">
+          Morphology is a key factor that shapes a robot&rsquo;s functional boundaries, task space, and research paradigm. To break the morphological boundary between dexterous hands and humanoid robots and enhance robotic adaptability across diverse tasks, we introduce Handroid, a desktop-scale robotic system that integrates dexterous-hand and humanoid embodiments within a single platform. Handroid has 27 DoFs, a compact size of 0.33 m, and a weight of 2.05 kg. In its humanoid embodiment, Handroid provides a leg configuration corresponding to the DoFs of human legs and can perform basic locomotion tasks. In its dexterous-hand embodiment, its joint number and DoF configuration closely map to those of the human hand, enabling dexterous manipulation tasks. To support data collection and policy deployment across both embodiments, we further provide a unified interface for teleoperation and policy deployment, together with an interactive motion editor. Through teleoperation and reinforcement learning experiments, we demonstrate Handroid&rsquo;s hardware capabilities and application potential in dexterous manipulation, humanoid locomotion, and loco-manipulation tasks that combine both embodiments. By using a single hardware system, Handroid provides a compact, reliable, reproducible, and open-source robotic platform for humanoid and dexterous-hand research.
+        </p>
+      </div>
+    </section>
 
     <section id="long-horizon" class="wide-container" aria-labelledby="long-horizon-title">
       <h2 id="long-horizon-title" class="section-title">Long-Horizon Task</h2>
