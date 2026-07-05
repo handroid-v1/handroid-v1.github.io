@@ -85,6 +85,7 @@
     }
 
     .brand {
+      font-size: 17px;
       font-weight: 800;
       letter-spacing: 0;
     }
@@ -96,7 +97,7 @@
       justify-content: flex-end;
       gap: 8px;
       color: var(--muted);
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 600;
     }
 
@@ -141,9 +142,9 @@
     .authors {
       max-width: 1420px;
       margin: 0 auto;
-      font-family: Georgia, "Times New Roman", Times, serif;
+      font-family: "Cambria Math", Cambria, Georgia, "Times New Roman", Times, serif;
       font-size: 38px;
-      font-weight: 700;
+      font-weight: 800;
       line-height: 1.35;
     }
 
@@ -206,23 +207,46 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 150px;
-      min-height: 74px;
+      min-width: 156px;
+      min-height: 58px;
       gap: 12px;
-      padding: 9px 22px;
-      border: 7px solid #4b4b4b;
-      border-radius: 12px;
-      background: #747474;
+      padding: 8px 22px;
+      border: 0;
+      border-radius: 18px;
+      background: var(--resource-bg, #747474);
       color: #fff;
       font-family: Georgia, "Times New Roman", Times, serif;
       font-size: 32px;
       line-height: 1;
       text-shadow: 0 2px 2px rgba(0, 0, 0, 0.28);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.26), 0 3px 7px rgba(0, 0, 0, 0.1);
+      transition: filter 160ms ease, transform 160ms ease, box-shadow 160ms ease;
     }
 
     .resource-link:hover {
-      background: #646464;
+      filter: brightness(0.94);
+      transform: translateY(-1px);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 5px 12px rgba(0, 0, 0, 0.16);
+    }
+
+    .resource-link:nth-child(1) {
+      --resource-bg: #92dff2;
+    }
+
+    .resource-link:nth-child(2) {
+      --resource-bg: #ffdb66;
+    }
+
+    .resource-link:nth-child(3) {
+      --resource-bg: #7f7a7a;
+    }
+
+    .resource-link:nth-child(4) {
+      --resource-bg: #ef6f9d;
+    }
+
+    .resource-link:nth-child(5) {
+      --resource-bg: #91c976;
     }
 
     .resource-icon {
@@ -247,6 +271,10 @@
     .abstract-title {
       margin: 0 0 28px;
       text-align: center;
+      padding: 10px 16px;
+      border-radius: 8px;
+      background: #e9e9e9;
+      font-family: "Cambria Math", Cambria, Georgia, "Times New Roman", Times, serif;
       font-size: 34px;
       line-height: 1.2;
       font-weight: 700;
@@ -276,6 +304,10 @@
 
     .design-title {
       margin: 0;
+      padding: 10px 16px;
+      border-radius: 8px;
+      background: #e9e9e9;
+      font-family: "Cambria Math", Cambria, Georgia, "Times New Roman", Times, serif;
       font-size: 36px;
       line-height: 1.2;
       font-weight: 700;
@@ -374,6 +406,17 @@
       box-shadow: var(--shadow);
     }
 
+    .release-title {
+      margin: 34px 0 18px;
+      text-align: center;
+      color: #000;
+      font-family: "Cambria Math", Cambria, Georgia, "Times New Roman", Times, serif;
+      font-size: 42px;
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
     .video-frame {
       position: relative;
       aspect-ratio: 16 / 9;
@@ -427,7 +470,7 @@
     }
 
     .morphology-tabs {
-      width: min(560px, 100%);
+      width: 100%;
       margin: 0 auto 30px;
       text-align: center;
       color: #000;
@@ -436,6 +479,10 @@
 
     .morphology-title {
       margin: 0;
+      padding: 10px 16px;
+      border-radius: 8px;
+      background: #e9e9e9;
+      font-family: "Cambria Math", Cambria, Georgia, "Times New Roman", Times, serif;
       font-size: 36px;
       line-height: 1.2;
       font-weight: 700;
@@ -645,7 +692,8 @@
       }
     }
 
-    section[id] {
+    section[id],
+    #contact {
       scroll-margin-top: 76px;
     }
 
@@ -1085,6 +1133,8 @@
         <a href="#cad">Model</a>
         <span class="nav-separator" aria-hidden="true">|</span>
         <a href="#task">Task</a>
+        <span class="nav-separator" aria-hidden="true">|</span>
+        <a href="#contact">Contact</a>
       </div>
     </div>
   </nav>
@@ -1137,6 +1187,7 @@
     </header>
 
     <section id="long-horizon" class="wide-container" aria-label="Long-Horizon Task video">
+      <h2 class="release-title">1.0 Release</h2>
       <div class="main-video">
         <div class="video-frame">
           <!-- Main video across both dexterous hand and humanoid sections. -->
@@ -1404,7 +1455,7 @@
     </section>
   </main>
 
-  <footer>
+  <footer id="contact">
     <div class="container">
       Handroid: Bridging Dexterous Hand and Humanoid
     </div>
