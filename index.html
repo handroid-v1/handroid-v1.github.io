@@ -410,10 +410,10 @@
       margin: 34px 0 18px;
       text-align: center;
       color: #000;
-      font-family: "Cambria Math", Cambria, Georgia, "Times New Roman", Times, serif;
-      font-size: 42px;
+      font-family: "Rockwell Extra Bold", Rockwell, "Arial Black", Georgia, serif;
+      font-size: 50px;
       line-height: 1.2;
-      font-weight: 700;
+      font-weight: 900;
       letter-spacing: 0;
     }
 
@@ -876,6 +876,19 @@
       font-size: 13px;
     }
 
+    .video-card .video-caption {
+      margin: 0;
+      padding: 12px 16px 16px;
+      color: #000;
+      font-size: clamp(18px, 1.35vw, 26px);
+      line-height: 1.28;
+      letter-spacing: 0;
+    }
+
+    .video-card .video-caption strong {
+      font-weight: 900;
+    }
+
     .placeholder-note {
       margin-top: 12px;
       color: var(--muted);
@@ -982,6 +995,14 @@
         text-align: left;
       }
 
+      .release-title {
+        font-size: 42px;
+      }
+
+      .video-card .video-caption {
+        font-size: 19px;
+      }
+
       .design-section {
         padding: 16px 16px 42px;
       }
@@ -1086,6 +1107,14 @@
         font-size: 19px;
       }
 
+      .release-title {
+        font-size: 32px;
+      }
+
+      .video-card .video-caption {
+        font-size: 17px;
+      }
+
       .design-title {
         font-size: 27px;
       }
@@ -1187,7 +1216,7 @@
     </header>
 
     <section id="long-horizon" class="wide-container" aria-label="Long-Horizon Task video">
-      <h2 class="release-title">1.0 Release</h2>
+      <h2 class="release-title">Handroid 1.0 Release</h2>
       <div class="main-video">
         <div class="video-frame">
           <!-- Main video across both dexterous hand and humanoid sections. -->
@@ -1312,8 +1341,7 @@
                   <source src="assets/videos/dex-hand-dp-grasping.mp4" type="video/mp4">
                 </video>
               </div>
-              <h3>DP Grasping</h3>
-              <p>Dexterous hand grasping task.</p>
+              <p class="video-caption"><strong>DP Grasping:</strong> Trained from 100 teleoperated demonstrations, Handroid uses object point clouds and proprioception to grasp 10 diverse objects with a 72% average real-world success rate.</p>
             </article>
 
             <article class="video-card">
@@ -1322,8 +1350,7 @@
                   <source src="assets/videos/dex-hand-cube-rotation.mp4" type="video/mp4">
                 </video>
               </div>
-              <h3>Cube Rotation</h3>
-              <p>In-hand cube rotation task.</p>
+              <p class="video-caption"><strong>In-hand Reorientation:</strong> Trained in simulation with PPO and deployed on the real Handroid hand, the policy runs at 30 Hz and uses proprioceptive history to maintain a 3D-printed cube in hand without requiring a precise initial object pose.</p>
             </article>
 
             <article class="video-card">
@@ -1332,8 +1359,7 @@
                   <source src="assets/videos/dex-hand-finger-teleop.mp4" type="video/mp4">
                 </video>
               </div>
-              <h3>Finger Teleop</h3>
-              <p>Finger-level teleoperation behavior.</p>
+              <p class="video-caption"><strong>Finger Teleop:</strong> Finger-level teleoperation behavior.</p>
             </article>
 
             <article class="video-card">
@@ -1342,8 +1368,7 @@
                   <source src="assets/videos/dex-hand-bottle-cap-placement.mp4" type="video/mp4">
                 </video>
               </div>
-              <h3>Bottle Cap Placement</h3>
-              <p>Precise placement with dexterous hand control.</p>
+              <p class="video-caption"><strong>Bottle Cap Placement:</strong> Precise placement with dexterous hand control.</p>
             </article>
 
             <article class="video-card">
@@ -1352,8 +1377,7 @@
                   <source src="assets/videos/dex-hand-cup-hanging.mp4" type="video/mp4">
                 </video>
               </div>
-              <h3>Cup Hanging</h3>
-              <p>Cup manipulation and hanging behavior.</p>
+              <p class="video-caption"><strong>Cup Hanging:</strong> Cup manipulation and hanging behavior.</p>
             </article>
 
             <article class="video-card">
@@ -1362,8 +1386,7 @@
                   <source src="assets/videos/dex-hand-cup-stacking.mp4" type="video/mp4">
                 </video>
               </div>
-              <h3>Cup Stacking</h3>
-              <p>Stacking task with dexterous hand execution.</p>
+              <p class="video-caption"><strong>Cup Stacking:</strong> Stacking task with dexterous hand execution.</p>
             </article>
 
             <article class="video-card">
@@ -1372,8 +1395,7 @@
                   <source src="assets/videos/dex-hand-glove-removal.mp4" type="video/mp4">
                 </video>
               </div>
-              <h3>Glove Removal</h3>
-              <p>Contact-rich glove removal task.</p>
+              <p class="video-caption"><strong>Glove Removal:</strong> Contact-rich glove removal task.</p>
             </article>
 
             <article class="video-card">
@@ -1382,8 +1404,7 @@
                   <source src="assets/videos/dex-hand-dual-object-grasping.mp4" type="video/mp4">
                 </video>
               </div>
-              <h3>Dual-Object Grasping</h3>
-              <p>Coordinated grasping over two objects.</p>
+              <p class="video-caption"><strong>Dual-Object Grasping:</strong> Coordinated grasping over two objects.</p>
             </article>
 
             <article class="video-card">
@@ -1392,8 +1413,7 @@
                   <source src="assets/videos/dex-hand-paper-grasping.mp4" type="video/mp4">
                 </video>
               </div>
-              <h3>Paper Grasping</h3>
-              <p>Thin-object grasping with fine control.</p>
+              <p class="video-caption"><strong>Paper Grasping:</strong> Thin-object grasping with fine control.</p>
             </article>
 
             <article class="video-card">
@@ -1402,8 +1422,7 @@
                   <source src="assets/videos/dex-hand-pouring-water.mp4" type="video/mp4">
                 </video>
               </div>
-              <h3>Pouring Water</h3>
-              <p>Dexterous pouring behavior.</p>
+              <p class="video-caption"><strong>Pouring Water:</strong> Dexterous pouring behavior.</p>
             </article>
           </div>
         </section>
@@ -1416,8 +1435,7 @@
                   <source src="assets/videos/humanoid-pick-and-place.mp4" type="video/mp4">
                 </video>
               </div>
-              <h3>Pick &amp; Place</h3>
-              <p>Object pick-and-place behavior in humanoid form.</p>
+              <p class="video-caption"><strong>Pick &amp; Place:</strong> Object pick-and-place behavior in humanoid form.</p>
             </article>
 
             <article class="video-card">
@@ -1426,8 +1444,7 @@
                   <source src="assets/videos/humanoid-pull-up.mp4" type="video/mp4">
                 </video>
               </div>
-              <h3>Pull-up</h3>
-              <p>Whole-body pull-up behavior.</p>
+              <p class="video-caption"><strong>Pull-up:</strong> Whole-body pull-up behavior.</p>
             </article>
 
             <article class="video-card">
@@ -1436,8 +1453,7 @@
                   <source src="assets/videos/humanoid-push-up.mp4" type="video/mp4">
                 </video>
               </div>
-              <h3>Push-up</h3>
-              <p>Whole-body push-up behavior.</p>
+              <p class="video-caption"><strong>Push-up:</strong> Whole-body push-up behavior.</p>
             </article>
 
             <article class="video-card">
@@ -1446,8 +1462,7 @@
                   <source src="assets/videos/humanoid-locomotion-command.mp4" type="video/mp4">
                 </video>
               </div>
-              <h3>Locomotion Command</h3>
-              <p>Command-following locomotion behavior.</p>
+              <p class="video-caption"><strong>Locomotion Command:</strong> Command-following locomotion behavior.</p>
             </article>
           </div>
         </section>
