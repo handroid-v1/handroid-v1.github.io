@@ -283,10 +283,12 @@
     }
 
     .design-switch {
-      display: inline-flex;
+      display: inline-grid;
+      width: min(430px, 100%);
+      grid-template-columns: 1fr 3px 1fr;
+      column-gap: 26px;
       align-items: center;
-      gap: 32px;
-      margin-top: 18px;
+      margin: 18px auto 0;
     }
 
     .design-tab {
@@ -300,11 +302,25 @@
       font-size: 22px;
       font-weight: 700;
       line-height: 1;
+      justify-self: center;
       padding: 7px 12px;
+      transition: background-color 160ms ease, color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
     }
 
     .design-tab.is-active {
       background: #bfbfbf;
+    }
+
+    .design-tab:hover {
+      background: #8b8b8b;
+      color: #fff;
+      box-shadow: 0 3px 7px rgba(0, 0, 0, 0.22);
+      transform: translateY(-1px);
+    }
+
+    .design-tab:active {
+      background: #6f6f6f;
+      transform: translateY(0);
     }
 
     .design-tab:focus-visible {
@@ -316,6 +332,7 @@
       width: 3px;
       height: 50px;
       background: #777;
+      justify-self: center;
     }
 
     .design-hint {
@@ -695,7 +712,8 @@
       }
 
       .design-switch {
-        gap: 22px;
+        width: min(370px, 100%);
+        column-gap: 22px;
         margin-top: 14px;
       }
 
@@ -751,7 +769,8 @@
       }
 
       .design-switch {
-        gap: 16px;
+        width: min(310px, 100%);
+        column-gap: 16px;
       }
 
       .design-tab {
