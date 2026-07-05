@@ -68,45 +68,56 @@
       position: sticky;
       top: 0;
       z-index: 10;
-      border-bottom: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.88);
-      backdrop-filter: blur(12px);
+      border-bottom: 0;
+      background: #b8b8b8;
     }
 
     .nav-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      min-height: 58px;
+      min-height: 54px;
       gap: 20px;
       width: 100%;
       max-width: none;
       margin: 0;
-      padding: 0 34px;
+      padding: 0 12px;
     }
 
     .brand {
-      font-weight: 800;
+      color: #000;
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1;
       letter-spacing: 0;
     }
 
     .nav-links {
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
+      align-items: center;
       justify-content: flex-end;
-      gap: 18px;
-      color: var(--muted);
-      font-size: 14px;
-      font-weight: 600;
+      gap: 12px;
+      color: #000;
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1;
     }
 
     .nav-links a:hover {
-      color: var(--text);
+      color: #333;
+    }
+
+    .nav-separator {
+      color: #000;
     }
 
     .hero {
-      padding: 48px 24px 44px;
+      padding: 44px 24px 58px;
       text-align: center;
+      background: #e8e8e8;
     }
 
     .paper-title {
@@ -138,7 +149,8 @@
       margin: 0 auto;
       font-family: Georgia, "Times New Roman", Times, serif;
       font-size: 38px;
-      line-height: 1.48;
+      font-weight: 700;
+      line-height: 1.35;
     }
 
     .author-link {
@@ -153,7 +165,9 @@
     }
 
     .author-affiliation {
+      color: #000;
       font-size: 0.58em;
+      font-weight: 700;
       line-height: 0;
       vertical-align: super;
     }
@@ -162,10 +176,11 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 38px 118px;
+      gap: 38px 180px;
       margin: 22px auto 0;
       font-family: Georgia, "Times New Roman", Times, serif;
-      font-size: 30px;
+      font-size: 32px;
+      color: #000;
       line-height: 1.35;
     }
 
@@ -178,7 +193,7 @@
     }
 
     .resource-divider {
-      width: min(1780px, calc(100% - 160px));
+      width: min(1920px, calc(100% - 2px));
       height: 13px;
       margin: 34px auto 0;
       border-top: 3px solid #5f5f5f;
@@ -477,7 +492,12 @@
 
       .nav-inner {
         min-height: 54px;
-        padding: 0 18px;
+        padding: 0 12px;
+      }
+
+      .brand,
+      .nav-links {
+        font-size: 26px;
       }
 
       .nav-links {
@@ -485,7 +505,7 @@
       }
 
       .hero {
-        padding: 36px 16px 34px;
+        padding: 36px 16px 42px;
       }
 
       .paper-title {
@@ -504,7 +524,7 @@
 
       .affiliations {
         gap: 10px 40px;
-        font-size: 22px;
+        font-size: 24px;
       }
 
       .resource-links {
@@ -573,6 +593,7 @@
       <a class="brand" href="#top">Handroid</a>
       <div class="nav-links" aria-label="Page navigation">
         <a href="#cad">Model</a>
+        <span class="nav-separator" aria-hidden="true">|</span>
         <a href="#task">Task</a>
       </div>
     </div>
@@ -583,20 +604,20 @@
       <h1 class="paper-title">Handroid: Bridging Dexterous Hand and Humanoid</h1>
       <p class="venue">CoRL 2026</p>
       <div class="authors" aria-label="Authors">
-        <a class="author-link" href="#">Ruogu Li</a><sup class="author-affiliation">*</sup>,
-        <a class="author-link" href="https://www.chenyangma.com/" target="_blank" rel="noopener noreferrer">Chenyang Ma</a><sup class="author-affiliation">*</sup>,
-        <a class="author-link" href="https://skevinci.github.io/" target="_blank" rel="noopener noreferrer">Sikai Li</a><sup class="author-affiliation">*</sup>,
-        <a class="author-link" href="https://zhenyuwei2003.github.io/" target="_blank" rel="noopener noreferrer">Zhenyu Wei</a><sup class="author-affiliation">*</sup>,
-        <a class="author-link" href="https://scholar.google.com/citations?user=v5mEvqAAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Yunchao Yao</a><sup class="author-affiliation">*</sup>,
+        <a class="author-link" href="#">Ruogu Li</a><sup class="author-affiliation">1</sup>,
+        <a class="author-link" href="https://www.chenyangma.com/" target="_blank" rel="noopener noreferrer">Chenyang Ma</a><sup class="author-affiliation">1</sup>,
+        <a class="author-link" href="https://skevinci.github.io/" target="_blank" rel="noopener noreferrer">Sikai Li</a><sup class="author-affiliation">1</sup>,
+        <a class="author-link" href="https://zhenyuwei2003.github.io/" target="_blank" rel="noopener noreferrer">Zhenyu Wei</a><sup class="author-affiliation">1</sup>,
+        <a class="author-link" href="https://scholar.google.com/citations?user=v5mEvqAAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Yunchao Yao</a><sup class="author-affiliation">1</sup>,
         <br>
-        <a class="author-link" href="https://hshi74.github.io/" target="_blank" rel="noopener noreferrer">Haochen Shi</a><sup class="author-affiliation">&dagger;</sup>,
-        <a class="author-link" href="https://scholar.google.com/citations?user=i28fU0MAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">C.Karen Liu</a><sup class="author-affiliation">&dagger;</sup>,
-        <a class="author-link" href="https://shurans.github.io/" target="_blank" rel="noopener noreferrer">Shuran Song</a><sup class="author-affiliation">&dagger;</sup>,
-        <a class="author-link" href="https://dingmyu.github.io/" target="_blank" rel="noopener noreferrer">Mingyu Ding</a><sup class="author-affiliation">*</sup>
+        <a class="author-link" href="https://hshi74.github.io/" target="_blank" rel="noopener noreferrer">Haochen Shi</a><sup class="author-affiliation">2</sup>,
+        <a class="author-link" href="https://scholar.google.com/citations?user=i28fU0MAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">C.Karen Liu</a><sup class="author-affiliation">2</sup>,
+        <a class="author-link" href="https://shurans.github.io/" target="_blank" rel="noopener noreferrer">Shuran Song</a><sup class="author-affiliation">2</sup>,
+        <a class="author-link" href="https://dingmyu.github.io/" target="_blank" rel="noopener noreferrer">Mingyu Ding</a><sup class="author-affiliation">1</sup>
       </div>
       <div class="affiliations" aria-label="Affiliations">
-        <span><sup>*</sup>University of North Carolina at Chapel Hill</span>
-        <span><sup>&dagger;</sup>Stanford University</span>
+        <span><sup>1</sup>University of North Carolina at Chapel Hill</span>
+        <span><sup>2</sup>Stanford University</span>
       </div>
       <div class="resource-divider" aria-hidden="true"></div>
       <div class="resource-links" aria-label="Project resources">
