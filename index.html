@@ -303,9 +303,16 @@
       font-size: 22px;
       font-weight: 700;
       line-height: 1;
-      justify-self: center;
       padding: 7px 12px;
       transition: background-color 160ms ease, color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+    }
+
+    .design-tab[data-design-target="structure"] {
+      justify-self: end;
+    }
+
+    .design-tab[data-design-target="pcb"] {
+      justify-self: start;
     }
 
     .design-tab.is-active {
