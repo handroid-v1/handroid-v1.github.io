@@ -60,7 +60,7 @@
     }
 
     .wide-container {
-      width: min(1560px, calc(100% - 24px));
+      width: min(1840px, calc(100% - 88px));
       margin: 0 auto;
     }
 
@@ -421,7 +421,233 @@
       letter-spacing: 0;
     }
 
+    .morphology-section {
+      padding: 0 0 66px;
+      overflow: hidden;
+    }
+
+    .morphology-tabs {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      align-items: center;
+      gap: 36px;
+      width: min(760px, 100%);
+      margin: 0 auto 30px;
+      text-align: center;
+    }
+
+    .morphology-title {
+      margin: 0;
+      color: #000;
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 16px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .morphology-tab {
+      appearance: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: fit-content;
+      min-height: 28px;
+      padding: 4px 12px;
+      border: 0;
+      border-radius: 999px;
+      background: #eeeeee;
+      color: #000;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1;
+      transition: background-color 160ms ease, color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+    }
+
+    .morphology-tab[data-morphology-target="dex"] {
+      justify-self: end;
+    }
+
+    .morphology-tab[data-morphology-target="humanoid"] {
+      justify-self: start;
+    }
+
+    .morphology-tab.is-active,
+    .morphology-tab:hover {
+      background: #d7d7d7;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.16);
+      transform: translateY(-1px);
+    }
+
+    .morphology-tab:focus-visible {
+      outline: 3px solid #4772bf;
+      outline-offset: 3px;
+    }
+
+    .switch-cue {
+      position: absolute;
+      right: -88px;
+      top: 50%;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #4f5f6f;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1;
+      transform: translateY(-50%);
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .switch-cue img {
+      width: 42px;
+      height: 42px;
+      filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.22));
+    }
+
+    .model-compare {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 3px minmax(0, 1fr);
+      gap: 44px;
+      align-items: stretch;
+      margin: 0 auto 42px;
+    }
+
+    .model-compare-divider {
+      width: 3px;
+      min-height: 100%;
+      background: #5f5f5f;
+    }
+
+    .model-card {
+      position: relative;
+      overflow: hidden;
+      margin: 0;
+      min-height: clamp(260px, 23vw, 430px);
+      aspect-ratio: 16 / 9;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background:
+        radial-gradient(circle at 50% 34%, rgba(255, 255, 255, 0.18), transparent 36%),
+        linear-gradient(145deg, #4c5159 0%, #2b3038 52%, #171b21 100%);
+      box-shadow: var(--shadow);
+    }
+
+    .model-card .cad-viewer {
+      transition: opacity 260ms ease, filter 260ms ease;
+    }
+
+    .model-card.is-dimmed .cad-viewer {
+      opacity: 0.52;
+      filter: brightness(0.58);
+    }
+
+    .model-dim-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background:
+        radial-gradient(circle at 50% 34%, rgba(0, 0, 0, 0.2), transparent 34%),
+        rgba(0, 0, 0, 0.62);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 260ms ease;
+    }
+
+    .model-card.is-dimmed .model-dim-overlay {
+      opacity: 1;
+    }
+
+    .model-eye {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      z-index: 4;
+      display: inline-grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.72);
+      color: #fff;
+      cursor: pointer;
+      transition: background-color 160ms ease, transform 160ms ease;
+    }
+
+    .model-eye:hover {
+      background: rgba(71, 114, 191, 0.9);
+      transform: translateY(-1px);
+    }
+
+    .model-eye svg {
+      width: 21px;
+      height: 21px;
+      stroke: currentColor;
+    }
+
+    .model-eye .eye-off {
+      display: none;
+    }
+
+    .model-card.is-dimmed .model-eye .eye-on {
+      display: none;
+    }
+
+    .model-card.is-dimmed .model-eye .eye-off {
+      display: block;
+    }
+
+    .morphology-panels {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .morphology-panel {
+      display: none;
+    }
+
+    .morphology-panel.is-active {
+      display: block;
+    }
+
+    .morphology-panel.slide-from-right {
+      animation: panelSlideFromRight 280ms ease both;
+    }
+
+    .morphology-panel.slide-from-left {
+      animation: panelSlideFromLeft 280ms ease both;
+    }
+
+    @keyframes panelSlideFromRight {
+      from {
+        opacity: 0;
+        transform: translateX(56px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes panelSlideFromLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-56px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
     section[id] {
+      scroll-margin-top: 76px;
+    }
+
+    .task-anchor {
       scroll-margin-top: 76px;
     }
 
@@ -568,8 +794,7 @@
       gap: 16px;
     }
 
-    .video-card-wide,
-    .humanoid-video-grid .video-card {
+    .video-card-wide {
       grid-column: 1 / -1;
     }
 
@@ -622,7 +847,7 @@
       }
 
       .wide-container {
-        width: min(100% - 16px, 1560px);
+        width: min(100% - 48px, 1840px);
       }
 
       .nav-inner {
@@ -746,6 +971,32 @@
         grid-template-columns: 1fr;
       }
 
+      .morphology-tabs {
+        width: min(100%, 620px);
+        gap: 22px;
+      }
+
+      .switch-cue {
+        position: static;
+        grid-column: 1 / -1;
+        justify-self: center;
+        margin-top: -8px;
+        transform: none;
+      }
+
+      .model-compare {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .model-compare-divider {
+        display: none;
+      }
+
+      .model-card {
+        min-height: clamp(250px, 58vw, 420px);
+      }
+
       .split-stage::before {
         display: none;
       }
@@ -783,6 +1034,21 @@
 
       .design-tab {
         font-size: 18px;
+      }
+
+      .morphology-tabs {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-bottom: 22px;
+      }
+
+      .morphology-tab[data-morphology-target="dex"],
+      .morphology-tab[data-morphology-target="humanoid"] {
+        justify-self: center;
+      }
+
+      .morphology-title {
+        grid-row: 1;
       }
 
       .resource-link {
@@ -891,72 +1157,94 @@
       </div>
     </section>
 
-    <section id="cad" class="wide-container split-stage cad-stage" aria-label="Handroid CAD models by embodiment">
-      <div id="hand-form" class="mode-panel">
-        <div class="mode-heading">
+    <section id="cad" class="wide-container morphology-section" aria-labelledby="morphology-title">
+      <div class="morphology-tabs" role="tablist" aria-label="Morphology views">
+        <button class="morphology-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="dex-panel" data-morphology-target="dex">
           <span class="mode-dot hand" aria-hidden="true"></span>
-          <h2>Dexterous Hand 3D Model</h2>
-        </div>
-
-        <figure class="step-box">
-          <div class="step-media hand">
-            <model-viewer
-              class="cad-viewer"
-              src="assets/cad/dex-hand.glb?v=20260610"
-              alt="Dexterous Hand CAD Model"
-              camera-controls
-              touch-action="pan-y"
-              interaction-prompt="none"
-              environment-image="neutral"
-              camera-orbit="0deg 75deg 90%"
-              exposure="0.55"
-              shadow-intensity="0.85"
-              shadow-softness="0.65">
-            </model-viewer>
-            <div class="interaction-hint" aria-hidden="true">
-              <span>Drag to rotate</span>
-              <span>Scroll to zoom</span>
-            </div>
-          </div>
-        </figure>
-      </div>
-
-      <div id="humanoid-form" class="mode-panel">
-        <div class="mode-heading">
+          <span>Dexterous Hand</span>
+        </button>
+        <h2 id="morphology-title" class="morphology-title">Morphology</h2>
+        <button class="morphology-tab" type="button" role="tab" aria-selected="false" aria-controls="humanoid-panel" data-morphology-target="humanoid">
           <span class="mode-dot humanoid" aria-hidden="true"></span>
-          <h2>Humanoid 3D Model</h2>
+          <span>Humanoid</span>
+        </button>
+        <div class="switch-cue" aria-hidden="true">
+          <img src="assets/icons/tap-switch.svg" alt="">
+          <span>Click to switch</span>
         </div>
+      </div>
 
-        <figure class="step-box">
-          <div class="step-media humanoid">
-            <model-viewer
-              class="cad-viewer"
-              src="assets/cad/humanoid.glb?v=20260610"
-              alt="Humanoid CAD Model"
-              camera-controls
-              touch-action="pan-y"
-              interaction-prompt="none"
-              environment-image="neutral"
-              camera-orbit="180deg 75deg auto"
-              exposure="0.55"
-              shadow-intensity="0.85"
-              shadow-softness="0.65">
-            </model-viewer>
-            <div class="interaction-hint" aria-hidden="true">
-              <span>Drag to rotate</span>
-              <span>Scroll to zoom</span>
-            </div>
+      <div class="model-compare" aria-label="Handroid 3D models">
+        <figure class="model-card" data-model-card="dex">
+          <button class="model-eye" type="button" aria-pressed="false" aria-label="Dim Dexterous Hand 3D model" data-model-toggle="dex">
+            <svg class="eye-on" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z" stroke-width="2" stroke-linejoin="round"/>
+              <circle cx="12" cy="12" r="3" stroke-width="2"/>
+            </svg>
+            <svg class="eye-off" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M3 3l18 18" stroke-width="2" stroke-linecap="round"/>
+              <path d="M10.6 6.2A10.8 10.8 0 0 1 12 6c6.5 0 10 6 10 6a17.4 17.4 0 0 1-3 3.6M6.4 6.9C3.6 8.8 2 12 2 12s3.5 6 10 6c1.6 0 3-.3 4.2-.8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <model-viewer
+            class="cad-viewer"
+            src="assets/cad/dex-hand.glb?v=20260610"
+            alt="Dexterous Hand CAD Model"
+            camera-controls
+            touch-action="pan-y"
+            interaction-prompt="none"
+            environment-image="neutral"
+            camera-orbit="0deg 75deg 90%"
+            exposure="0.55"
+            shadow-intensity="0.85"
+            shadow-softness="0.65">
+          </model-viewer>
+          <div class="interaction-hint" aria-hidden="true">
+            <span>Drag to rotate</span>
+            <span>Scroll to zoom</span>
           </div>
+          <div class="model-dim-overlay" aria-hidden="true"></div>
+        </figure>
+
+        <div class="model-compare-divider" aria-hidden="true"></div>
+
+        <figure class="model-card is-dimmed" data-model-card="humanoid">
+          <button class="model-eye" type="button" aria-pressed="true" aria-label="Show Humanoid 3D model" data-model-toggle="humanoid">
+            <svg class="eye-on" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z" stroke-width="2" stroke-linejoin="round"/>
+              <circle cx="12" cy="12" r="3" stroke-width="2"/>
+            </svg>
+            <svg class="eye-off" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M3 3l18 18" stroke-width="2" stroke-linecap="round"/>
+              <path d="M10.6 6.2A10.8 10.8 0 0 1 12 6c6.5 0 10 6 10 6a17.4 17.4 0 0 1-3 3.6M6.4 6.9C3.6 8.8 2 12 2 12s3.5 6 10 6c1.6 0 3-.3 4.2-.8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <model-viewer
+            class="cad-viewer"
+            src="assets/cad/humanoid.glb?v=20260610"
+            alt="Humanoid CAD Model"
+            camera-controls
+            touch-action="pan-y"
+            interaction-prompt="none"
+            environment-image="neutral"
+            camera-orbit="180deg 75deg auto"
+            exposure="0.55"
+            shadow-intensity="0.85"
+            shadow-softness="0.65">
+          </model-viewer>
+          <div class="interaction-hint" aria-hidden="true">
+            <span>Drag to rotate</span>
+            <span>Scroll to zoom</span>
+          </div>
+          <div class="model-dim-overlay" aria-hidden="true"></div>
         </figure>
       </div>
-    </section>
 
-    <section id="task" class="wide-container split-stage task-stage" aria-label="Handroid task videos by embodiment">
-      <div class="mode-panel">
-        <div class="video-section">
-          <h2 class="section-title">Dex-Hand Videos</h2>
+      <div id="task" class="task-anchor"></div>
+      <div class="morphology-panels">
+        <section id="dex-panel" class="morphology-panel is-active slide-from-right" role="tabpanel" data-morphology-panel="dex">
           <div class="video-grid">
-            <article class="video-card video-card-wide">
+            <article class="video-card">
               <div class="video-frame">
                 <video controls preload="metadata" poster="assets/images/dex-hand-dp-grasping-poster.jpg">
                   <source src="assets/videos/dex-hand-dp-grasping.mp4" type="video/mp4">
@@ -964,6 +1252,16 @@
               </div>
               <h3>DP Grasping</h3>
               <p>Dexterous hand grasping task.</p>
+            </article>
+
+            <article class="video-card">
+              <div class="video-frame">
+                <video controls preload="metadata" poster="assets/images/dex-hand-cube-rotation-poster.jpg">
+                  <source src="assets/videos/dex-hand-cube-rotation.mp4" type="video/mp4">
+                </video>
+              </div>
+              <h3>Cube Rotation</h3>
+              <p>In-hand cube rotation task.</p>
             </article>
 
             <article class="video-card">
@@ -984,16 +1282,6 @@
               </div>
               <h3>Bottle Cap Placement</h3>
               <p>Precise placement with dexterous hand control.</p>
-            </article>
-
-            <article class="video-card video-card-wide">
-              <div class="video-frame">
-                <video controls preload="metadata" poster="assets/images/dex-hand-cube-rotation-poster.jpg">
-                  <source src="assets/videos/dex-hand-cube-rotation.mp4" type="video/mp4">
-                </video>
-              </div>
-              <h3>Cube Rotation</h3>
-              <p>In-hand cube rotation task.</p>
             </article>
 
             <article class="video-card">
@@ -1018,22 +1306,22 @@
 
             <article class="video-card">
               <div class="video-frame">
-                <video controls preload="metadata" poster="assets/images/dex-hand-dual-object-grasping-poster.jpg">
-                  <source src="assets/videos/dex-hand-dual-object-grasping.mp4" type="video/mp4">
-                </video>
-              </div>
-              <h3>Dual-Object Grasping</h3>
-              <p>Coordinated grasping over two objects.</p>
-            </article>
-
-            <article class="video-card">
-              <div class="video-frame">
                 <video controls preload="metadata" poster="assets/images/dex-hand-glove-removal-poster.jpg">
                   <source src="assets/videos/dex-hand-glove-removal.mp4" type="video/mp4">
                 </video>
               </div>
               <h3>Glove Removal</h3>
               <p>Contact-rich glove removal task.</p>
+            </article>
+
+            <article class="video-card">
+              <div class="video-frame">
+                <video controls preload="metadata" poster="assets/images/dex-hand-dual-object-grasping-poster.jpg">
+                  <source src="assets/videos/dex-hand-dual-object-grasping.mp4" type="video/mp4">
+                </video>
+              </div>
+              <h3>Dual-Object Grasping</h3>
+              <p>Coordinated grasping over two objects.</p>
             </article>
 
             <article class="video-card">
@@ -1056,12 +1344,9 @@
               <p>Dexterous pouring behavior.</p>
             </article>
           </div>
-        </div>
-      </div>
+        </section>
 
-      <div class="mode-panel">
-        <div class="video-section">
-          <h2 class="section-title">Humanoid Form Videos</h2>
+        <section id="humanoid-panel" class="morphology-panel" role="tabpanel" data-morphology-panel="humanoid" hidden>
           <div class="video-grid humanoid-video-grid">
             <article class="video-card">
               <div class="video-frame">
@@ -1103,7 +1388,7 @@
               <p>Command-following locomotion behavior.</p>
             </article>
           </div>
-        </div>
+        </section>
       </div>
     </section>
   </main>
@@ -1131,6 +1416,72 @@
           panel.classList.toggle("is-active", active);
           panel.hidden = !active;
         });
+      });
+    });
+
+    const morphologyOrder = ["dex", "humanoid"];
+    let activeMorphology = "dex";
+
+    const updateModelVisibility = (target, dimmed) => {
+      const card = document.querySelector(`[data-model-card="${target}"]`);
+      const button = document.querySelector(`[data-model-toggle="${target}"]`);
+      if (!card || !button) return;
+
+      card.classList.toggle("is-dimmed", dimmed);
+      button.setAttribute("aria-pressed", String(dimmed));
+      button.setAttribute(
+        "aria-label",
+        `${dimmed ? "Show" : "Dim"} ${target === "dex" ? "Dexterous Hand" : "Humanoid"} 3D model`
+      );
+    };
+
+    const setMorphology = (target) => {
+      if (!morphologyOrder.includes(target)) return;
+
+      const previous = activeMorphology;
+      const direction = morphologyOrder.indexOf(target) > morphologyOrder.indexOf(previous)
+        ? "slide-from-right"
+        : "slide-from-left";
+      activeMorphology = target;
+
+      document.querySelectorAll("[data-morphology-target]").forEach((tab) => {
+        const active = tab.dataset.morphologyTarget === target;
+        tab.classList.toggle("is-active", active);
+        tab.setAttribute("aria-selected", String(active));
+      });
+
+      document.querySelectorAll("[data-morphology-panel]").forEach((panel) => {
+        const active = panel.dataset.morphologyPanel === target;
+        if (!active) {
+          panel.querySelectorAll("video").forEach((video) => video.pause());
+        }
+
+        panel.hidden = !active;
+        panel.classList.toggle("is-active", active);
+        panel.classList.remove("slide-from-right", "slide-from-left");
+
+        if (active) {
+          panel.classList.add(direction);
+        }
+      });
+
+      updateModelVisibility(target, false);
+      updateModelVisibility(target === "dex" ? "humanoid" : "dex", true);
+    };
+
+    document.querySelectorAll("[data-morphology-target]").forEach((button) => {
+      button.addEventListener("click", () => {
+        setMorphology(button.dataset.morphologyTarget);
+      });
+    });
+
+    document.querySelectorAll("[data-model-toggle]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const target = button.dataset.modelToggle;
+        const card = document.querySelector(`[data-model-card="${target}"]`);
+        if (!card) return;
+
+        updateModelVisibility(target, !card.classList.contains("is-dimmed"));
       });
     });
   </script>
