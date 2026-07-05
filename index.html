@@ -261,6 +261,85 @@
       letter-spacing: 0;
     }
 
+    .design-section {
+      padding: 18px 24px 58px;
+      background: #fff;
+      font-family: Georgia, "Times New Roman", Times, serif;
+      color: #000;
+    }
+
+    .design-inner {
+      width: min(1840px, calc(100% - 40px));
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .design-title {
+      margin: 0;
+      font-size: 36px;
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .design-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 32px;
+      margin-top: 18px;
+    }
+
+    .design-tab {
+      appearance: none;
+      border: 0;
+      border-radius: 6px;
+      background: #d3d3d3;
+      color: #000;
+      cursor: pointer;
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1;
+      padding: 7px 12px;
+    }
+
+    .design-tab.is-active {
+      background: #bfbfbf;
+    }
+
+    .design-tab:focus-visible {
+      outline: 3px solid #4772bf;
+      outline-offset: 3px;
+    }
+
+    .design-tab-divider {
+      width: 3px;
+      height: 50px;
+      background: #777;
+    }
+
+    .design-hint {
+      margin: 12px 0 20px;
+      color: #555;
+      font-size: 18px;
+      line-height: 1.35;
+    }
+
+    .design-panel {
+      margin: 0;
+      display: none;
+    }
+
+    .design-panel.is-active {
+      display: block;
+    }
+
+    .design-panel img {
+      width: 100%;
+      height: auto;
+      margin: 0 auto;
+    }
+
     .main-video {
       margin: 26px auto 58px;
       overflow: hidden;
@@ -603,6 +682,35 @@
         text-align: left;
       }
 
+      .design-section {
+        padding: 16px 16px 42px;
+      }
+
+      .design-inner {
+        width: min(100% - 16px, 1840px);
+      }
+
+      .design-title {
+        font-size: 30px;
+      }
+
+      .design-switch {
+        gap: 22px;
+        margin-top: 14px;
+      }
+
+      .design-tab {
+        font-size: 20px;
+      }
+
+      .design-tab-divider {
+        height: 42px;
+      }
+
+      .design-hint {
+        font-size: 16px;
+      }
+
       .split-stage {
         grid-template-columns: 1fr;
         gap: 44px;
@@ -636,6 +744,18 @@
 
       .abstract-text {
         font-size: 19px;
+      }
+
+      .design-title {
+        font-size: 27px;
+      }
+
+      .design-switch {
+        gap: 16px;
+      }
+
+      .design-tab {
+        font-size: 18px;
       }
 
       .resource-link {
@@ -711,6 +831,24 @@
         <p class="abstract-text">
           Morphology is a key factor that shapes a robot&rsquo;s functional boundaries, task space, and research paradigm. To break the morphological boundary between dexterous hands and humanoid robots and enhance robotic adaptability across diverse tasks, we introduce Handroid, a desktop-scale robotic system that integrates dexterous-hand and humanoid embodiments within a single platform. Handroid has 27 DoFs, a compact size of 0.33 m, and a weight of 2.05 kg. In its humanoid embodiment, Handroid provides a leg configuration corresponding to the DoFs of human legs and can perform basic locomotion tasks. In its dexterous-hand embodiment, its joint number and DoF configuration closely map to those of the human hand, enabling dexterous manipulation tasks. To support data collection and policy deployment across both embodiments, we further provide a unified interface for teleoperation and policy deployment, together with an interactive motion editor. Through teleoperation and reinforcement learning experiments, we demonstrate Handroid&rsquo;s hardware capabilities and application potential in dexterous manipulation, humanoid locomotion, and loco-manipulation tasks that combine both embodiments. By using a single hardware system, Handroid provides a compact, reliable, reproducible, and open-source robotic platform for humanoid and dexterous hand research.
         </p>
+      </div>
+    </section>
+
+    <section id="design" class="design-section" aria-labelledby="design-title">
+      <div class="design-inner">
+        <h2 id="design-title" class="design-title">Design</h2>
+        <div class="design-switch" role="tablist" aria-label="Design views">
+          <button class="design-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="structure-design-panel" data-design-target="structure">Structure</button>
+          <span class="design-tab-divider" aria-hidden="true"></span>
+          <button class="design-tab" type="button" role="tab" aria-selected="false" aria-controls="pcb-design-panel" data-design-target="pcb">PCB</button>
+        </div>
+        <p class="design-hint">Click Structure or PCB to switch views.</p>
+        <figure id="structure-design-panel" class="design-panel is-active" role="tabpanel" data-design-panel="structure">
+          <img src="assets/images/design/structure-design.png" alt="Structure design diagram for the Handroid robot">
+        </figure>
+        <figure id="pcb-design-panel" class="design-panel" role="tabpanel" data-design-panel="pcb" hidden>
+          <img src="assets/images/design/pcb-design.png" alt="PCB design diagram for the Handroid electronics">
+        </figure>
       </div>
     </section>
 
@@ -950,5 +1088,24 @@
   </footer>
 
   <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <script>
+    document.querySelectorAll("[data-design-target]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const target = button.dataset.designTarget;
+
+        document.querySelectorAll("[data-design-target]").forEach((tab) => {
+          const active = tab.dataset.designTarget === target;
+          tab.classList.toggle("is-active", active);
+          tab.setAttribute("aria-selected", String(active));
+        });
+
+        document.querySelectorAll("[data-design-panel]").forEach((panel) => {
+          const active = panel.dataset.designPanel === target;
+          panel.classList.toggle("is-active", active);
+          panel.hidden = !active;
+        });
+      });
+    });
+  </script>
 </body>
 </html>
