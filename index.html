@@ -427,41 +427,42 @@
     }
 
     .morphology-tabs {
-      position: relative;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-      align-items: center;
-      gap: 36px;
-      width: min(760px, 100%);
+      width: min(560px, 100%);
       margin: 0 auto 30px;
       text-align: center;
+      color: #000;
+      font-family: Georgia, "Times New Roman", Times, serif;
     }
 
     .morphology-title {
       margin: 0;
-      color: #000;
-      font-family: Georgia, "Times New Roman", Times, serif;
-      font-size: 16px;
-      font-weight: 800;
-      line-height: 1;
+      font-size: 36px;
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .morphology-switch {
+      display: inline-grid;
+      width: min(560px, 100%);
+      grid-template-columns: 1fr 3px 1fr;
+      column-gap: 26px;
+      align-items: center;
+      margin: 18px auto 0;
     }
 
     .morphology-tab {
       appearance: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      width: fit-content;
-      min-height: 28px;
-      padding: 4px 12px;
       border: 0;
-      border-radius: 999px;
-      background: #eeeeee;
+      border-radius: 6px;
+      background: #d3d3d3;
       color: #000;
       cursor: pointer;
-      font-size: 13px;
-      font-weight: 800;
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 22px;
+      font-weight: 700;
       line-height: 1;
+      padding: 7px 12px;
       transition: background-color 160ms ease, color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
     }
 
@@ -473,11 +474,20 @@
       justify-self: start;
     }
 
-    .morphology-tab.is-active,
+    .morphology-tab.is-active {
+      background: #bfbfbf;
+    }
+
     .morphology-tab:hover {
-      background: #d7d7d7;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.16);
+      background: #8b8b8b;
+      color: #fff;
+      box-shadow: 0 3px 7px rgba(0, 0, 0, 0.22);
       transform: translateY(-1px);
+    }
+
+    .morphology-tab:active {
+      background: #6f6f6f;
+      transform: translateY(0);
     }
 
     .morphology-tab:focus-visible {
@@ -485,26 +495,18 @@
       outline-offset: 3px;
     }
 
-    .switch-cue {
-      position: absolute;
-      right: -88px;
-      top: 50%;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: #4f5f6f;
-      font-size: 13px;
-      font-weight: 700;
-      line-height: 1;
-      transform: translateY(-50%);
-      pointer-events: none;
-      white-space: nowrap;
+    .morphology-tab-divider {
+      width: 3px;
+      height: 50px;
+      background: #777;
+      justify-self: center;
     }
 
-    .switch-cue img {
-      width: 42px;
-      height: 42px;
-      filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.22));
+    .morphology-hint {
+      margin: 12px 0 0;
+      color: #555;
+      font-size: 18px;
+      line-height: 1.35;
     }
 
     .model-compare {
@@ -972,16 +974,29 @@
       }
 
       .morphology-tabs {
-        width: min(100%, 620px);
-        gap: 22px;
+        width: min(100%, 560px);
       }
 
-      .switch-cue {
-        position: static;
-        grid-column: 1 / -1;
-        justify-self: center;
-        margin-top: -8px;
-        transform: none;
+      .morphology-title {
+        font-size: 30px;
+      }
+
+      .morphology-switch {
+        width: min(520px, 100%);
+        column-gap: 22px;
+        margin-top: 14px;
+      }
+
+      .morphology-tab {
+        font-size: 20px;
+      }
+
+      .morphology-tab-divider {
+        height: 42px;
+      }
+
+      .morphology-hint {
+        font-size: 16px;
       }
 
       .model-compare {
@@ -1037,18 +1052,21 @@
       }
 
       .morphology-tabs {
-        grid-template-columns: 1fr;
-        gap: 12px;
+        width: min(100%, 420px);
         margin-bottom: 22px;
       }
 
-      .morphology-tab[data-morphology-target="dex"],
-      .morphology-tab[data-morphology-target="humanoid"] {
-        justify-self: center;
+      .morphology-title {
+        font-size: 27px;
       }
 
-      .morphology-title {
-        grid-row: 1;
+      .morphology-switch {
+        width: min(390px, 100%);
+        column-gap: 16px;
+      }
+
+      .morphology-tab {
+        font-size: 18px;
       }
 
       .resource-link {
@@ -1158,20 +1176,14 @@
     </section>
 
     <section id="cad" class="wide-container morphology-section" aria-labelledby="morphology-title">
-      <div class="morphology-tabs" role="tablist" aria-label="Morphology views">
-        <button class="morphology-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="dex-panel" data-morphology-target="dex">
-          <span class="mode-dot hand" aria-hidden="true"></span>
-          <span>Dexterous Hand</span>
-        </button>
+      <div class="morphology-tabs">
         <h2 id="morphology-title" class="morphology-title">Morphology</h2>
-        <button class="morphology-tab" type="button" role="tab" aria-selected="false" aria-controls="humanoid-panel" data-morphology-target="humanoid">
-          <span class="mode-dot humanoid" aria-hidden="true"></span>
-          <span>Humanoid</span>
-        </button>
-        <div class="switch-cue" aria-hidden="true">
-          <img src="assets/icons/tap-switch.svg" alt="">
-          <span>Click to switch</span>
+        <div class="morphology-switch" role="tablist" aria-label="Morphology views">
+          <button class="morphology-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="dex-panel" data-morphology-target="dex">Dexterous Hand</button>
+          <span class="morphology-tab-divider" aria-hidden="true"></span>
+          <button class="morphology-tab" type="button" role="tab" aria-selected="false" aria-controls="humanoid-panel" data-morphology-target="humanoid">Humanoid</button>
         </div>
+        <p class="morphology-hint">Click Dexterous Hand or Humanoid to switch views.</p>
       </div>
 
       <div class="model-compare" aria-label="Handroid 3D models">
