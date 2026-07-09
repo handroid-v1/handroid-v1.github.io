@@ -110,9 +110,35 @@
     }
 
     .hero {
-      padding: 44px 24px 58px;
+      padding: 8px 24px 58px;
       text-align: center;
       background: #e8e8e8;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: minmax(320px, 396px) minmax(0, 1fr);
+      align-items: start;
+      gap: 44px;
+      max-width: 1920px;
+      margin: 0 auto;
+    }
+
+    .hero-visual {
+      margin: 0;
+      padding: 0;
+    }
+
+    .hero-visual img {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: #1f1f1f;
+    }
+
+    .hero-content {
+      min-width: 0;
+      padding-top: 26px;
     }
 
     .paper-title {
@@ -120,7 +146,7 @@
       max-width: none;
       margin: 0 auto 36px;
       font-family: Georgia, "Times New Roman", Times, serif;
-      font-size: 68px;
+      font-size: clamp(38px, 2.55vw, 56px);
       line-height: 1.04;
       font-weight: 700;
       letter-spacing: 0;
@@ -919,6 +945,20 @@
         padding: 36px 16px 42px;
       }
 
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .hero-visual {
+        width: min(100%, 520px);
+        margin: 0 auto;
+      }
+
+      .hero-content {
+        padding-top: 0;
+      }
+
       .paper-title {
         margin-bottom: 24px;
         font-size: 48px;
@@ -1155,46 +1195,54 @@
 
   <main id="top">
     <header class="hero">
-      <h1 class="paper-title">Handroid: Bridging Dexterous Hand and Humanoid</h1>
-      <div class="authors" aria-label="Authors">
-        <a class="author-link" href="#">Ruogu Li</a><sup class="author-affiliation">1</sup>,
-        <a class="author-link" href="https://www.chenyangma.com/" target="_blank" rel="noopener noreferrer">Chenyang Ma</a><sup class="author-affiliation">1</sup>,
-        <a class="author-link" href="https://skevinci.github.io/" target="_blank" rel="noopener noreferrer">Sikai Li</a><sup class="author-affiliation">1</sup>,
-        <a class="author-link" href="https://zhenyuwei2003.github.io/" target="_blank" rel="noopener noreferrer">Zhenyu Wei</a><sup class="author-affiliation">1</sup>,
-        <a class="author-link" href="https://scholar.google.com/citations?user=v5mEvqAAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Yunchao Yao</a><sup class="author-affiliation">1</sup>,
-        <br>
-        <a class="author-link" href="https://hshi74.github.io/" target="_blank" rel="noopener noreferrer">Haochen Shi</a><sup class="author-affiliation">2</sup>,
-        <a class="author-link" href="https://scholar.google.com/citations?user=i28fU0MAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">C.Karen Liu</a><sup class="author-affiliation">2</sup>,
-        <a class="author-link" href="https://shurans.github.io/" target="_blank" rel="noopener noreferrer">Shuran Song</a><sup class="author-affiliation">2</sup>,
-        <a class="author-link" href="https://dingmyu.github.io/" target="_blank" rel="noopener noreferrer">Mingyu Ding</a><sup class="author-affiliation">1</sup>
-      </div>
-      <div class="affiliations" aria-label="Affiliations">
-        <span><sup>1</sup>University of North Carolina at Chapel Hill</span>
-        <span><sup>2</sup>Stanford University</span>
-      </div>
-      <div class="resource-block">
-        <div class="resource-divider" aria-hidden="true"></div>
-        <div class="resource-links" aria-label="Project resources">
-          <a class="resource-link" href="#">
-            <img class="resource-icon" src="assets/icons/paper.svg" alt="" aria-hidden="true">
-            <span>Paper</span>
-          </a>
-          <a class="resource-link" href="#">
-            <img class="resource-icon" src="assets/icons/code.svg" alt="" aria-hidden="true">
-            <span>Code</span>
-          </a>
-          <a class="resource-link" href="https://cad.onshape.com/documents/d3de21915f3c9cacc1887cf3/w/dc7c7b68235fdbb205f27505/e/8673167885a4e16e9b6c2791?configuration=default&amp;renderMode=0&amp;uiState=6a494e31ed9b0618c715bf43" target="_blank" rel="noopener noreferrer">
-            <img class="resource-icon" src="assets/icons/cad.svg" alt="" aria-hidden="true">
-            <span>CAD</span>
-          </a>
-          <a class="resource-link" href="#">
-            <img class="resource-icon" src="assets/icons/video.svg" alt="" aria-hidden="true">
-            <span>Video</span>
-          </a>
-          <a class="resource-link" href="https://docs.google.com/spreadsheets/d/1ml2pJ9iSiDhcNiEPnRkoHqwzarEjfeZ8KSDNHGFpFh4/edit?usp=sharing" target="_blank" rel="noopener noreferrer">
-            <img class="resource-icon" src="assets/icons/bom.svg" alt="" aria-hidden="true">
-            <span>BOM</span>
-          </a>
+      <div class="hero-inner">
+        <figure class="hero-visual">
+          <img src="assets/images/switching-effects.gif" alt="Handroid switching between hand and humanoid embodiments">
+        </figure>
+
+        <div class="hero-content">
+          <h1 class="paper-title">Handroid: Bridging Dexterous Hand and Humanoid</h1>
+          <div class="authors" aria-label="Authors">
+            <a class="author-link" href="#">Ruogu Li</a><sup class="author-affiliation">1</sup>,
+            <a class="author-link" href="https://www.chenyangma.com/" target="_blank" rel="noopener noreferrer">Chenyang Ma</a><sup class="author-affiliation">1</sup>,
+            <a class="author-link" href="https://skevinci.github.io/" target="_blank" rel="noopener noreferrer">Sikai Li</a><sup class="author-affiliation">1</sup>,
+            <a class="author-link" href="https://zhenyuwei2003.github.io/" target="_blank" rel="noopener noreferrer">Zhenyu Wei</a><sup class="author-affiliation">1</sup>,
+            <a class="author-link" href="https://scholar.google.com/citations?user=v5mEvqAAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Yunchao Yao</a><sup class="author-affiliation">1</sup>,
+            <br>
+            <a class="author-link" href="https://hshi74.github.io/" target="_blank" rel="noopener noreferrer">Haochen Shi</a><sup class="author-affiliation">2</sup>,
+            <a class="author-link" href="https://scholar.google.com/citations?user=i28fU0MAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">C.Karen Liu</a><sup class="author-affiliation">2</sup>,
+            <a class="author-link" href="https://shurans.github.io/" target="_blank" rel="noopener noreferrer">Shuran Song</a><sup class="author-affiliation">2</sup>,
+            <a class="author-link" href="https://dingmyu.github.io/" target="_blank" rel="noopener noreferrer">Mingyu Ding</a><sup class="author-affiliation">1</sup>
+          </div>
+          <div class="affiliations" aria-label="Affiliations">
+            <span><sup>1</sup>University of North Carolina at Chapel Hill</span>
+            <span><sup>2</sup>Stanford University</span>
+          </div>
+          <div class="resource-block">
+            <div class="resource-divider" aria-hidden="true"></div>
+            <div class="resource-links" aria-label="Project resources">
+              <a class="resource-link" href="#">
+                <img class="resource-icon" src="assets/icons/paper.svg" alt="" aria-hidden="true">
+                <span>Paper</span>
+              </a>
+              <a class="resource-link" href="#">
+                <img class="resource-icon" src="assets/icons/code.svg" alt="" aria-hidden="true">
+                <span>Code</span>
+              </a>
+              <a class="resource-link" href="https://cad.onshape.com/documents/d3de21915f3c9cacc1887cf3/w/dc7c7b68235fdbb205f27505/e/8673167885a4e16e9b6c2791?configuration=default&amp;renderMode=0&amp;uiState=6a494e31ed9b0618c715bf43" target="_blank" rel="noopener noreferrer">
+                <img class="resource-icon" src="assets/icons/cad.svg" alt="" aria-hidden="true">
+                <span>CAD</span>
+              </a>
+              <a class="resource-link" href="#">
+                <img class="resource-icon" src="assets/icons/video.svg" alt="" aria-hidden="true">
+                <span>Video</span>
+              </a>
+              <a class="resource-link" href="https://docs.google.com/spreadsheets/d/1ml2pJ9iSiDhcNiEPnRkoHqwzarEjfeZ8KSDNHGFpFh4/edit?usp=sharing" target="_blank" rel="noopener noreferrer">
+                <img class="resource-icon" src="assets/icons/bom.svg" alt="" aria-hidden="true">
+                <span>BOM</span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </header>
