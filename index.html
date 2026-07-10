@@ -197,53 +197,34 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 156px;
-      min-height: 58px;
-      gap: 12px;
-      padding: 8px 22px;
-      border: 0;
-      border-radius: 18px;
-      background: var(--resource-bg, #747474);
-      color: #fff;
-      font-family: Georgia, "Times New Roman", Times, serif;
-      font-size: clamp(23px, 1.65vw, 32px);
+      min-width: 140px;
+      min-height: 54px;
+      gap: 10px;
+      padding: 8px 20px;
+      border: 1px solid #d9dde3;
+      border-radius: 6px;
+      background: #fff;
+      color: #000;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: clamp(19px, 1.35vw, 24px);
+      font-weight: 700;
       line-height: 1;
-      text-shadow: 0 2px 2px rgba(0, 0, 0, 0.28);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.26), 0 3px 7px rgba(0, 0, 0, 0.1);
-      transition: filter 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+      text-shadow: none;
+      box-shadow: none;
+      transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease;
     }
 
     .resource-link:hover {
-      filter: brightness(0.94);
-      transform: translateY(-1px);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 5px 12px rgba(0, 0, 0, 0.16);
-    }
-
-    .resource-link:nth-child(1) {
-      --resource-bg: #92dff2;
-    }
-
-    .resource-link:nth-child(2) {
-      --resource-bg: #ffdb66;
-    }
-
-    .resource-link:nth-child(3) {
-      --resource-bg: #7f7a7a;
-    }
-
-    .resource-link:nth-child(4) {
-      --resource-bg: #ef6f9d;
-    }
-
-    .resource-link:nth-child(5) {
-      --resource-bg: #91c976;
+      border-color: #000;
+      background: #fff;
+      color: #000;
     }
 
     .resource-icon {
-      width: 34px;
-      height: 34px;
+      width: 24px;
+      height: 24px;
       flex: 0 0 auto;
-      filter: invert(1);
+      filter: none;
     }
 
     .abstract-section {
@@ -1093,14 +1074,13 @@
 
       .resource-link {
         min-width: 130px;
-        min-height: 60px;
-        border-width: 5px;
-        font-size: 25px;
+        min-height: 52px;
+        font-size: 22px;
       }
 
       .resource-icon {
-        width: 27px;
-        height: 27px;
+        width: 23px;
+        height: 23px;
       }
 
       .abstract-section {
