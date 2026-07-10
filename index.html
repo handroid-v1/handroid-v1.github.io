@@ -92,7 +92,7 @@
 
     .nav-links {
       display: flex;
-      flex-wrap: nowrap;
+      flex-wrap: wrap;
       align-items: center;
       justify-content: flex-end;
       gap: 8px;
@@ -110,17 +110,22 @@
     }
 
     .hero {
-      padding: 14px 24px 52px;
+      --hero-left-width: clamp(280px, 21vw, 392px);
+      --hero-right-width: clamp(330px, 24vw, 454px);
+      padding: 22px 0 28px;
       text-align: center;
       background: #fff;
     }
 
     .hero-inner {
-      display: grid;
-      grid-template-columns: minmax(290px, 392px) minmax(0, 1fr) minmax(330px, 454px);
+      position: relative;
+      display: flex;
       align-items: center;
-      gap: 32px;
-      max-width: 1920px;
+      justify-content: center;
+      min-height: 278px;
+      padding: 0 calc(var(--hero-right-width) + 24px) 0 calc(var(--hero-left-width) + 24px);
+      width: 100%;
+      max-width: none;
       margin: 0 auto;
     }
 
@@ -129,6 +134,10 @@
       padding: 0;
       overflow: hidden;
       background: #fff;
+      position: absolute;
+      top: 50%;
+      z-index: 1;
+      transform: translateY(-50%);
     }
 
     .hero-media video {
@@ -142,29 +151,36 @@
     }
 
     .hero-media-left {
-      align-self: center;
+      left: 0;
+      width: var(--hero-left-width);
       aspect-ratio: 1.58 / 1;
     }
 
     .hero-media-right {
-      align-self: center;
+      right: 0;
+      width: var(--hero-right-width);
       aspect-ratio: 2.28 / 1;
     }
 
     .hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1120px;
       min-width: 0;
     }
 
     .paper-title {
       width: 100%;
       max-width: none;
-      margin: 0 auto 18px;
+      margin: 0 auto 24px;
       font-family: Georgia, "Times New Roman", Times, serif;
-      font-size: clamp(28px, 1.9vw, 36px);
+      font-size: clamp(31px, 1.9vw, 36px);
       line-height: 1.04;
       font-weight: 700;
       letter-spacing: 0;
-      white-space: nowrap;
+      white-space: normal;
+      overflow-wrap: normal;
       text-shadow: 0 3px 3px rgba(0, 0, 0, 0.24);
     }
 
@@ -172,9 +188,9 @@
       max-width: 1420px;
       margin: 0 auto;
       font-family: "Cambria Math", Cambria, Georgia, "Times New Roman", Times, serif;
-      font-size: clamp(20px, 1.25vw, 24px);
+      font-size: clamp(22px, 1.48vw, 28px);
       font-weight: 800;
-      line-height: 1.25;
+      line-height: 1.34;
     }
 
     .author-link {
@@ -200,10 +216,10 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 24px 132px;
-      margin: 18px auto 0;
+      gap: 26px 150px;
+      margin: 20px auto 0;
       font-family: Georgia, "Times New Roman", Times, serif;
-      font-size: clamp(17px, 1.08vw, 21px);
+      font-size: clamp(20px, 1.25vw, 24px);
       color: #000;
       line-height: 1.35;
     }
@@ -211,41 +227,41 @@
     .resource-block {
       width: fit-content;
       max-width: calc(100% - 40px);
-      margin: 18px auto 0;
+      margin: 24px auto 0;
     }
 
     .resource-links {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 18px 36px;
+      gap: 20px 42px;
       width: fit-content;
       max-width: 100%;
-      margin: 22px 0 0;
+      margin: 26px 0 0;
     }
 
     .resource-divider {
       width: 100%;
-      height: 9px;
+      height: 13px;
       margin: 0;
-      border-top: 2px solid #5f5f5f;
-      border-bottom: 5px solid #5f5f5f;
+      border-top: 3px solid #5f5f5f;
+      border-bottom: 8px solid #5f5f5f;
     }
 
     .resource-link {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 100px;
-      min-height: 34px;
-      gap: 8px;
-      padding: 6px 14px;
+      min-width: 118px;
+      min-height: 42px;
+      gap: 9px;
+      padding: 7px 18px;
       border: 0;
-      border-radius: 9px;
+      border-radius: 12px;
       background: var(--resource-bg, #747474);
       color: #fff;
       font-family: Georgia, "Times New Roman", Times, serif;
-      font-size: 20px;
+      font-size: 23px;
       line-height: 1;
       text-shadow: 0 2px 2px rgba(0, 0, 0, 0.28);
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.26), 0 3px 7px rgba(0, 0, 0, 0.1);
@@ -279,10 +295,49 @@
     }
 
     .resource-icon {
-      width: 19px;
-      height: 19px;
+      width: 24px;
+      height: 24px;
       flex: 0 0 auto;
       filter: invert(1);
+    }
+
+    .citation-section {
+      padding: 0 24px 58px;
+      background: #e8e8e8;
+      color: #000;
+      font-family: Georgia, "Times New Roman", Times, serif;
+    }
+
+    .citation-inner {
+      width: min(1840px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .citation-title {
+      margin: 0 0 18px;
+      padding: 10px 16px;
+      border-radius: 8px;
+      background: #e9e9e9;
+      text-align: center;
+      font-family: "Cambria Math", Cambria, Georgia, "Times New Roman", Times, serif;
+      font-size: 34px;
+      line-height: 1.2;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .citation-code {
+      margin: 0;
+      padding: 22px 26px;
+      border-radius: 8px;
+      background: #fff;
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      overflow-x: auto;
+      color: #111;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 18px;
+      line-height: 1.45;
+      white-space: pre;
     }
 
     .abstract-section {
@@ -937,6 +992,82 @@
       font-size: 14px;
     }
 
+    @media (max-width: 1500px) {
+      .hero {
+        --hero-left-width: clamp(220px, 20vw, 330px);
+        --hero-right-width: clamp(240px, 22vw, 350px);
+      }
+
+      .hero-inner {
+        min-height: 252px;
+        padding-right: calc(var(--hero-right-width) + 18px);
+        padding-left: calc(var(--hero-left-width) + 18px);
+      }
+
+      .paper-title {
+        font-size: clamp(30px, 2.25vw, 34px);
+      }
+
+      .authors {
+        font-size: clamp(20px, 1.45vw, 24px);
+      }
+
+      .affiliations {
+        gap: 20px 90px;
+        font-size: clamp(18px, 1.25vw, 21px);
+      }
+
+      .resource-links {
+        gap: 14px 18px;
+      }
+
+      .resource-link {
+        min-width: 92px;
+        min-height: 36px;
+        border-radius: 10px;
+        font-size: 18px;
+      }
+
+      .resource-icon {
+        width: 19px;
+        height: 19px;
+      }
+    }
+
+    @media (max-width: 1180px) {
+      .hero {
+        padding: 28px 18px 42px;
+      }
+
+      .hero-inner {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 26px;
+        min-height: 0;
+        padding: 0;
+      }
+
+      .hero-content {
+        order: 1;
+      }
+
+      .hero-media-left {
+        order: 2;
+        position: static;
+        transform: none;
+        width: min(100%, 520px);
+        justify-self: center;
+      }
+
+      .hero-media-right {
+        order: 3;
+        position: static;
+        transform: none;
+        width: min(100%, 620px);
+        justify-self: center;
+      }
+    }
+
     @media (max-width: 860px) {
       .container {
         width: min(100% - 28px, var(--max-width));
@@ -960,7 +1091,6 @@
       }
 
       .hero-inner {
-        grid-template-columns: 1fr;
         gap: 24px;
       }
 
@@ -1052,6 +1182,22 @@
 
       .design-section {
         padding: 16px 16px 42px;
+      }
+
+      .citation-section {
+        padding: 0 16px 42px;
+      }
+
+      .citation-inner {
+        width: min(100% - 16px, 1840px);
+      }
+
+      .citation-title {
+        font-size: 28px;
+      }
+
+      .citation-code {
+        font-size: 15px;
       }
 
       .design-inner {
@@ -1160,6 +1306,15 @@
 
       .design-title {
         font-size: 27px;
+      }
+
+      .citation-title {
+        font-size: 25px;
+      }
+
+      .citation-code {
+        padding: 16px;
+        font-size: 13px;
       }
 
       .design-switch {
@@ -1524,6 +1679,18 @@
             </article>
           </div>
         </section>
+      </div>
+    </section>
+
+    <section class="citation-section" aria-labelledby="citation-title">
+      <div class="citation-inner">
+        <h2 id="citation-title" class="citation-title">BIB</h2>
+        <pre class="citation-code"><code>@misc{handroid2026,
+  title = {Handroid: Bridging Dexterous Hand and Humanoid},
+  author = {Ruogu Li and Chenyang Ma and Sikai Li and Zhenyu Wei and Yunchao Yao and Haochen Shi and C. Karen Liu and Shuran Song and Mingyu Ding},
+  year = {2026},
+  url = {https://handroid-v1.github.io/}
+}</code></pre>
       </div>
     </section>
   </main>
