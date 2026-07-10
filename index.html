@@ -914,6 +914,96 @@
       font-size: 13px;
     }
 
+    .bibtex-section {
+      padding: 56px 24px 74px;
+      background: #fff;
+    }
+
+    .bibtex-inner {
+      width: min(1840px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .bibtex-heading {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      margin: 0 0 58px;
+    }
+
+    .bibtex-heading h2 {
+      margin: 0;
+      color: #111827;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: clamp(46px, 4.3vw, 76px);
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .bibtex-heading::after {
+      content: "";
+      flex: 1 1 auto;
+      height: 4px;
+      background: #d8d8d8;
+    }
+
+    .bibtex-box {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #dcdfe4;
+      border-radius: 8px;
+      background: #fbfbfb;
+      padding: 58px 64px 58px;
+    }
+
+    .bibtex-code {
+      margin: 0;
+      overflow-x: auto;
+      color: #3f3f46;
+      font-family: "Courier New", Courier, monospace;
+      font-size: clamp(20px, 1.45vw, 31px);
+      line-height: 1.55;
+      white-space: pre;
+    }
+
+    .bibtex-copy {
+      position: absolute;
+      top: 28px;
+      right: 28px;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      min-height: 56px;
+      padding: 8px 24px;
+      border: 1px solid #dde1e7;
+      border-radius: 8px;
+      background: #fff;
+      color: #747474;
+      cursor: pointer;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 28px;
+      font-weight: 500;
+      line-height: 1;
+      transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease;
+    }
+
+    .bibtex-copy::before {
+      content: "";
+      width: 19px;
+      height: 23px;
+      border: 4px solid currentColor;
+      border-radius: 3px;
+      box-shadow: -7px -7px 0 -3px #fff, -7px -7px 0 0 currentColor;
+    }
+
+    .bibtex-copy:hover {
+      border-color: #bfc5cf;
+      background: #f4f4f4;
+      color: #404040;
+      transform: translateY(-1px);
+    }
+
     footer {
       border-top: 1px solid var(--line);
       background: var(--soft);
@@ -1046,6 +1136,40 @@
         font-size: 19px;
       }
 
+      .bibtex-section {
+        padding: 40px 16px 56px;
+      }
+
+      .bibtex-inner {
+        width: min(100% - 16px, 1840px);
+      }
+
+      .bibtex-heading {
+        gap: 18px;
+        margin-bottom: 34px;
+      }
+
+      .bibtex-heading h2 {
+        font-size: 44px;
+      }
+
+      .bibtex-box {
+        padding: 78px 22px 30px;
+      }
+
+      .bibtex-code {
+        font-size: 17px;
+        line-height: 1.5;
+      }
+
+      .bibtex-copy {
+        top: 18px;
+        right: 18px;
+        min-height: 46px;
+        padding: 7px 16px;
+        font-size: 20px;
+      }
+
       .design-section {
         padding: 16px 16px 42px;
       }
@@ -1157,6 +1281,22 @@
 
       .video-card .video-caption {
         font-size: 17px;
+      }
+
+      .bibtex-heading {
+        gap: 14px;
+      }
+
+      .bibtex-heading h2 {
+        font-size: 36px;
+      }
+
+      .bibtex-box {
+        padding: 72px 16px 24px;
+      }
+
+      .bibtex-code {
+        font-size: 14px;
       }
 
       .design-title {
@@ -1523,6 +1663,24 @@
         </section>
       </div>
     </section>
+
+    <section id="bibtex" class="bibtex-section" aria-labelledby="bibtex-title">
+      <div class="bibtex-inner">
+        <div class="bibtex-heading">
+          <h2 id="bibtex-title">BibTeX</h2>
+        </div>
+        <div class="bibtex-box">
+          <button class="bibtex-copy" type="button" data-copy-target="handroid-bibtex">Copy</button>
+          <pre id="handroid-bibtex" class="bibtex-code"><code>@misc{li2026handroid,
+    title={Handroid: Bridging Dexterous Hand and Humanoid},
+    author={Ruogu Li and Chenyang Ma and Sikai Li and Zhenyu Wei and
+            Yunchao Yao and Haochen Shi and C. Karen Liu and Shuran Song and Mingyu Ding},
+    year={2026},
+    url={https://handroid-v1.github.io/},
+}</code></pre>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer id="contact">
@@ -1614,6 +1772,29 @@
         if (!card) return;
 
         updateModelVisibility(target, !card.classList.contains("is-dimmed"));
+      });
+    });
+
+    document.querySelectorAll("[data-copy-target]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const target = document.getElementById(button.dataset.copyTarget);
+        if (!target) return;
+
+        const text = target.textContent.trim();
+        try {
+          await navigator.clipboard.writeText(text);
+          const previous = button.textContent;
+          button.textContent = "Copied";
+          window.setTimeout(() => {
+            button.textContent = previous;
+          }, 1200);
+        } catch (error) {
+          const range = document.createRange();
+          range.selectNodeContents(target);
+          const selection = window.getSelection();
+          selection.removeAllRanges();
+          selection.addRange(range);
+        }
       });
     });
   </script>
