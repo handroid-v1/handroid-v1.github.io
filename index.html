@@ -38,7 +38,7 @@
       margin: 0;
       font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--text);
-      background: var(--bg);
+      background: #e8e8e8;
       line-height: 1.55;
     }
 
@@ -110,43 +110,57 @@
     }
 
     .hero {
-      padding: 8px 24px 58px;
+      padding: 14px 24px 52px;
       text-align: center;
-      background: #e8e8e8;
+      background: #fff;
     }
 
     .hero-inner {
       display: grid;
-      grid-template-columns: minmax(320px, 396px) minmax(0, 1fr);
-      align-items: start;
-      gap: 44px;
+      grid-template-columns: minmax(290px, 392px) minmax(0, 1fr) minmax(330px, 454px);
+      align-items: center;
+      gap: 32px;
       max-width: 1920px;
       margin: 0 auto;
     }
 
-    .hero-visual {
+    .hero-media {
       margin: 0;
       padding: 0;
+      overflow: hidden;
+      background: #fff;
     }
 
-    .hero-visual img {
+    .hero-media video {
       display: block;
       width: 100%;
-      height: auto;
-      background: #1f1f1f;
+      height: 100%;
+      object-fit: contain;
+      background: #fff;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .hero-media-left {
+      align-self: center;
+      aspect-ratio: 1.58 / 1;
+    }
+
+    .hero-media-right {
+      align-self: center;
+      aspect-ratio: 2.28 / 1;
     }
 
     .hero-content {
       min-width: 0;
-      padding-top: 26px;
     }
 
     .paper-title {
       width: 100%;
       max-width: none;
-      margin: 0 auto 36px;
+      margin: 0 auto 18px;
       font-family: Georgia, "Times New Roman", Times, serif;
-      font-size: clamp(38px, 2.55vw, 56px);
+      font-size: clamp(28px, 1.9vw, 36px);
       line-height: 1.04;
       font-weight: 700;
       letter-spacing: 0;
@@ -158,9 +172,9 @@
       max-width: 1420px;
       margin: 0 auto;
       font-family: "Cambria Math", Cambria, Georgia, "Times New Roman", Times, serif;
-      font-size: 38px;
+      font-size: clamp(20px, 1.25vw, 24px);
       font-weight: 800;
-      line-height: 1.35;
+      line-height: 1.25;
     }
 
     .author-link {
@@ -186,10 +200,10 @@
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 38px 180px;
-      margin: 22px auto 0;
+      gap: 24px 132px;
+      margin: 18px auto 0;
       font-family: Georgia, "Times New Roman", Times, serif;
-      font-size: 32px;
+      font-size: clamp(17px, 1.08vw, 21px);
       color: #000;
       line-height: 1.35;
     }
@@ -197,41 +211,41 @@
     .resource-block {
       width: fit-content;
       max-width: calc(100% - 40px);
-      margin: 34px auto 0;
+      margin: 18px auto 0;
     }
 
     .resource-links {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 28px 64px;
+      gap: 18px 36px;
       width: fit-content;
       max-width: 100%;
-      margin: 38px 0 0;
+      margin: 22px 0 0;
     }
 
     .resource-divider {
       width: 100%;
-      height: 13px;
+      height: 9px;
       margin: 0;
-      border-top: 3px solid #5f5f5f;
-      border-bottom: 8px solid #5f5f5f;
+      border-top: 2px solid #5f5f5f;
+      border-bottom: 5px solid #5f5f5f;
     }
 
     .resource-link {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 156px;
-      min-height: 58px;
-      gap: 12px;
-      padding: 8px 22px;
+      min-width: 100px;
+      min-height: 34px;
+      gap: 8px;
+      padding: 6px 14px;
       border: 0;
-      border-radius: 18px;
+      border-radius: 9px;
       background: var(--resource-bg, #747474);
       color: #fff;
       font-family: Georgia, "Times New Roman", Times, serif;
-      font-size: 32px;
+      font-size: 20px;
       line-height: 1;
       text-shadow: 0 2px 2px rgba(0, 0, 0, 0.28);
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.26), 0 3px 7px rgba(0, 0, 0, 0.1);
@@ -265,15 +279,15 @@
     }
 
     .resource-icon {
-      width: 34px;
-      height: 34px;
+      width: 19px;
+      height: 19px;
       flex: 0 0 auto;
       filter: invert(1);
     }
 
     .abstract-section {
       padding: 34px 24px 56px;
-      background: #fff;
+      background: #e8e8e8;
     }
 
     .abstract-inner {
@@ -306,7 +320,7 @@
 
     .design-section {
       padding: 18px 24px 58px;
-      background: #fff;
+      background: #e8e8e8;
       font-family: Georgia, "Times New Roman", Times, serif;
       color: #000;
     }
@@ -950,9 +964,13 @@
         gap: 24px;
       }
 
-      .hero-visual {
+      .hero-media {
         width: min(100%, 520px);
         margin: 0 auto;
+      }
+
+      .hero-media-right {
+        width: min(100%, 560px);
       }
 
       .hero-content {
@@ -1196,8 +1214,10 @@
   <main id="top">
     <header class="hero">
       <div class="hero-inner">
-        <figure class="hero-visual">
-          <img src="assets/images/switching-effects.gif" alt="Handroid switching between hand and humanoid embodiments">
+        <figure class="hero-media hero-media-left">
+          <video autoplay muted loop playsinline preload="auto" poster="assets/images/hero-switching-poster.jpg" aria-label="Handroid switching between hand and humanoid embodiments">
+            <source src="assets/videos/switching-hero.mp4" type="video/mp4">
+          </video>
         </figure>
 
         <div class="hero-content">
@@ -1244,6 +1264,12 @@
             </div>
           </div>
         </div>
+
+        <figure class="hero-media hero-media-right">
+          <video autoplay muted loop playsinline preload="auto" poster="assets/images/hero-exploded-poster.jpg" aria-label="Exploded view of the Handroid robot">
+            <source src="assets/videos/exploded-view-hero.mp4#t=5" type="video/mp4">
+          </video>
+        </figure>
       </div>
     </header>
 
