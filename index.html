@@ -304,6 +304,11 @@
       user-select: none;
     }
 
+    .abstract-media-exploded video {
+      transform: scale(1.28);
+      transform-origin: center center;
+    }
+
     .abstract-media-divider {
       width: 6px;
       height: min(38vw, 430px);
@@ -1298,7 +1303,7 @@
             </video>
           </figure>
           <div class="abstract-media-divider" aria-hidden="true"></div>
-          <figure class="abstract-media">
+          <figure class="abstract-media abstract-media-exploded">
             <video autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-exploded-poster.jpg" aria-label="Exploded view of the Handroid robot">
               <source src="assets/videos/exploded-view-hero.mp4#t=5" type="video/mp4">
             </video>
