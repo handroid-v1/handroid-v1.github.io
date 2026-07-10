@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Handroid: Bridging Dexterous Hand and Humanoid.">
+    <meta property="og:title" content="Handroid">
+    <meta property="og:description" content="A transformable desktop robot bridging dexterous hand and humanoid embodiments.">
+    <meta property="og:image" content="assets/images/hero-switching-poster.jpg">
+    <title>Handroid: Bridging Dexterous Hand and Humanoid</title>
+    <link rel="stylesheet" href="assets/site.css">
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <script defer src="assets/site.js"></script>
+  </head>
+  <body>
+    <header class="site-header" data-header>
+      <a class="brand" href="#top" aria-label="Handroid home">
+        <span class="brand-mark"></span>
+        <span>Handroid</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#morphology">Morphology</a>
+        <a href="#design">Design</a>
+        <a href="#demos">Demos</a>
+        <a href="#abstract">Abstract</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero scrub-section" data-hero data-scrub-section>
+        <div class="sticky-scene hero-scene">
+          <div class="scene-media" aria-hidden="true">
+            <video class="scrub-video" muted playsinline preload="auto" poster="assets/images/hero-switching-poster.jpg" data-scrub-video data-scrub-mode="full">
+              <source src="assets/videos/switching-hero.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="hero-shade" aria-hidden="true"></div>
+          <div class="hero-content" data-hero-content>
+            <h1>Handroid</h1>
+            <p class="subtitle"><span>Bridging</span> Dexterous Hand and Humanoid</p>
+            <p class="authors" aria-label="Authors">
+              <a href="#">Ruogu Li</a><sup>1</sup>,
+              <a href="https://www.chenyangma.com/" target="_blank" rel="noopener noreferrer">Chenyang Ma</a><sup>1</sup>,
+              <a href="https://skevinci.github.io/" target="_blank" rel="noopener noreferrer">Sikai Li</a><sup>1</sup>,
+              <a href="https://zhenyuwei2003.github.io/" target="_blank" rel="noopener noreferrer">Zhenyu Wei</a><sup>1</sup>,
+              <a href="https://scholar.google.com/citations?user=v5mEvqAAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">Yunchao Yao</a><sup>1</sup>,
+              <a href="https://hshi74.github.io/" target="_blank" rel="noopener noreferrer">Haochen Shi</a><sup>2</sup>,
+              <a href="https://scholar.google.com/citations?user=i28fU0MAAAAJ&amp;hl=en" target="_blank" rel="noopener noreferrer">C. Karen Liu</a><sup>2</sup>,
+              <a href="https://shurans.github.io/" target="_blank" rel="noopener noreferrer">Shuran Song</a><sup>2</sup>,
+              <a href="https://dingmyu.github.io/" target="_blank" rel="noopener noreferrer">Mingyu Ding</a><sup>1</sup>
+            </p>
+            <p class="affiliations"><sup>1</sup>UNC Chapel Hill <span></span> <sup>2</sup>Stanford University</p>
+            <div class="hero-actions" aria-label="Project links">
+              <a class="resource-button" href="#">
+                <img src="assets/icons/paper.svg" alt="" aria-hidden="true">
+                <span>Paper</span>
+              </a>
+              <a class="resource-button" href="#">
+                <img src="assets/icons/code.svg" alt="" aria-hidden="true">
+                <span>Code</span>
+              </a>
+              <a class="resource-button" href="https://cad.onshape.com/documents/d3de21915f3c9cacc1887cf3/w/dc7c7b68235fdbb205f27505/e/8673167885a4e16e9b6c2791?configuration=default&amp;renderMode=0&amp;uiState=6a494e31ed9b0618c715bf43" target="_blank" rel="noopener noreferrer">
+                <img src="assets/icons/cad.svg" alt="" aria-hidden="true">
+                <span>CAD</span>
+              </a>
+              <a class="resource-button" href="https://docs.google.com/spreadsheets/d/1ml2pJ9iSiDhcNiEPnRkoHqwzarEjfeZ8KSDNHGFpFh4/edit?usp=sharing" target="_blank" rel="noopener noreferrer">
+                <img src="assets/icons/bom.svg" alt="" aria-hidden="true">
+                <span>BOM</span>
+              </a>
+            </div>
+          </div>
+          <div class="scroll-cue" aria-hidden="true">
+            <span></span>
+            Scroll to scrub transformation
+          </div>
+        </div>
+      </section>
+
+      <section class="dual-intro">
+        <div class="dual-line">
+          <h2>A dex hand when<br><span class="accent-manipulation">manipulation</span> matters.</h2>
+          <h2>A humanoid when<br><span class="accent-locomotion">locomotion</span> matters.</h2>
+        </div>
+      </section>
+
+      <section id="morphology" class="morphology" data-morphology>
+        <div class="morph-stage">
+          <div class="morph-viewport">
+            <div class="model-shell" data-model-shell>
+              <model-viewer
+                class="model-viewer model-dex"
+                src="assets/cad/dex-hand.glb?v=20260710"
+                camera-controls
+                auto-rotate
+                rotation-per-second="18deg"
+                interaction-prompt="none"
+                exposure="0.82"
+                shadow-intensity="0.65"
+                camera-orbit="-36deg 64deg 4.4m"
+                field-of-view="24deg"
+                alt="3D model of the Handroid dexterous hand embodiment">
+              </model-viewer>
+              <model-viewer
+                class="model-viewer model-humanoid"
+                src="assets/cad/humanoid.glb?v=20260710"
+                camera-controls
+                auto-rotate
+                rotation-per-second="18deg"
+                interaction-prompt="none"
+                exposure="0.86"
+                shadow-intensity="0.7"
+                camera-orbit="34deg 62deg 5.2m"
+                field-of-view="25deg"
+                alt="3D model of the Handroid humanoid embodiment">
+              </model-viewer>
+              <div class="model-grid" aria-hidden="true"></div>
+            </div>
+            <div class="mode-meter" aria-hidden="true">
+              <span>Dex-Hand</span>
+              <div><i data-progress-bar></i></div>
+              <span>Humanoid</span>
+            </div>
+          </div>
+          <div class="morph-copy">
+            <article class="morph-card" data-step="0">
+              <span>01</span>
+              <h2>Dexterous hand<br>embodiment</h2>
+              <p>Handroid keeps a human-hand-like DoF layout for manipulation, teleoperation, and policy learning.</p>
+            </article>
+            <article class="morph-card" data-step="1">
+              <span>02</span>
+              <h2>Shared mechanical<br>grammar</h2>
+              <p>The same compact modules are reassigned across fingers, arms, legs, and base actuation.</p>
+            </article>
+            <article class="morph-card" data-step="2">
+              <span>03</span>
+              <h2>Humanoid<br>embodiment</h2>
+              <p>The platform crosses into locomotion and loco-manipulation without becoming a different robot.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="design" class="design scrub-section" data-design-scrub data-scrub-section>
+        <div class="sticky-scene design-scene">
+          <div class="scene-media clean" aria-hidden="true">
+            <video class="scrub-video" muted playsinline preload="auto" poster="assets/images/hero-exploded-poster.jpg" data-scrub-video data-scrub-mode="explode">
+              <source src="assets/videos/exploded-view-hero.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="design-title">
+            <h2>Design</h2>
+            <p>Explode, inspect, reassemble.</p>
+            <span>Handroid v1.0</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="design-details">
+        <article class="detail-panel">
+          <div class="detail-copy">
+            <p class="eyebrow">Structure</p>
+            <h2>27 DoF morphology map</h2>
+            <p>Finger joints double as humanoid limbs, making the mapping legible instead of ornamental.</p>
+          </div>
+          <img src="assets/images/design/structure-design.png" alt="Annotated mechanical structure of Handroid.">
+        </article>
+        <article class="detail-panel">
+          <div class="detail-copy">
+            <p class="eyebrow">Electronics</p>
+            <h2>Integrated control board</h2>
+            <p>Power, sensing, status, and actuator management are packaged for repeatable desktop deployment.</p>
+          </div>
+          <img src="assets/images/design/pcb-design.png" alt="Annotated Handroid PCB design.">
+        </article>
+      </section>
+
+      <section id="demos" class="demos-heading">
+        <div class="demo-title">
+          <h2>Demos</h2>
+          <p>Manipulation, locomotion, and long-horizon behavior.</p>
+        </div>
+      </section>
+
+      <section class="demo-focus">
+        <video autoplay muted loop playsinline preload="metadata" poster="assets/images/overview-poster.jpg">
+          <source src="assets/videos/long-horizon-task.mp4" type="video/mp4">
+        </video>
+        <div>
+          <p class="eyebrow">Long Horizon</p>
+          <h2>Mode switching across an extended task</h2>
+        </div>
+      </section>
+
+      <section class="demo-focus dp-focus">
+        <video autoplay muted loop playsinline preload="metadata" poster="assets/images/dex-hand-dp-grasping-poster.jpg">
+          <source src="assets/videos/dex-hand-dp-grasping.mp4" type="video/mp4">
+        </video>
+        <div>
+          <p class="eyebrow">Dex-Hand</p>
+          <h2>DP grasping</h2>
+        </div>
+      </section>
+
+      <section class="demo-carousel" aria-label="Additional Handroid demos">
+        <div class="carousel-track">
+          <article class="portrait-demo">
+            <video autoplay muted loop playsinline preload="metadata" poster="assets/images/dex-hand-cube-rotation-poster.jpg">
+              <source src="assets/videos/dex-hand-cube-rotation.mp4" type="video/mp4">
+            </video>
+            <h3>In-hand Reorientation</h3>
+            <p>Trained in simulation with PPO and deployed on the real Handroid hand, the policy runs at 30 Hz and maintains a 3D-printed cube in hand.</p>
+          </article>
+          <article class="portrait-demo">
+            <video autoplay muted loop playsinline preload="metadata" poster="assets/images/dex-hand-finger-teleop-poster.jpg">
+              <source src="assets/videos/dex-hand-finger-teleop.mp4" type="video/mp4">
+            </video>
+            <h3>Finger Teleop</h3>
+            <p>Finger-opposition and fist-closing teleoperation validate the hardware and provide motion priors for learning.</p>
+          </article>
+          <article class="portrait-demo">
+            <video autoplay muted loop playsinline preload="metadata" poster="assets/images/dex-hand-bottle-cap-placement-poster.jpg">
+              <source src="assets/videos/dex-hand-bottle-cap-placement.mp4" type="video/mp4">
+            </video>
+            <h3>Bottle Cap Placement</h3>
+            <p>Handroid picks up a flat cap and places it at a target location, testing thin-object control.</p>
+          </article>
+          <article class="portrait-demo">
+            <video autoplay muted loop playsinline preload="metadata" poster="assets/images/dex-hand-cup-hanging-poster.jpg">
+              <source src="assets/videos/dex-hand-cup-hanging.mp4" type="video/mp4">
+            </video>
+            <h3>Cup Pick-and-Place</h3>
+            <p>Handroid performs pick-and-place with a metal cup weighing approximately 270 g.</p>
+          </article>
+          <article class="portrait-demo">
+            <video autoplay muted loop playsinline preload="metadata" poster="assets/images/dex-hand-cup-stacking-poster.jpg">
+              <source src="assets/videos/dex-hand-cup-stacking.mp4" type="video/mp4">
+            </video>
+            <h3>Cup Stacking</h3>
+            <p>Stacking deformable cups demonstrates potential for force-aware manipulation and compliant contact.</p>
+          </article>
+          <article class="portrait-demo">
+            <video autoplay muted loop playsinline preload="metadata" poster="assets/images/dex-hand-glove-removal-poster.jpg">
+              <source src="assets/videos/dex-hand-glove-removal.mp4" type="video/mp4">
+            </video>
+            <h3>Glove Removal</h3>
+            <p>Handroid extracts a rubber glove from the box, showing dexterity with flexible objects.</p>
+          </article>
+          <article class="portrait-demo">
+            <video autoplay muted loop playsinline preload="metadata" poster="assets/images/dex-hand-dual-object-grasping-poster.jpg">
+              <source src="assets/videos/dex-hand-dual-object-grasping.mp4" type="video/mp4">
+            </video>
+            <h3>Dual-Object Grasping</h3>
+            <p>Handroid grasps two objects simultaneously, demonstrating adaptability in a single action.</p>
+          </article>
+          <article class="portrait-demo">
+            <video autoplay muted loop playsinline preload="metadata" poster="assets/images/dex-hand-paper-grasping-poster.jpg">
+              <source src="assets/videos/dex-hand-paper-grasping.mp4" type="video/mp4">
+            </video>
+            <h3>Paper Grasping</h3>
+            <p>Handroid picks up a sheet of paper and places it into a basket, highlighting fine manipulation.</p>
+          </article>
+          <article class="portrait-demo">
+            <video autoplay muted loop playsinline preload="metadata" poster="assets/images/dex-hand-pouring-water-poster.jpg">
+              <source src="assets/videos/dex-hand-pouring-water.mp4" type="video/mp4">
+            </video>
+            <h3>Pouring Water</h3>
+            <p>Handroid grasps a water-filled bottle and pours water into a cup during dynamic manipulation.</p>
+          </article>
+          <article class="portrait-demo">
+            <video autoplay muted loop playsinline preload="metadata" poster="assets/images/humanoid-locomotion-command-poster.jpg">
+              <source src="assets/videos/humanoid-locomotion-command.mp4" type="video/mp4">
+            </video>
+            <h3>Locomotion Commands</h3>
+            <p>Squatting, moving forward and backward, and turning validate basic locomotion capability.</p>
+          </article>
+          <article class="portrait-demo">
+            <video autoplay muted loop playsinline preload="metadata" poster="assets/images/humanoid-push-up-poster.jpg">
+              <source src="assets/videos/humanoid-push-up.mp4" type="video/mp4">
+            </video>
+            <h3>Push-up</h3>
+            <p>Independent push-up motions demonstrate the support and payload capabilities of the arm structure.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="abstract" class="abstract">
+        <h2>Abstract</h2>
+        <p>
+          Morphology is a key factor that shapes a robot's functional boundaries, task space, and research paradigm.
+          To break the morphological boundary between dexterous hands and humanoid robots and enhance robotic
+          adaptability across diverse tasks, we introduce Handroid, a desktop-scale robotic system that integrates
+          dexterous-hand and humanoid embodiments within a single platform. Handroid has 27 DoFs, a compact size of
+          0.33 m, and a weight of 2.05 kg. Through teleoperation and reinforcement learning experiments, we demonstrate
+          Handroid's hardware capabilities and application potential in dexterous manipulation, humanoid locomotion,
+          and loco-manipulation tasks that combine both embodiments.
+        </p>
+      </section>
+
+      <section id="bibtex" class="bibtex">
+        <div class="section-heading compact">
+          <p class="eyebrow">Citation</p>
+          <h2>BibTeX</h2>
+        </div>
+        <pre><code>@misc{li2026handroid,
+  title={Handroid: Bridging Dexterous Hand and Humanoid},
+  author={Ruogu Li and Chenyang Ma and Sikai Li and Zhenyu Wei and Yunchao Yao and Haochen Shi and C. Karen Liu and Shuran Song and Mingyu Ding},
+  year={2026},
+  url={https://handroid-v1.github.io/}
+}</code></pre>
+      </section>
+    </main>
+  </body>
+</html>
