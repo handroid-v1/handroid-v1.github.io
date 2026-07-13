@@ -658,7 +658,7 @@ h1 {
   z-index: 9;
   min-height: auto;
   padding: clamp(96px, 12vw, 176px) 0 clamp(42px, 6vw, 84px);
-  background: linear-gradient(180deg, #ffffff 0%, #f7f9fb 28%, #eef2f6 58%, #e4e9ef 100%);
+  background: #e4e9ef;
   color: var(--ink);
 }
 
@@ -733,7 +733,7 @@ h1 {
 }
 
 .demo-carousel::before {
-  background: linear-gradient(180deg, #e4e9ef 0%, #dde4eb 38%, #c4cdd7 66%, #687582 91%, #10151d 100%);
+  background: linear-gradient(180deg, #e4e9ef 0%, #dfe5ec 76%, #10151d 100%);
 }
 
 .carousel-viewport {
