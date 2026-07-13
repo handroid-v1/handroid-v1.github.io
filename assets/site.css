@@ -334,10 +334,10 @@ h1 {
 
 .abstract-layout {
   display: grid;
-  grid-template-columns: minmax(220px, 0.85fr) minmax(520px, 1.75fr) minmax(220px, 0.85fr);
-  gap: clamp(44px, 4vw, 88px);
+  grid-template-columns: minmax(200px, 0.34fr) minmax(620px, 1fr) minmax(200px, 0.34fr);
+  gap: clamp(70px, 5.6vw, 126px);
   align-items: center;
-  width: min(1880px, calc(100vw - 120px));
+  width: min(1960px, calc(100vw - 48px));
   margin: 0 auto;
 }
 
@@ -355,12 +355,12 @@ h1 {
 
 .abstract-motto-left {
   justify-self: start;
-  transform: translateX(calc(-1 * clamp(18px, 2.8vw, 72px)));
+  transform: translateX(calc(-1 * clamp(44px, 4.8vw, 108px)));
 }
 
 .abstract-motto-right {
   justify-self: end;
-  transform: translateX(clamp(18px, 2.8vw, 72px));
+  transform: translateX(clamp(44px, 4.8vw, 108px));
 }
 
 .abstract-motto span {
@@ -403,16 +403,14 @@ h1 {
   margin: 0;
   color: #05070a;
   font-family: Georgia, "Times New Roman", Times, serif;
-  font-size: clamp(0.68rem, 0.72vw, 0.86rem);
+  font-size: clamp(0.8rem, 0.82vw, 0.985rem);
   line-height: 1.16;
   text-align: justify;
 }
 
 .abstract-copy strong {
   font-weight: 800;
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
+  text-decoration: none;
 }
 
 .accent-manipulation {
