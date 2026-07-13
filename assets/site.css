@@ -330,6 +330,7 @@ h1 {
   z-index: 5;
   padding: clamp(44px, 6vw, 82px) clamp(18px, 1.6vw, 34px);
   background: linear-gradient(180deg, #eef3f6 0%, #f8f8fa 100%);
+  font-family: "Times New Roman", Times, serif;
 }
 
 .abstract-layout {
@@ -392,7 +393,7 @@ h1 {
 .abstract-heading h2 {
   margin: 0;
   color: #05070a;
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: "Times New Roman", Times, serif;
   font-size: clamp(1.8rem, 2.6vw, 2.75rem);
   font-weight: 760;
   line-height: 1;
@@ -402,7 +403,7 @@ h1 {
 .abstract-copy p {
   margin: 0;
   color: #05070a;
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: "Times New Roman", Times, serif;
   font-size: clamp(0.8rem, 0.82vw, 0.985rem);
   line-height: 1.16;
   text-align: justify;

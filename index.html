@@ -8,9 +8,9 @@
     <meta property="og:description" content="A transformable desktop robot bridging dexterous hand and humanoid embodiments.">
     <meta property="og:image" content="assets/images/hero-switching-poster.jpg">
     <title>Handroid: Bridging Dexterous Hand and Humanoid</title>
-    <link rel="stylesheet" href="assets/site.css?v=20260714f">
+    <link rel="stylesheet" href="assets/site.css?v=20260714g">
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-    <script defer src="assets/site.js?v=20260714f"></script>
+    <script defer src="assets/site.js?v=20260714g"></script>
   </head>
   <body>
     <header class="site-header" data-header>
@@ -20,9 +20,10 @@
       </a>
       <nav aria-label="Primary navigation">
         <a href="#abstract">Abstract</a>
+        <a href="#demos">Demos</a>
         <a href="#morphology">Morphology</a>
         <a href="#design">Design</a>
-        <a href="#demos">Demos</a>
+        <a href="#bibtex">Citation</a>
       </nav>
     </header>
 
@@ -97,97 +98,6 @@
             <span>MATTERS.</span>
           </h2>
         </div>
-      </section>
-
-      <section id="morphology" class="morphology" data-morphology>
-        <div class="morph-stage">
-          <div class="morph-viewport">
-            <div class="model-shell" data-model-shell>
-              <model-viewer
-                class="model-viewer model-dex"
-                src="assets/cad/dex-hand.glb?v=20260711e"
-                camera-controls
-                auto-rotate
-                rotation-per-second="18deg"
-                interaction-prompt="none"
-                exposure="0.82"
-                shadow-intensity="0.65"
-                camera-orbit="-36deg 64deg 4.4m"
-                field-of-view="24deg"
-                alt="3D model of the Handroid dexterous hand embodiment">
-              </model-viewer>
-              <model-viewer
-                class="model-viewer model-humanoid"
-                src="assets/cad/humanoid.glb?v=20260711e"
-                camera-controls
-                auto-rotate
-                rotation-per-second="18deg"
-                interaction-prompt="none"
-                exposure="0.86"
-                shadow-intensity="0.7"
-                camera-orbit="34deg 62deg 5.2m"
-                field-of-view="25deg"
-                alt="3D model of the Handroid humanoid embodiment">
-              </model-viewer>
-              <div class="model-grid" aria-hidden="true"></div>
-            </div>
-            <div class="mode-meter" aria-hidden="true">
-              <span>Dex-Hand</span>
-              <div><i data-progress-bar></i></div>
-              <span>Humanoid</span>
-            </div>
-          </div>
-          <div class="morph-copy">
-            <article class="morph-card" data-step="0">
-              <span>01</span>
-              <h2>Dexterous hand<br>embodiment</h2>
-              <p>Handroid keeps a human-hand-like DoF layout for manipulation, teleoperation, and policy learning.</p>
-            </article>
-            <article class="morph-card" data-step="1">
-              <span>02</span>
-              <h2>Shared mechanical<br>grammar</h2>
-              <p>The same compact modules are reassigned across fingers, arms, legs, and base actuation.</p>
-            </article>
-            <article class="morph-card" data-step="2">
-              <span>03</span>
-              <h2>Humanoid<br>embodiment</h2>
-              <p>The platform crosses into locomotion and loco-manipulation without becoming a different robot.</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section id="design" class="design">
-        <div class="sticky-scene design-scene">
-          <div class="scene-media clean" aria-hidden="true">
-            <video autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-exploded-poster.jpg">
-              <source src="assets/videos/exploded-view-hero.mp4?v=20260711e" type="video/mp4">
-            </video>
-          </div>
-          <div class="design-title">
-            <h2>Design</h2>
-            <p>Explode, inspect, reassemble.</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="design-details">
-        <article class="detail-panel">
-          <div class="detail-copy">
-            <p class="eyebrow">Structure</p>
-            <h2>27 DoF morphology map</h2>
-            <p>Finger joints double as humanoid limbs, making the mapping legible instead of ornamental.</p>
-          </div>
-          <img src="assets/images/design/structure-design.png" alt="Annotated mechanical structure of Handroid.">
-        </article>
-        <article class="detail-panel">
-          <div class="detail-copy">
-            <p class="eyebrow">Electronics</p>
-            <h2>Integrated control board</h2>
-            <p>Power, sensing, status, and actuator management are packaged for repeatable desktop deployment.</p>
-          </div>
-          <img src="assets/images/design/pcb-design.png" alt="Annotated Handroid PCB design.">
-        </article>
       </section>
 
       <section id="demos" class="demos-heading">
@@ -295,6 +205,97 @@
         <div class="carousel-control">
           <input type="range" min="0" max="100" value="0" aria-label="Demo carousel position" data-carousel-range>
         </div>
+      </section>
+
+      <section id="morphology" class="morphology" data-morphology>
+        <div class="morph-stage">
+          <div class="morph-viewport">
+            <div class="model-shell" data-model-shell>
+              <model-viewer
+                class="model-viewer model-dex"
+                src="assets/cad/dex-hand.glb?v=20260711e"
+                camera-controls
+                auto-rotate
+                rotation-per-second="18deg"
+                interaction-prompt="none"
+                exposure="0.82"
+                shadow-intensity="0.65"
+                camera-orbit="-36deg 64deg 4.4m"
+                field-of-view="24deg"
+                alt="3D model of the Handroid dexterous hand embodiment">
+              </model-viewer>
+              <model-viewer
+                class="model-viewer model-humanoid"
+                src="assets/cad/humanoid.glb?v=20260711e"
+                camera-controls
+                auto-rotate
+                rotation-per-second="18deg"
+                interaction-prompt="none"
+                exposure="0.86"
+                shadow-intensity="0.7"
+                camera-orbit="34deg 62deg 5.2m"
+                field-of-view="25deg"
+                alt="3D model of the Handroid humanoid embodiment">
+              </model-viewer>
+              <div class="model-grid" aria-hidden="true"></div>
+            </div>
+            <div class="mode-meter" aria-hidden="true">
+              <span>Dex-Hand</span>
+              <div><i data-progress-bar></i></div>
+              <span>Humanoid</span>
+            </div>
+          </div>
+          <div class="morph-copy">
+            <article class="morph-card" data-step="0">
+              <span>01</span>
+              <h2>Dexterous hand<br>embodiment</h2>
+              <p>Handroid keeps a human-hand-like DoF layout for manipulation, teleoperation, and policy learning.</p>
+            </article>
+            <article class="morph-card" data-step="1">
+              <span>02</span>
+              <h2>Shared mechanical<br>grammar</h2>
+              <p>The same compact modules are reassigned across fingers, arms, legs, and base actuation.</p>
+            </article>
+            <article class="morph-card" data-step="2">
+              <span>03</span>
+              <h2>Humanoid<br>embodiment</h2>
+              <p>The platform crosses into locomotion and loco-manipulation without becoming a different robot.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="design" class="design">
+        <div class="sticky-scene design-scene">
+          <div class="scene-media clean" aria-hidden="true">
+            <video autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-exploded-poster.jpg">
+              <source src="assets/videos/exploded-view-hero.mp4?v=20260711e" type="video/mp4">
+            </video>
+          </div>
+          <div class="design-title">
+            <h2>Design</h2>
+            <p>Explode, inspect, reassemble.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="design-details">
+        <article class="detail-panel">
+          <div class="detail-copy">
+            <p class="eyebrow">Structure</p>
+            <h2>27 DoF morphology map</h2>
+            <p>Finger joints double as humanoid limbs, making the mapping legible instead of ornamental.</p>
+          </div>
+          <img src="assets/images/design/structure-design.png" alt="Annotated mechanical structure of Handroid.">
+        </article>
+        <article class="detail-panel">
+          <div class="detail-copy">
+            <p class="eyebrow">Electronics</p>
+            <h2>Integrated control board</h2>
+            <p>Power, sensing, status, and actuator management are packaged for repeatable desktop deployment.</p>
+          </div>
+          <img src="assets/images/design/pcb-design.png" alt="Annotated Handroid PCB design.">
+        </article>
       </section>
 
       <section id="bibtex" class="bibtex">
