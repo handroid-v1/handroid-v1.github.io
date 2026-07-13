@@ -662,14 +662,10 @@ h1 {
   background: var(--paper);
 }
 
-.carousel-shell {
-  position: relative;
-}
-
 .carousel-viewport {
-  overflow-x: hidden;
+  overflow-x: auto;
   overflow-y: hidden;
-  scroll-behavior: smooth;
+  cursor: grab;
   touch-action: pan-y;
   user-select: none;
   scrollbar-width: none;
@@ -677,6 +673,14 @@ h1 {
 
 .carousel-viewport::-webkit-scrollbar {
   display: none;
+}
+
+.carousel-viewport.is-dragging {
+  cursor: grabbing;
+}
+
+.carousel-viewport.is-dragging .portrait-demo {
+  cursor: grabbing;
 }
 
 .carousel-track {
@@ -741,66 +745,15 @@ h1 {
   transform: translateY(0);
 }
 
-.carousel-arrow {
-  position: absolute;
-  top: 50%;
-  z-index: 15;
-  display: grid;
-  place-items: center;
-  width: clamp(46px, 4.8vw, 70px);
-  height: clamp(132px, 15vw, 190px);
-  border: 1px solid rgba(255, 255, 255, 0.34);
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.34);
-  box-shadow: 0 18px 48px rgba(16, 19, 24, 0.18);
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(-50%);
-  transition: opacity 160ms ease, background 160ms ease, box-shadow 160ms ease;
-  backdrop-filter: blur(10px);
+.carousel-control {
+  width: min(520px, calc(100% - 72px));
+  margin: 28px auto 0;
+}
+
+.carousel-control input {
+  width: 100%;
+  accent-color: #2aa8bb;
   cursor: pointer;
-}
-
-.carousel-shell:hover .carousel-arrow,
-.carousel-shell.is-hovered .carousel-arrow,
-.carousel-shell:focus-within .carousel-arrow {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.carousel-arrow:hover {
-  background: rgba(255, 255, 255, 0.48);
-  box-shadow: 0 22px 58px rgba(16, 19, 24, 0.24);
-}
-
-.carousel-arrow:focus-visible {
-  opacity: 1;
-  pointer-events: auto;
-  outline: 3px solid rgba(42, 168, 187, 0.75);
-  outline-offset: 4px;
-}
-
-.carousel-arrow-left {
-  left: clamp(14px, 2vw, 28px);
-}
-
-.carousel-arrow-right {
-  right: clamp(14px, 2vw, 28px);
-}
-
-.carousel-arrow span {
-  width: clamp(30px, 3.2vw, 46px);
-  height: clamp(30px, 3.2vw, 46px);
-  border-top: clamp(8px, 0.8vw, 12px) solid #000;
-  border-left: clamp(8px, 0.8vw, 12px) solid #000;
-}
-
-.carousel-arrow-left span {
-  transform: rotate(-45deg) translate(10%, 10%);
-}
-
-.carousel-arrow-right span {
-  transform: rotate(135deg) translate(10%, 10%);
 }
 
 .video-modal {
@@ -1051,9 +1004,8 @@ h1 {
     transform: scale(0.76);
   }
 
-  .carousel-arrow {
-    width: 44px;
-    height: 118px;
+  .carousel-control {
+    width: min(420px, calc(100% - 64px));
   }
 
   .video-modal {

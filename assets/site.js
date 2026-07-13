@@ -68,8 +68,7 @@ const requestUpdate = () => {
 
 const carouselViewport = document.querySelector("[data-carousel]");
 const carousel = document.querySelector("[data-carousel-track]");
-const carouselShell = document.querySelector("[data-carousel-shell]");
-const carouselArrows = [...document.querySelectorAll("[data-carousel-arrow]")];
+const carouselRange = document.querySelector("[data-carousel-range]");
 
 let videoObserver;
 
@@ -196,122 +195,109 @@ window.addEventListener("keydown", (event) => {
   }
 });
 
-if (carousel && carouselViewport && carouselShell) {
+if (carousel && carouselViewport && carouselRange) {
   const cards = [...carousel.querySelectorAll(".portrait-demo")];
-  let normalizeTimer;
-  let resizeTimer;
+  let carouselLastFrame = performance.now();
+  let carouselHover = false;
+  let carouselDragging = false;
+  let carouselMoved = false;
+  let suppressCardClick = false;
+  let carouselStartX = 0;
+  let carouselStartScroll = 0;
+  const carouselSpeed = 48;
+  const dragThreshold = 6;
 
-  carouselShell.addEventListener("pointerenter", () => {
-    carouselShell.classList.add("is-hovered");
-  });
-
-  carouselShell.addEventListener("pointerleave", () => {
-    carouselShell.classList.remove("is-hovered");
-  });
-
-  const carouselStep = () => {
-    const card = carousel.querySelector(".portrait-demo");
-    const cardWidth = card?.getBoundingClientRect().width || 260;
-    const gap = parseFloat(window.getComputedStyle(carousel).columnGap) || 18;
-    return cardWidth + gap;
-  };
-
-  const prepareCarouselCard = (card, clone = false) => {
+  const prepareCarouselCard = (card) => {
     const title = card.querySelector("h3")?.textContent?.trim() || "demo";
-
-    if (clone) {
-      card.dataset.carouselClone = "true";
-      card.setAttribute("aria-hidden", "true");
-      card.tabIndex = -1;
-      card.removeAttribute("role");
-      card.removeAttribute("aria-label");
-    } else {
-      card.tabIndex = 0;
-      card.setAttribute("role", "button");
-      card.setAttribute("aria-label", `Open ${title} video`);
-    }
+    card.tabIndex = 0;
+    card.setAttribute("role", "button");
+    card.setAttribute("aria-label", `Open ${title} video`);
   };
 
   cards.forEach((card) => prepareCarouselCard(card));
 
-  const cloneCarouselSet = () => {
-    const fragment = document.createDocumentFragment();
+  const carouselMaxScroll = () => Math.max(1, carouselViewport.scrollWidth - carouselViewport.clientWidth);
 
-    cards.forEach((card) => {
-      const clone = card.cloneNode(true);
-      prepareCarouselCard(clone, true);
-      clone.querySelectorAll("video").forEach(observeAutoplayVideo);
-      fragment.appendChild(clone);
-    });
-
-    return fragment;
+  const updateCarouselRange = () => {
+    carouselRange.value = String((carouselViewport.scrollLeft / carouselMaxScroll()) * 100);
   };
 
-  if (cards.length > 1) {
-    carousel.insertBefore(cloneCarouselSet(), carousel.firstElementChild);
-    carousel.appendChild(cloneCarouselSet());
-  }
+  const animateCarousel = (time) => {
+    const deltaSeconds = Math.min(0.05, (time - carouselLastFrame) / 1000);
+    carouselLastFrame = time;
 
-  const carouselBlockWidth = () => {
-    const firstCard = carousel.firstElementChild;
-    if (!firstCard || !cards[0]) return 0;
-    return cards[0].offsetLeft - firstCard.offsetLeft;
+    if (!carouselHover && !carouselDragging) {
+      const maxScroll = carouselMaxScroll();
+      const nextScroll = carouselViewport.scrollLeft + deltaSeconds * carouselSpeed;
+      carouselViewport.scrollLeft = nextScroll >= maxScroll ? 0 : nextScroll;
+      updateCarouselRange();
+    }
+
+    window.requestAnimationFrame(animateCarousel);
   };
 
-  const jumpCarousel = (left) => {
-    const previousBehavior = carouselViewport.style.scrollBehavior;
-    carouselViewport.style.scrollBehavior = "auto";
-    carouselViewport.scrollLeft = left;
-    carouselViewport.style.scrollBehavior = previousBehavior;
-  };
+  carouselViewport.addEventListener("pointerenter", () => {
+    carouselHover = true;
+  });
 
-  const resetCarouselToMiddle = () => {
-    const blockWidth = carouselBlockWidth();
-    if (blockWidth > 0) {
-      jumpCarousel(blockWidth);
+  carouselViewport.addEventListener("pointerleave", () => {
+    carouselHover = false;
+  });
+
+  carouselViewport.addEventListener("pointerdown", (event) => {
+    carouselDragging = true;
+    carouselMoved = false;
+    carouselStartX = event.clientX;
+    carouselStartScroll = carouselViewport.scrollLeft;
+    carouselViewport.classList.add("is-dragging");
+    carouselViewport.setPointerCapture(event.pointerId);
+  });
+
+  carouselViewport.addEventListener("pointermove", (event) => {
+    if (!carouselDragging) return;
+
+    const deltaX = event.clientX - carouselStartX;
+    if (Math.abs(deltaX) > dragThreshold) {
+      carouselMoved = true;
+    }
+    carouselViewport.scrollLeft = carouselStartScroll - deltaX;
+    updateCarouselRange();
+  });
+
+  const stopCarouselDrag = (event) => {
+    if (!carouselDragging) return;
+
+    carouselDragging = false;
+    carouselViewport.classList.remove("is-dragging");
+    if (carouselViewport.hasPointerCapture(event.pointerId)) {
+      carouselViewport.releasePointerCapture(event.pointerId);
+    }
+
+    if (carouselMoved) {
+      suppressCardClick = true;
+      window.setTimeout(() => {
+        suppressCardClick = false;
+      }, 0);
     }
   };
 
-  const normalizeCarousel = () => {
-    const blockWidth = carouselBlockWidth();
-    if (blockWidth <= 0) return;
+  carouselViewport.addEventListener("pointerup", stopCarouselDrag);
+  carouselViewport.addEventListener("pointercancel", stopCarouselDrag);
 
-    if (carouselViewport.scrollLeft >= blockWidth * 2 - 2) {
-      jumpCarousel(carouselViewport.scrollLeft - blockWidth);
-    } else if (carouselViewport.scrollLeft <= blockWidth - 2) {
-      jumpCarousel(carouselViewport.scrollLeft + blockWidth);
-    }
-  };
-
-  const queueCarouselNormalize = (delay = 420) => {
-    window.clearTimeout(normalizeTimer);
-    normalizeTimer = window.setTimeout(normalizeCarousel, delay);
-  };
-
-  const scrollCarousel = (visualDirection) => {
-    if (cards.length <= 1) return;
-
-    carouselViewport.scrollBy({
-      left: visualDirection * carouselStep(),
-      behavior: "smooth"
-    });
-    queueCarouselNormalize();
-  };
-
-  carouselArrows.forEach((button) => {
-    button.addEventListener("click", () => {
-      scrollCarousel(button.dataset.carouselArrow === "prev" ? 1 : -1);
-    });
+  carouselRange.addEventListener("input", () => {
+    carouselViewport.scrollLeft = (Number(carouselRange.value) / 100) * carouselMaxScroll();
   });
 
-  carouselViewport.addEventListener("scroll", () => queueCarouselNormalize(180), { passive: true });
-
-  window.addEventListener("resize", () => {
-    window.clearTimeout(resizeTimer);
-    resizeTimer = window.setTimeout(resetCarouselToMiddle, 140);
-  });
+  carouselViewport.addEventListener("scroll", updateCarouselRange, { passive: true });
+  window.addEventListener("resize", updateCarouselRange);
 
   carousel.addEventListener("click", (event) => {
+    if (suppressCardClick) {
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
+
     const card = event.target.closest(".portrait-demo");
     if (card) {
       openVideoModal(card);
@@ -326,7 +312,8 @@ if (carousel && carouselViewport && carouselShell) {
     }
   });
 
-  window.requestAnimationFrame(resetCarouselToMiddle);
+  updateCarouselRange();
+  window.requestAnimationFrame(animateCarousel);
 }
 
 window.addEventListener("scroll", requestUpdate, { passive: true });
