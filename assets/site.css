@@ -725,6 +725,62 @@ h1 {
   padding-top: clamp(42px, 6vw, 86px);
 }
 
+.humanoid-showcase {
+  position: relative;
+  z-index: 10;
+  isolation: isolate;
+  display: grid;
+  gap: clamp(42px, 6vw, 82px);
+  width: min(1320px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: clamp(42px, 6vw, 84px) 0 clamp(54px, 7vw, 96px);
+}
+
+.humanoid-showcase::before {
+  content: "";
+  position: absolute;
+  inset: 0 calc(50% - 50vw);
+  z-index: -1;
+  background: #e4e9ef;
+}
+
+.humanoid-demo {
+  display: grid;
+  gap: clamp(16px, 2vw, 28px);
+}
+
+.humanoid-demo-copy .eyebrow {
+  margin-bottom: 10px;
+  color: #15966b;
+}
+
+.humanoid-demo-copy h2 {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(1.8rem, 3.5vw, 4rem);
+  line-height: 1;
+}
+
+.humanoid-demo video {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #0d1118;
+  box-shadow: var(--shadow);
+  object-fit: cover;
+}
+
+.humanoid-video-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 2.4vw, 30px);
+}
+
+.humanoid-video-pair video {
+  aspect-ratio: 16 / 9;
+  height: auto;
+}
+
 .demo-carousel {
   position: relative;
   z-index: 10;
@@ -1017,7 +1073,8 @@ h1 {
 
   .design-title,
   .demos-heading .demo-title,
-  .demo-focus {
+  .demo-focus,
+  .humanoid-showcase {
     width: min(100% - 28px, 1260px);
   }
 
@@ -1027,6 +1084,10 @@ h1 {
 
   .portrait-demo {
     flex-basis: 220px;
+  }
+
+  .humanoid-video-pair {
+    grid-template-columns: 1fr;
   }
 
   .morph-stage {
