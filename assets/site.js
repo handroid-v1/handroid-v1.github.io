@@ -141,7 +141,6 @@ const createVideoModal = () => {
   modal.setAttribute("aria-hidden", "true");
   modal.innerHTML = `
     <div class="video-modal-frame" role="dialog" aria-modal="true" aria-label="Demo video preview">
-      <button class="video-modal-close" type="button" aria-label="Close video preview"></button>
       <video controls loop playsinline></video>
     </div>
   `;
@@ -151,7 +150,6 @@ const createVideoModal = () => {
 
 const videoModal = createVideoModal();
 const modalVideo = videoModal.querySelector("video");
-const modalClose = videoModal.querySelector(".video-modal-close");
 
 const closeVideoModal = () => {
   videoModal.classList.remove("is-open");
@@ -179,10 +177,8 @@ const openVideoModal = (card) => {
   if (playPromise) {
     playPromise.catch(() => {});
   }
-  modalClose.focus();
 };
 
-modalClose.addEventListener("click", closeVideoModal);
 videoModal.addEventListener("click", (event) => {
   if (event.target === videoModal) {
     closeVideoModal();
@@ -202,6 +198,7 @@ if (carousel && carouselViewport && carouselRange) {
   let carouselDragging = false;
   let carouselMoved = false;
   let suppressCardClick = false;
+  let carouselStartCard = null;
   let carouselStartX = 0;
   let carouselStartScroll = 0;
   const carouselSpeed = 48;
@@ -220,6 +217,13 @@ if (carousel && carouselViewport && carouselRange) {
 
   const updateCarouselRange = () => {
     carouselRange.value = String((carouselViewport.scrollLeft / carouselMaxScroll()) * 100);
+  };
+
+  const suppressNextCardClick = () => {
+    suppressCardClick = true;
+    window.setTimeout(() => {
+      suppressCardClick = false;
+    }, 0);
   };
 
   const animateCarousel = (time) => {
@@ -247,6 +251,7 @@ if (carousel && carouselViewport && carouselRange) {
   carouselViewport.addEventListener("pointerdown", (event) => {
     carouselDragging = true;
     carouselMoved = false;
+    carouselStartCard = event.target.closest(".portrait-demo");
     carouselStartX = event.clientX;
     carouselStartScroll = carouselViewport.scrollLeft;
     carouselViewport.classList.add("is-dragging");
@@ -274,11 +279,13 @@ if (carousel && carouselViewport && carouselRange) {
     }
 
     if (carouselMoved) {
-      suppressCardClick = true;
-      window.setTimeout(() => {
-        suppressCardClick = false;
-      }, 0);
+      suppressNextCardClick();
+    } else if (carouselStartCard) {
+      suppressNextCardClick();
+      openVideoModal(carouselStartCard);
     }
+
+    carouselStartCard = null;
   };
 
   carouselViewport.addEventListener("pointerup", stopCarouselDrag);

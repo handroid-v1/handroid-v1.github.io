@@ -792,45 +792,6 @@ h1 {
   object-position: center;
 }
 
-.video-modal-close {
-  position: absolute;
-  top: -18px;
-  right: -18px;
-  z-index: 2;
-  width: 58px;
-  height: 58px;
-  border: 3px solid rgba(16, 19, 24, 0.28);
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.26);
-  cursor: pointer;
-}
-
-.video-modal-close::before,
-.video-modal-close::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 34px;
-  height: 5px;
-  border-radius: 99px;
-  background: rgba(16, 19, 24, 0.44);
-}
-
-.video-modal-close::before {
-  transform: translate(-50%, -50%) rotate(45deg);
-}
-
-.video-modal-close::after {
-  transform: translate(-50%, -50%) rotate(-45deg);
-}
-
-.video-modal-close:hover::before,
-.video-modal-close:hover::after {
-  background: rgba(16, 19, 24, 0.7);
-}
-
 .modal-open {
   overflow: hidden;
 }
@@ -1010,12 +971,5 @@ h1 {
 
   .video-modal {
     padding: 18px;
-  }
-
-  .video-modal-close {
-    top: -10px;
-    right: -10px;
-    width: 48px;
-    height: 48px;
   }
 }
