@@ -328,27 +328,39 @@ h1 {
 .abstract-bridge {
   position: relative;
   z-index: 5;
-  padding: clamp(44px, 6vw, 82px) clamp(18px, 2.5vw, 42px);
+  padding: clamp(44px, 6vw, 82px) clamp(18px, 1.6vw, 34px);
   background: linear-gradient(180deg, #eef3f6 0%, #f8f8fa 100%);
 }
 
 .abstract-layout {
   display: grid;
-  grid-template-columns: minmax(220px, 0.65fr) minmax(560px, 1.75fr) minmax(220px, 0.65fr);
-  gap: clamp(18px, 2.4vw, 34px);
+  grid-template-columns: minmax(220px, 0.85fr) minmax(520px, 1.75fr) minmax(220px, 0.85fr);
+  gap: clamp(44px, 4vw, 88px);
   align-items: center;
-  width: min(1660px, 100%);
+  width: min(1880px, calc(100vw - 120px));
   margin: 0 auto;
 }
 
 .abstract-motto {
+  position: relative;
+  z-index: 1;
   margin: 0;
   color: var(--ink);
-  font-size: clamp(1.65rem, 2.35vw, 3.2rem);
+  font-size: clamp(1.65rem, 2.15vw, 3rem);
   font-weight: 920;
   line-height: 0.94;
   letter-spacing: 0;
   text-transform: uppercase;
+}
+
+.abstract-motto-left {
+  justify-self: start;
+  transform: translateX(calc(-1 * clamp(18px, 2.8vw, 72px)));
+}
+
+.abstract-motto-right {
+  justify-self: end;
+  transform: translateX(clamp(18px, 2.8vw, 72px));
 }
 
 .abstract-motto span {
@@ -357,6 +369,8 @@ h1 {
 }
 
 .abstract-copy {
+  position: relative;
+  z-index: 2;
   min-width: 0;
   color: #06080b;
 }
@@ -890,6 +904,12 @@ h1 {
 
   .abstract-motto {
     font-size: clamp(2rem, 7vw, 3.25rem);
+  }
+
+  .abstract-motto-left,
+  .abstract-motto-right {
+    justify-self: start;
+    transform: none;
   }
 
   .abstract-copy p {
