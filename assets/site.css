@@ -329,7 +329,7 @@ h1 {
   position: relative;
   z-index: 5;
   padding: clamp(44px, 6vw, 82px) clamp(18px, 1.6vw, 34px);
-  background: linear-gradient(180deg, #eef3f6 0%, #f8f8fa 100%);
+  background: linear-gradient(180deg, #eef3f6 0%, #ffffff 100%);
   font-family: "Times New Roman", Times, serif;
 }
 
@@ -658,7 +658,7 @@ h1 {
   z-index: 9;
   min-height: auto;
   padding: clamp(74px, 10vw, 142px) 0 clamp(26px, 4vw, 52px);
-  background: var(--paper);
+  background: linear-gradient(180deg, #ffffff 0%, #f8f9fb 36%, #eef3f6 100%);
   color: var(--ink);
 }
 
@@ -686,10 +686,20 @@ h1 {
 .demo-focus {
   position: relative;
   z-index: 10;
+  isolation: isolate;
   width: min(1320px, calc(100% - 40px));
   margin: 0 auto;
   padding: clamp(36px, 5vw, 70px) 0 clamp(28px, 4vw, 54px);
-  background: var(--paper);
+  background: transparent;
+}
+
+.demo-focus::before,
+.demo-carousel::before {
+  content: "";
+  position: absolute;
+  inset: 0 calc(50% - 50vw);
+  z-index: -1;
+  background: #eef3f6;
 }
 
 .demo-focus video {
@@ -717,8 +727,13 @@ h1 {
 .demo-carousel {
   position: relative;
   z-index: 10;
+  isolation: isolate;
   padding: clamp(56px, 8vw, 104px) 0 clamp(76px, 9vw, 132px);
-  background: var(--paper);
+  background: transparent;
+}
+
+.demo-carousel::before {
+  background: linear-gradient(180deg, #eef3f6 0%, #eef3f6 58%, #d7dde4 78%, #10151d 100%);
 }
 
 .carousel-viewport {
