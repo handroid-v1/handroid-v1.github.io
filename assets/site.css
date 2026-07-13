@@ -684,7 +684,6 @@ h1 {
   width: max-content;
   gap: 18px;
   padding: 0 20px;
-  will-change: transform;
 }
 
 .portrait-demo {
