@@ -181,10 +181,40 @@ pre {
 }
 
 h1 {
+  position: relative;
+  isolation: isolate;
   margin-bottom: 18px;
   font-size: clamp(4rem, 8.2vw, 7.6rem);
   line-height: 0.9;
   letter-spacing: 0;
+}
+
+.hero-content h1 span {
+  position: relative;
+  z-index: 0;
+  display: inline-block;
+  background: linear-gradient(90deg, #ffffff 0 34%, var(--cyan) 45%, var(--rose) 55%, #ffffff 66% 100%);
+  background-size: 320% 100%;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: titleTextSweep 2.8s linear infinite;
+}
+
+.hero-content h1 span::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0 30%, rgba(158, 229, 247, 0.92) 43%, rgba(247, 177, 202, 0.92) 56%, rgba(255, 255, 255, 0.08) 70% 100%);
+  background-size: 320% 100%;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: blur(16px);
+  opacity: 0.72;
+  animation: titleTextSweep 2.8s linear infinite;
+  pointer-events: none;
 }
 
 .subtitle {
@@ -198,24 +228,17 @@ h1 {
 }
 
 .subtitle span {
-  position: relative;
   display: inline-block;
-  padding-bottom: 0.06em;
-  background: linear-gradient(90deg, #ffffff 0 34%, var(--cyan) 45%, var(--rose) 55%, #ffffff 66% 100%);
-  background-size: 320% 100%;
-  color: transparent;
+  color: inherit;
   font-weight: 520;
   line-height: 1.12;
-  -webkit-background-clip: text;
-  background-clip: text;
-  animation: bridgeTextSweep 2.8s linear infinite;
 }
 
 .subtitle span::after {
   display: none;
 }
 
-@keyframes bridgeTextSweep {
+@keyframes titleTextSweep {
   0% {
     background-position: 138% 50%;
   }
@@ -302,27 +325,6 @@ h1 {
   opacity: 0.95;
 }
 
-.scroll-cue {
-  position: absolute;
-  right: clamp(18px, 4vw, 56px);
-  bottom: 32px;
-  z-index: 4;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.82rem;
-  font-weight: 760;
-  opacity: var(--cue-opacity, 1);
-}
-
-.scroll-cue span {
-  display: block;
-  width: 36px;
-  height: 1px;
-  background: currentColor;
-}
-
 .dual-intro {
   position: relative;
   z-index: 5;
@@ -345,6 +347,12 @@ h1 {
   font-size: clamp(2rem, 3.45vw, 4.25rem);
   line-height: 0.98;
   letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.dual-line h2 span {
+  display: block;
+  white-space: nowrap;
 }
 
 .accent-manipulation {
@@ -491,7 +499,7 @@ h1 {
 
 .design {
   z-index: 7;
-  min-height: 340vh;
+  min-height: 100vh;
   background: #ffffff;
 }
 
@@ -860,11 +868,6 @@ h1 {
 
   .resource-button {
     min-width: calc(50% - 6px);
-  }
-
-  .scroll-cue {
-    right: 14px;
-    left: 14px;
   }
 
   .dual-line h2,
