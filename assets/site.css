@@ -325,34 +325,80 @@ h1 {
   opacity: 0.95;
 }
 
-.dual-intro {
+.abstract-bridge {
   position: relative;
   z-index: 5;
-  padding: clamp(74px, 10vw, 150px) clamp(20px, 5vw, 74px);
+  padding: clamp(44px, 6vw, 82px) clamp(18px, 2.5vw, 42px);
   background: linear-gradient(180deg, #eef3f6 0%, #f8f8fa 100%);
 }
 
-.dual-line {
+.abstract-layout {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(20px, 5vw, 86px);
-  width: min(1320px, 100%);
+  grid-template-columns: minmax(220px, 0.65fr) minmax(560px, 1.75fr) minmax(220px, 0.65fr);
+  gap: clamp(18px, 2.4vw, 34px);
+  align-items: center;
+  width: min(1660px, 100%);
   margin: 0 auto;
 }
 
-.dual-line h2 {
+.abstract-motto {
   margin: 0;
-  padding-top: 18px;
-  border-top: 2px solid rgba(16, 19, 24, 0.16);
-  font-size: clamp(2rem, 3.45vw, 4.25rem);
-  line-height: 0.98;
+  color: var(--ink);
+  font-size: clamp(1.65rem, 2.35vw, 3.2rem);
+  font-weight: 920;
+  line-height: 0.94;
   letter-spacing: 0;
   text-transform: uppercase;
 }
 
-.dual-line h2 span {
+.abstract-motto span {
   display: block;
   white-space: nowrap;
+}
+
+.abstract-copy {
+  min-width: 0;
+  color: #06080b;
+}
+
+.abstract-heading {
+  display: grid;
+  grid-template-columns: minmax(80px, 1fr) auto minmax(80px, 1fr);
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.abstract-heading span {
+  display: block;
+  height: 1px;
+  background: rgba(16, 19, 24, 0.28);
+}
+
+.abstract-heading h2 {
+  margin: 0;
+  color: #05070a;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: clamp(1.8rem, 2.6vw, 2.75rem);
+  font-weight: 760;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.abstract-copy p {
+  margin: 0;
+  color: #05070a;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: clamp(0.68rem, 0.72vw, 0.86rem);
+  line-height: 1.16;
+  text-align: justify;
+}
+
+.abstract-copy strong {
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
 }
 
 .accent-manipulation {
@@ -796,42 +842,12 @@ h1 {
   overflow: hidden;
 }
 
-.abstract,
 .bibtex {
   position: relative;
   z-index: 10;
   width: min(var(--max), calc(100% - 40px));
   margin: 0 auto;
   padding: clamp(70px, 9vw, 132px) 0;
-  background: white;
-}
-
-.abstract {
-  width: 100%;
-}
-
-.abstract h2,
-.abstract p {
-  width: min(var(--max), calc(100% - 40px));
-  margin-right: auto;
-  margin-left: auto;
-}
-
-.abstract h2 {
-  margin-bottom: 22px;
-  font-size: clamp(2rem, 4vw, 3.8rem);
-  line-height: 1;
-}
-
-.abstract p {
-  margin-bottom: 0;
-  color: #2b313a;
-  font-size: clamp(1.08rem, 1.55vw, 1.32rem);
-  line-height: 1.72;
-  text-align: justify;
-}
-
-.bibtex {
   background: var(--paper);
 }
 
@@ -859,9 +875,26 @@ h1 {
     white-space: normal;
   }
 
-  .dual-line,
+  .abstract-layout,
   .morph-stage {
     grid-template-columns: 1fr;
+  }
+
+  .abstract-layout {
+    gap: 28px;
+  }
+
+  .abstract-copy {
+    order: -1;
+  }
+
+  .abstract-motto {
+    font-size: clamp(2rem, 7vw, 3.25rem);
+  }
+
+  .abstract-copy p {
+    font-size: 0.92rem;
+    line-height: 1.38;
   }
 
   .morph-viewport {
@@ -922,10 +955,29 @@ h1 {
     min-width: calc(50% - 6px);
   }
 
-  .dual-line h2,
+  .abstract-motto,
   .design-title h2,
   .demos-heading .demo-title h2 {
     font-size: clamp(2rem, 10vw, 3.2rem);
+  }
+
+  .abstract-bridge {
+    padding: 52px 18px;
+  }
+
+  .abstract-heading {
+    grid-template-columns: minmax(44px, 1fr) auto minmax(44px, 1fr);
+    gap: 14px;
+  }
+
+  .abstract-heading h2 {
+    font-size: clamp(1.85rem, 8vw, 2.45rem);
+  }
+
+  .abstract-copy p {
+    font-size: 0.88rem;
+    line-height: 1.42;
+    text-align: left;
   }
 
   .design-title,

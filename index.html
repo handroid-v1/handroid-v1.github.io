@@ -8,9 +8,9 @@
     <meta property="og:description" content="A transformable desktop robot bridging dexterous hand and humanoid embodiments.">
     <meta property="og:image" content="assets/images/hero-switching-poster.jpg">
     <title>Handroid: Bridging Dexterous Hand and Humanoid</title>
-    <link rel="stylesheet" href="assets/site.css?v=20260714c">
+    <link rel="stylesheet" href="assets/site.css?v=20260714d">
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-    <script defer src="assets/site.js?v=20260714c"></script>
+    <script defer src="assets/site.js?v=20260714d"></script>
   </head>
   <body>
     <header class="site-header" data-header>
@@ -19,10 +19,10 @@
         <span>Handroid</span>
       </a>
       <nav aria-label="Primary navigation">
+        <a href="#abstract">Abstract</a>
         <a href="#morphology">Morphology</a>
         <a href="#design">Design</a>
         <a href="#demos">Demos</a>
-        <a href="#abstract">Abstract</a>
       </nav>
     </header>
 
@@ -72,10 +72,30 @@
         </div>
       </section>
 
-      <section class="dual-intro">
-        <div class="dual-line">
-          <h2><span>A DEX-HAND</span><span>WHEN</span><span class="accent-manipulation">MANIPULATION</span><span>MATTERS.</span></h2>
-          <h2><span>A HUMANOID</span><span>WHEN</span><span class="accent-locomotion">LOCOMOTION</span><span>MATTERS.</span></h2>
+      <section id="abstract" class="abstract-bridge">
+        <div class="abstract-layout">
+          <h2 class="abstract-motto abstract-motto-left">
+            <span>A DEX-HAND</span>
+            <span>WHEN</span>
+            <span class="accent-manipulation">MANIPULATION</span>
+            <span>MATTERS.</span>
+          </h2>
+          <article class="abstract-copy" aria-labelledby="abstract-title">
+            <div class="abstract-heading">
+              <span aria-hidden="true"></span>
+              <h2 id="abstract-title">Abstract</h2>
+              <span aria-hidden="true"></span>
+            </div>
+            <p>
+              Robot morphology is generally treated as a fixed design boundary, leaving dexterous hands and humanoid robots as separate embodiments. Dexterous hands provide high-DoF, contact-rich manipulation at the object scale, while humanoids provide mobility and body-scale interaction in human-centered environments. We introduce <strong>Handroid</strong>, a desktop-scale dual-embodiment robot that treats morphology as a reusable hardware resource: one 27-DoF electromechanical body can be physically reconfigured into both a dexterous hand and a desktop humanoid. Handroid is 0.33 m tall, weighs 2.05 kg and has 27 DoFs. In the Dexterous-Hand embodiment, 20 DoFs form an anthropomorphic hand structure whose DoF configuration closely matches that of the human hand. In the Humanoid embodiment, the same modules reconfigure into a 27-DoF whole-body humanoid for locomotion and humanoid motion control. Beyond hardware, Handroid provides a unified control and learning stack for teleoperated data collection, object-conditioned imitation learning, in-hand manipulation, humanoid motion control, gait generation, and interactive motion authoring. Through real-world dexterous manipulation, RL-based motion control, keyframe motion deployment, and a long-horizon task involving embodiment switching, locomotion, docking, and dexterous pick-and-place, we demonstrate that reusable morphology can support both robot design and cross-embodiment learning on a compact, reproducible platform.
+            </p>
+          </article>
+          <h2 class="abstract-motto abstract-motto-right">
+            <span>A HUMANOID</span>
+            <span>WHEN</span>
+            <span class="accent-locomotion">LOCOMOTION</span>
+            <span>MATTERS.</span>
+          </h2>
         </div>
       </section>
 
@@ -275,19 +295,6 @@
         <div class="carousel-control">
           <input type="range" min="0" max="100" value="0" aria-label="Demo carousel position" data-carousel-range>
         </div>
-      </section>
-
-      <section id="abstract" class="abstract">
-        <h2>Abstract</h2>
-        <p>
-          Morphology is a key factor that shapes a robot's functional boundaries, task space, and research paradigm.
-          To break the morphological boundary between dexterous hands and humanoid robots and enhance robotic
-          adaptability across diverse tasks, we introduce Handroid, a desktop-scale robotic system that integrates
-          dexterous-hand and humanoid embodiments within a single platform. Handroid has 27 DoFs, a compact size of
-          0.33 m, and a weight of 2.05 kg. Through teleoperation and reinforcement learning experiments, we demonstrate
-          Handroid's hardware capabilities and application potential in dexterous manipulation, humanoid locomotion,
-          and loco-manipulation tasks that combine both embodiments.
-        </p>
       </section>
 
       <section id="bibtex" class="bibtex">
