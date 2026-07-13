@@ -68,7 +68,8 @@ const requestUpdate = () => {
 
 const carouselViewport = document.querySelector("[data-carousel]");
 const carousel = document.querySelector("[data-carousel-track]");
-const carouselRange = document.querySelector("[data-carousel-range]");
+const carouselShell = document.querySelector("[data-carousel-shell]");
+const carouselArrows = [...document.querySelectorAll("[data-carousel-arrow]")];
 
 let videoObserver;
 
@@ -130,76 +131,129 @@ if ("IntersectionObserver" in window) {
 
 document.querySelectorAll("video").forEach(observeAutoplayVideo);
 
-if (carousel && carouselViewport && carouselRange) {
-  let carouselLastFrame = performance.now();
-  let carouselHover = false;
-  let carouselDragging = false;
-  let carouselStartX = 0;
-  let carouselStartScroll = 0;
-  const carouselSpeed = 48;
+const getVideoSource = (card) => {
+  const source = card.querySelector("source");
+  return source?.dataset.src || source?.getAttribute("src") || "";
+};
 
-  const carouselMaxScroll = () => Math.max(1, carouselViewport.scrollWidth - carouselViewport.clientWidth);
+const createVideoModal = () => {
+  const modal = document.createElement("div");
+  modal.className = "video-modal";
+  modal.setAttribute("aria-hidden", "true");
+  modal.innerHTML = `
+    <div class="video-modal-frame" role="dialog" aria-modal="true" aria-label="Demo video preview">
+      <button class="video-modal-close" type="button" aria-label="Close video preview"></button>
+      <video controls loop playsinline></video>
+    </div>
+  `;
+  document.body.appendChild(modal);
+  return modal;
+};
 
-  const updateCarouselRange = () => {
-    carouselRange.value = String((carouselViewport.scrollLeft / carouselMaxScroll()) * 100);
+const videoModal = createVideoModal();
+const modalVideo = videoModal.querySelector("video");
+const modalClose = videoModal.querySelector(".video-modal-close");
+
+const closeVideoModal = () => {
+  videoModal.classList.remove("is-open");
+  videoModal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("modal-open");
+  modalVideo.pause();
+  modalVideo.removeAttribute("src");
+  modalVideo.removeAttribute("poster");
+  modalVideo.load();
+};
+
+const openVideoModal = (card) => {
+  const src = getVideoSource(card);
+  if (!src) return;
+
+  const cardVideo = card.querySelector("video");
+  modalVideo.src = src;
+  modalVideo.poster = cardVideo?.getAttribute("poster") || "";
+  modalVideo.muted = true;
+  modalVideo.currentTime = 0;
+  videoModal.classList.add("is-open");
+  videoModal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("modal-open");
+  const playPromise = modalVideo.play();
+  if (playPromise) {
+    playPromise.catch(() => {});
+  }
+  modalClose.focus();
+};
+
+modalClose.addEventListener("click", closeVideoModal);
+videoModal.addEventListener("click", (event) => {
+  if (event.target === videoModal) {
+    closeVideoModal();
+  }
+});
+
+window.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && videoModal.classList.contains("is-open")) {
+    closeVideoModal();
+  }
+});
+
+if (carousel && carouselViewport && carouselShell) {
+  const cards = [...carousel.querySelectorAll(".portrait-demo")];
+
+  carouselShell.addEventListener("pointerenter", () => {
+    carouselShell.classList.add("is-hovered");
+  });
+
+  carouselShell.addEventListener("pointerleave", () => {
+    carouselShell.classList.remove("is-hovered");
+  });
+
+  const carouselMaxScroll = () => Math.max(0, carouselViewport.scrollWidth - carouselViewport.clientWidth);
+
+  const carouselStep = () => {
+    const card = cards[0];
+    const cardWidth = card?.getBoundingClientRect().width || 260;
+    const gap = parseFloat(window.getComputedStyle(carousel).columnGap) || 18;
+    return Math.max(cardWidth + gap, carouselViewport.clientWidth * 0.78);
   };
 
-  const animateCarousel = (time) => {
-    const deltaSeconds = Math.min(0.05, (time - carouselLastFrame) / 1000);
-    carouselLastFrame = time;
+  const scrollCarousel = (direction) => {
+    const maxScroll = carouselMaxScroll();
+    if (maxScroll <= 1) return;
 
-    if (!carouselHover && !carouselDragging) {
-      const maxScroll = carouselMaxScroll();
-      const nextScroll = carouselViewport.scrollLeft + deltaSeconds * carouselSpeed;
-      carouselViewport.scrollLeft = nextScroll >= maxScroll ? 0 : nextScroll;
-      updateCarouselRange();
+    const current = carouselViewport.scrollLeft;
+    const step = carouselStep();
+    let next = current + direction * step;
+
+    if (direction > 0 && next >= maxScroll - 4) {
+      next = 0;
+    } else if (direction < 0 && next <= 4) {
+      next = maxScroll;
+    } else {
+      next = clamp(next, 0, maxScroll);
     }
 
-    window.requestAnimationFrame(animateCarousel);
+    carouselViewport.scrollTo({ left: next, behavior: "smooth" });
   };
 
-  carouselViewport.addEventListener("pointerenter", () => {
-    carouselHover = true;
+  carouselArrows.forEach((button) => {
+    button.addEventListener("click", () => {
+      scrollCarousel(button.dataset.carouselArrow === "prev" ? -1 : 1);
+    });
   });
 
-  carouselViewport.addEventListener("pointerleave", () => {
-    carouselHover = false;
+  cards.forEach((card) => {
+    const title = card.querySelector("h3")?.textContent?.trim() || "demo";
+    card.tabIndex = 0;
+    card.setAttribute("role", "button");
+    card.setAttribute("aria-label", `Open ${title} video`);
+    card.addEventListener("click", () => openVideoModal(card));
+    card.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openVideoModal(card);
+      }
+    });
   });
-
-  carouselViewport.addEventListener("pointerdown", (event) => {
-    carouselDragging = true;
-    carouselStartX = event.clientX;
-    carouselStartScroll = carouselViewport.scrollLeft;
-    carouselViewport.classList.add("is-dragging");
-    carouselViewport.setPointerCapture(event.pointerId);
-  });
-
-  carouselViewport.addEventListener("pointermove", (event) => {
-    if (!carouselDragging) return;
-    carouselViewport.scrollLeft = carouselStartScroll - (event.clientX - carouselStartX);
-    updateCarouselRange();
-  });
-
-  const stopCarouselDrag = (event) => {
-    if (!carouselDragging) return;
-    carouselDragging = false;
-    carouselViewport.classList.remove("is-dragging");
-    if (carouselViewport.hasPointerCapture(event.pointerId)) {
-      carouselViewport.releasePointerCapture(event.pointerId);
-    }
-  };
-
-  carouselViewport.addEventListener("pointerup", stopCarouselDrag);
-  carouselViewport.addEventListener("pointercancel", stopCarouselDrag);
-
-  carouselRange.addEventListener("input", () => {
-    carouselViewport.scrollLeft = (Number(carouselRange.value) / 100) * carouselMaxScroll();
-  });
-
-  carouselViewport.addEventListener("scroll", updateCarouselRange, { passive: true });
-  window.addEventListener("resize", updateCarouselRange);
-  updateCarouselRange();
-  window.requestAnimationFrame(animateCarousel);
 }
 
 window.addEventListener("scroll", requestUpdate, { passive: true });

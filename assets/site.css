@@ -662,10 +662,14 @@ h1 {
   background: var(--paper);
 }
 
+.carousel-shell {
+  position: relative;
+}
+
 .carousel-viewport {
-  overflow-x: auto;
+  overflow-x: hidden;
   overflow-y: hidden;
-  cursor: grab;
+  scroll-behavior: smooth;
   touch-action: pan-y;
   user-select: none;
   scrollbar-width: none;
@@ -673,10 +677,6 @@ h1 {
 
 .carousel-viewport::-webkit-scrollbar {
   display: none;
-}
-
-.carousel-viewport.is-dragging {
-  cursor: grabbing;
 }
 
 .carousel-track {
@@ -694,6 +694,7 @@ h1 {
   border-radius: 8px;
   background: white;
   box-shadow: 0 14px 42px rgba(16, 19, 24, 0.08);
+  cursor: zoom-in;
 }
 
 .portrait-demo video {
@@ -703,6 +704,11 @@ h1 {
   background: #111720;
   object-fit: cover;
   object-position: center;
+}
+
+.portrait-demo:focus-visible {
+  outline: 3px solid rgba(42, 168, 187, 0.72);
+  outline-offset: 4px;
 }
 
 .portrait-demo h3 {
@@ -735,15 +741,145 @@ h1 {
   transform: translateY(0);
 }
 
-.carousel-control {
-  width: min(520px, calc(100% - 72px));
-  margin: 28px auto 0;
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 15;
+  display: grid;
+  place-items: center;
+  width: clamp(46px, 4.8vw, 70px);
+  height: clamp(132px, 15vw, 190px);
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.34);
+  box-shadow: 0 18px 48px rgba(16, 19, 24, 0.18);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-50%);
+  transition: opacity 160ms ease, background 160ms ease, box-shadow 160ms ease;
+  backdrop-filter: blur(10px);
+  cursor: pointer;
 }
 
-.carousel-control input {
+.carousel-shell:hover .carousel-arrow,
+.carousel-shell.is-hovered .carousel-arrow,
+.carousel-shell:focus-within .carousel-arrow {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.carousel-arrow:hover {
+  background: rgba(255, 255, 255, 0.48);
+  box-shadow: 0 22px 58px rgba(16, 19, 24, 0.24);
+}
+
+.carousel-arrow:focus-visible {
+  opacity: 1;
+  pointer-events: auto;
+  outline: 3px solid rgba(42, 168, 187, 0.75);
+  outline-offset: 4px;
+}
+
+.carousel-arrow-left {
+  left: clamp(14px, 2vw, 28px);
+}
+
+.carousel-arrow-right {
+  right: clamp(14px, 2vw, 28px);
+}
+
+.carousel-arrow span {
+  width: clamp(30px, 3.2vw, 46px);
+  height: clamp(30px, 3.2vw, 46px);
+  border-top: clamp(8px, 0.8vw, 12px) solid #000;
+  border-left: clamp(8px, 0.8vw, 12px) solid #000;
+}
+
+.carousel-arrow-left span {
+  transform: rotate(-45deg) translate(10%, 10%);
+}
+
+.carousel-arrow-right span {
+  transform: rotate(135deg) translate(10%, 10%);
+}
+
+.video-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: clamp(20px, 4vw, 56px);
+  background: rgba(8, 10, 14, 0.64);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+  backdrop-filter: blur(12px);
+}
+
+.video-modal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.video-modal-frame {
+  position: relative;
+  width: min(86vw, 560px, calc(88vh * 9 / 16));
+  aspect-ratio: 9 / 16;
+}
+
+.video-modal video {
+  display: block;
   width: 100%;
-  accent-color: #2aa8bb;
+  height: 100%;
+  border-radius: 8px;
+  background: #000;
+  box-shadow: 0 32px 100px rgba(0, 0, 0, 0.42);
+  object-fit: cover;
+  object-position: center;
+}
+
+.video-modal-close {
+  position: absolute;
+  top: -18px;
+  right: -18px;
+  z-index: 2;
+  width: 58px;
+  height: 58px;
+  border: 3px solid rgba(16, 19, 24, 0.28);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.26);
   cursor: pointer;
+}
+
+.video-modal-close::before,
+.video-modal-close::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 34px;
+  height: 5px;
+  border-radius: 99px;
+  background: rgba(16, 19, 24, 0.44);
+}
+
+.video-modal-close::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.video-modal-close::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.video-modal-close:hover::before,
+.video-modal-close:hover::after {
+  background: rgba(16, 19, 24, 0.7);
+}
+
+.modal-open {
+  overflow: hidden;
 }
 
 .abstract,
@@ -915,7 +1051,19 @@ h1 {
     transform: scale(0.76);
   }
 
-  .carousel-control {
-    width: min(420px, calc(100% - 64px));
+  .carousel-arrow {
+    width: 44px;
+    height: 118px;
+  }
+
+  .video-modal {
+    padding: 18px;
+  }
+
+  .video-modal-close {
+    top: -10px;
+    right: -10px;
+    width: 48px;
+    height: 48px;
   }
 }

@@ -8,9 +8,9 @@
     <meta property="og:description" content="A transformable desktop robot bridging dexterous hand and humanoid embodiments.">
     <meta property="og:image" content="assets/images/hero-switching-poster.jpg">
     <title>Handroid: Bridging Dexterous Hand and Humanoid</title>
-    <link rel="stylesheet" href="assets/site.css?v=20260713b">
+    <link rel="stylesheet" href="assets/site.css?v=20260713e">
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-    <script defer src="assets/site.js?v=20260713a"></script>
+    <script defer src="assets/site.js?v=20260713e"></script>
   </head>
   <body>
     <header class="site-header" data-header>
@@ -198,82 +198,87 @@
       </section>
 
       <section class="demo-carousel" aria-label="Additional Handroid demos">
-        <div class="carousel-viewport" data-carousel>
-          <div class="carousel-track" data-carousel-track>
-          <article class="portrait-demo">
-            <video autoplay muted loop playsinline preload="metadata" poster="assets/images/dex-hand-cube-rotation-poster.jpg">
-              <source src="assets/videos/dex-hand-cube-rotation.mp4?v=20260713b" type="video/mp4">
-            </video>
-            <h3>In-hand Reorientation</h3>
-            <p>Trained in simulation with PPO and deployed on the real Handroid hand, the policy runs at 30 Hz and maintains a 3D-printed cube in hand.</p>
-          </article>
-          <article class="portrait-demo">
-            <video autoplay muted loop playsinline preload="metadata" poster="assets/images/dex-hand-finger-teleop-poster.jpg">
-              <source src="assets/videos/dex-hand-finger-teleop.mp4?v=20260713b" type="video/mp4">
-            </video>
-            <h3>Finger Teleop</h3>
-            <p>Finger-opposition and fist-closing teleoperation validate the hardware and provide motion priors for learning.</p>
-          </article>
-          <article class="portrait-demo">
-            <video autoplay muted loop playsinline preload="metadata" poster="assets/images/dex-hand-bottle-cap-placement-poster.jpg">
-              <source src="assets/videos/dex-hand-bottle-cap-placement.mp4?v=20260711e" type="video/mp4">
-            </video>
-            <h3>Bottle Cap Placement</h3>
-            <p>Handroid picks up a flat cap and places it at a target location, testing thin-object control.</p>
-          </article>
-          <article class="portrait-demo">
-            <video autoplay muted loop playsinline preload="metadata" poster="assets/images/dex-hand-cup-hanging-poster.jpg">
-              <source src="assets/videos/dex-hand-cup-hanging.mp4?v=20260711e" type="video/mp4">
-            </video>
-            <h3>Cup Pick-and-Place</h3>
-            <p>Handroid performs pick-and-place with a metal cup weighing approximately 270 g.</p>
-          </article>
-          <article class="portrait-demo">
-            <video autoplay muted loop playsinline preload="metadata" poster="assets/images/dex-hand-cup-stacking-poster.jpg">
-              <source src="assets/videos/dex-hand-cup-stacking.mp4?v=20260711e" type="video/mp4">
-            </video>
-            <h3>Cup Stacking</h3>
-            <p>Stacking deformable cups demonstrates potential for force-aware manipulation and compliant contact.</p>
-          </article>
-          <article class="portrait-demo">
-            <video autoplay muted loop playsinline preload="metadata" poster="assets/images/dex-hand-glove-removal-poster.jpg">
-              <source src="assets/videos/dex-hand-glove-removal.mp4?v=20260711e" type="video/mp4">
-            </video>
-            <h3>Glove Removal</h3>
-            <p>Handroid extracts a rubber glove from the box, showing dexterity with flexible objects.</p>
-          </article>
-          <article class="portrait-demo">
-            <video autoplay muted loop playsinline preload="metadata" poster="assets/images/dex-hand-dual-object-grasping-poster.jpg">
-              <source src="assets/videos/dex-hand-dual-object-grasping.mp4?v=20260711e" type="video/mp4">
-            </video>
-            <h3>Dual-Object Grasping</h3>
-            <p>Handroid grasps two objects simultaneously, demonstrating adaptability in a single action.</p>
-          </article>
-          <article class="portrait-demo">
-            <video autoplay muted loop playsinline preload="metadata" poster="assets/images/dex-hand-paper-grasping-poster.jpg">
-              <source src="assets/videos/dex-hand-paper-grasping.mp4?v=20260711e" type="video/mp4">
-            </video>
-            <h3>Paper Grasping</h3>
-            <p>Handroid picks up a sheet of paper and places it into a basket, highlighting fine manipulation.</p>
-          </article>
-          <article class="portrait-demo">
-            <video autoplay muted loop playsinline preload="metadata" poster="assets/images/dex-hand-pouring-water-poster.jpg">
-              <source src="assets/videos/dex-hand-pouring-water.mp4?v=20260711e" type="video/mp4">
-            </video>
-            <h3>Pouring Water</h3>
-            <p>Handroid grasps a water-filled bottle and pours water into a cup during dynamic manipulation.</p>
-          </article>
-          <article class="portrait-demo">
-            <video autoplay muted loop playsinline preload="metadata" poster="assets/images/humanoid-locomotion-command-poster.jpg?v=20260713c">
-              <source src="assets/videos/humanoid-locomotion-command.mp4?v=20260713c" type="video/mp4">
-            </video>
-            <h3>Locomotion Commands</h3>
-            <p>Squatting, moving forward and backward, and turning validate basic locomotion capability.</p>
-          </article>
+        <div class="carousel-shell" data-carousel-shell>
+          <button class="carousel-arrow carousel-arrow-left" type="button" aria-label="Scroll demos left" data-carousel-arrow="prev">
+            <span aria-hidden="true"></span>
+          </button>
+          <div class="carousel-viewport" data-carousel>
+            <div class="carousel-track" data-carousel-track>
+              <article class="portrait-demo">
+                <video autoplay muted loop playsinline preload="metadata" poster="assets/images/dex-hand-cube-rotation-poster.jpg">
+                  <source src="assets/videos/dex-hand-cube-rotation.mp4?v=20260713b" type="video/mp4">
+                </video>
+                <h3>In-hand Reorientation</h3>
+                <p>Trained in simulation with PPO and deployed on the real Handroid hand, the policy runs at 30 Hz and maintains a 3D-printed cube in hand.</p>
+              </article>
+              <article class="portrait-demo">
+                <video autoplay muted loop playsinline preload="metadata" poster="assets/images/dex-hand-finger-teleop-poster.jpg">
+                  <source src="assets/videos/dex-hand-finger-teleop.mp4?v=20260713b" type="video/mp4">
+                </video>
+                <h3>Finger Teleop</h3>
+                <p>Finger-opposition and fist-closing teleoperation validate the hardware and provide motion priors for learning.</p>
+              </article>
+              <article class="portrait-demo">
+                <video autoplay muted loop playsinline preload="metadata" poster="assets/images/dex-hand-bottle-cap-placement-poster.jpg">
+                  <source src="assets/videos/dex-hand-bottle-cap-placement.mp4?v=20260711e" type="video/mp4">
+                </video>
+                <h3>Bottle Cap Placement</h3>
+                <p>Handroid picks up a flat cap and places it at a target location, testing thin-object control.</p>
+              </article>
+              <article class="portrait-demo">
+                <video autoplay muted loop playsinline preload="metadata" poster="assets/images/dex-hand-cup-hanging-poster.jpg">
+                  <source src="assets/videos/dex-hand-cup-hanging.mp4?v=20260711e" type="video/mp4">
+                </video>
+                <h3>Cup Pick-and-Place</h3>
+                <p>Handroid performs pick-and-place with a metal cup weighing approximately 270 g.</p>
+              </article>
+              <article class="portrait-demo">
+                <video autoplay muted loop playsinline preload="metadata" poster="assets/images/dex-hand-cup-stacking-poster.jpg">
+                  <source src="assets/videos/dex-hand-cup-stacking.mp4?v=20260711e" type="video/mp4">
+                </video>
+                <h3>Cup Stacking</h3>
+                <p>Stacking deformable cups demonstrates potential for force-aware manipulation and compliant contact.</p>
+              </article>
+              <article class="portrait-demo">
+                <video autoplay muted loop playsinline preload="metadata" poster="assets/images/dex-hand-glove-removal-poster.jpg">
+                  <source src="assets/videos/dex-hand-glove-removal.mp4?v=20260711e" type="video/mp4">
+                </video>
+                <h3>Glove Removal</h3>
+                <p>Handroid extracts a rubber glove from the box, showing dexterity with flexible objects.</p>
+              </article>
+              <article class="portrait-demo">
+                <video autoplay muted loop playsinline preload="metadata" poster="assets/images/dex-hand-dual-object-grasping-poster.jpg">
+                  <source src="assets/videos/dex-hand-dual-object-grasping.mp4?v=20260711e" type="video/mp4">
+                </video>
+                <h3>Dual-Object Grasping</h3>
+                <p>Handroid grasps two objects simultaneously, demonstrating adaptability in a single action.</p>
+              </article>
+              <article class="portrait-demo">
+                <video autoplay muted loop playsinline preload="metadata" poster="assets/images/dex-hand-paper-grasping-poster.jpg">
+                  <source src="assets/videos/dex-hand-paper-grasping.mp4?v=20260711e" type="video/mp4">
+                </video>
+                <h3>Paper Grasping</h3>
+                <p>Handroid picks up a sheet of paper and places it into a basket, highlighting fine manipulation.</p>
+              </article>
+              <article class="portrait-demo">
+                <video autoplay muted loop playsinline preload="metadata" poster="assets/images/dex-hand-pouring-water-poster.jpg">
+                  <source src="assets/videos/dex-hand-pouring-water.mp4?v=20260711e" type="video/mp4">
+                </video>
+                <h3>Pouring Water</h3>
+                <p>Handroid grasps a water-filled bottle and pours water into a cup during dynamic manipulation.</p>
+              </article>
+              <article class="portrait-demo">
+                <video autoplay muted loop playsinline preload="metadata" poster="assets/images/humanoid-locomotion-command-poster.jpg?v=20260713c">
+                  <source src="assets/videos/humanoid-locomotion-command.mp4?v=20260713c" type="video/mp4">
+                </video>
+                <h3>Locomotion Commands</h3>
+                <p>Squatting, moving forward and backward, and turning validate basic locomotion capability.</p>
+              </article>
+            </div>
           </div>
-        </div>
-        <div class="carousel-control">
-          <input type="range" min="0" max="100" value="0" aria-label="Demo carousel position" data-carousel-range>
+          <button class="carousel-arrow carousel-arrow-right" type="button" aria-label="Scroll demos right" data-carousel-arrow="next">
+            <span aria-hidden="true"></span>
+          </button>
         </div>
       </section>
 
