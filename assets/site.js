@@ -198,6 +198,8 @@ window.addEventListener("keydown", (event) => {
 
 if (carousel && carouselViewport && carouselShell) {
   const cards = [...carousel.querySelectorAll(".portrait-demo")];
+  let carouselMoving = false;
+  let queuedCarouselDirection = 0;
 
   carouselShell.addEventListener("pointerenter", () => {
     carouselShell.classList.add("is-hovered");
@@ -207,37 +209,70 @@ if (carousel && carouselViewport && carouselShell) {
     carouselShell.classList.remove("is-hovered");
   });
 
-  const carouselMaxScroll = () => Math.max(0, carouselViewport.scrollWidth - carouselViewport.clientWidth);
-
   const carouselStep = () => {
-    const card = cards[0];
+    const card = carousel.querySelector(".portrait-demo");
     const cardWidth = card?.getBoundingClientRect().width || 260;
     const gap = parseFloat(window.getComputedStyle(carousel).columnGap) || 18;
-    return Math.max(cardWidth + gap, carouselViewport.clientWidth * 0.78);
+    return cardWidth + gap;
   };
 
-  const scrollCarousel = (direction) => {
-    const maxScroll = carouselMaxScroll();
-    if (maxScroll <= 1) return;
+  const resetCarouselTransition = () => {
+    carousel.style.transition = "none";
+    carousel.style.transform = "translateX(0)";
+    carousel.getBoundingClientRect();
+    carousel.style.transition = "";
+  };
 
-    const current = carouselViewport.scrollLeft;
-    const step = carouselStep();
-    let next = current + direction * step;
-
-    if (direction > 0 && next >= maxScroll - 4) {
-      next = 0;
-    } else if (direction < 0 && next <= 4) {
-      next = maxScroll;
-    } else {
-      next = clamp(next, 0, maxScroll);
+  const finishCarouselMove = (visualDirection) => {
+    if (visualDirection < 0) {
+      carousel.appendChild(carousel.firstElementChild);
     }
 
-    carouselViewport.scrollTo({ left: next, behavior: "smooth" });
+    resetCarouselTransition();
+    carouselMoving = false;
+
+    if (queuedCarouselDirection !== 0) {
+      const nextDirection = queuedCarouselDirection;
+      queuedCarouselDirection = 0;
+      window.requestAnimationFrame(() => moveCarousel(nextDirection));
+    }
+  };
+
+  const moveCarousel = (visualDirection) => {
+    if (cards.length <= 1) return;
+    if (carouselMoving) {
+      queuedCarouselDirection = visualDirection;
+      return;
+    }
+
+    carouselMoving = true;
+    const step = carouselStep();
+    let fallbackTimer;
+
+    if (visualDirection > 0) {
+      carousel.insertBefore(carousel.lastElementChild, carousel.firstElementChild);
+      carousel.style.transition = "none";
+      carousel.style.transform = `translateX(${-step}px)`;
+      carousel.getBoundingClientRect();
+    }
+
+    const completeMove = (event) => {
+      if (event && (event.target !== carousel || event.propertyName !== "transform")) return;
+
+      window.clearTimeout(fallbackTimer);
+      carousel.removeEventListener("transitionend", completeMove);
+      finishCarouselMove(visualDirection);
+    };
+
+    carousel.addEventListener("transitionend", completeMove);
+    carousel.style.transition = "transform 340ms ease";
+    carousel.style.transform = visualDirection > 0 ? "translateX(0)" : `translateX(${-step}px)`;
+    fallbackTimer = window.setTimeout(() => completeMove(), 440);
   };
 
   carouselArrows.forEach((button) => {
     button.addEventListener("click", () => {
-      scrollCarousel(button.dataset.carouselArrow === "prev" ? -1 : 1);
+      moveCarousel(button.dataset.carouselArrow === "prev" ? -1 : 1);
     });
   });
 
