@@ -657,14 +657,14 @@ h1 {
   position: relative;
   z-index: 9;
   min-height: auto;
-  padding: clamp(96px, 12vw, 176px) 0 clamp(42px, 6vw, 84px);
+  padding: clamp(48px, 7vw, 92px) 0 clamp(18px, 3vw, 38px);
   background: #e4e9ef;
   color: var(--ink);
 }
 
 .demos-heading .demo-title {
   position: static;
-  width: min(1260px, calc(100% - 40px));
+  width: min(1320px, calc(100% - 40px));
   transform: none;
 }
 
@@ -676,11 +676,12 @@ h1 {
 }
 
 .demos-heading .demo-title p {
-  margin: 22px 0 0;
+  margin: 20px 0 0;
   color: #2f3845;
-  font-size: clamp(1.25rem, 2.3vw, 2.6rem);
-  font-weight: 560;
+  font-size: clamp(0.58rem, 1.72vw, 2rem);
+  font-weight: 640;
   line-height: 1.08;
+  white-space: nowrap;
 }
 
 .demo-focus {
@@ -689,7 +690,7 @@ h1 {
   isolation: isolate;
   width: min(1320px, calc(100% - 40px));
   margin: 0 auto;
-  padding: clamp(36px, 5vw, 70px) 0 clamp(28px, 4vw, 54px);
+  padding: clamp(24px, 3.6vw, 48px) 0 clamp(30px, 4.2vw, 58px);
   background: transparent;
 }
 
@@ -711,7 +712,7 @@ h1 {
 }
 
 .demo-focus div {
-  padding: 24px 4px 0;
+  padding: 0 0 clamp(16px, 2vw, 28px);
 }
 
 .demo-focus h2 {
@@ -721,7 +722,7 @@ h1 {
 }
 
 .dp-focus {
-  padding-top: clamp(58px, 7vw, 104px);
+  padding-top: clamp(42px, 6vw, 86px);
 }
 
 .demo-carousel {
@@ -1015,8 +1016,13 @@ h1 {
   }
 
   .design-title,
-  .demos-heading .demo-title {
+  .demos-heading .demo-title,
+  .demo-focus {
     width: min(100% - 28px, 1260px);
+  }
+
+  .demos-heading .demo-title p {
+    font-size: min(0.95rem, calc((100vw - 28px) / 41));
   }
 
   .portrait-demo {
