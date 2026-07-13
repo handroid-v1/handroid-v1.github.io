@@ -657,8 +657,8 @@ h1 {
   position: relative;
   z-index: 9;
   min-height: auto;
-  padding: clamp(74px, 10vw, 142px) 0 clamp(26px, 4vw, 52px);
-  background: linear-gradient(180deg, #ffffff 0%, #f8f9fb 36%, #eef3f6 100%);
+  padding: clamp(96px, 12vw, 176px) 0 clamp(42px, 6vw, 84px);
+  background: linear-gradient(180deg, #ffffff 0%, #eef0f2 30%, #c8cbcf 62%, #9da1a5 84%, #7a7c7e 100%);
   color: var(--ink);
 }
 
@@ -699,7 +699,7 @@ h1 {
   position: absolute;
   inset: 0 calc(50% - 50vw);
   z-index: -1;
-  background: #eef3f6;
+  background: #7a7c7e;
 }
 
 .demo-focus video {
@@ -733,7 +733,7 @@ h1 {
 }
 
 .demo-carousel::before {
-  background: linear-gradient(180deg, #eef3f6 0%, #eef3f6 58%, #d7dde4 78%, #10151d 100%);
+  background: linear-gradient(180deg, #7a7c7e 0%, #74787d 36%, #555d66 66%, #303842 86%, #10151d 100%);
 }
 
 .carousel-viewport {
