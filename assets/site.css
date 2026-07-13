@@ -697,10 +697,12 @@ h1 {
 }
 
 .portrait-demo video {
+  display: block;
   width: 100%;
   aspect-ratio: 9 / 16;
   background: #111720;
   object-fit: cover;
+  object-position: center;
 }
 
 .portrait-demo h3 {
