@@ -888,9 +888,24 @@ h1 {
   object-position: center;
 }
 
-.portrait-demo:focus-visible {
+.portrait-demo-open {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  padding: 0;
+  border: 0;
+  border-radius: 8px 8px 0 0;
+  background: transparent;
+  cursor: zoom-in;
+  touch-action: pan-x pan-y;
+}
+
+.portrait-demo-open:focus-visible {
   outline: 3px solid rgba(42, 168, 187, 0.72);
-  outline-offset: 4px;
+  outline-offset: -4px;
 }
 
 .portrait-demo h3 {

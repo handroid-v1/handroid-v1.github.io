@@ -296,12 +296,15 @@ if (carousel && carouselViewport && carouselRange) {
 
   const prepareCarouselCard = (card) => {
     const title = card.querySelector("h3")?.textContent?.trim() || "demo";
-    card.tabIndex = 0;
-    card.setAttribute("role", "button");
-    card.setAttribute("aria-label", `Open ${title} video`);
+    const previewButton = document.createElement("button");
+    previewButton.className = "portrait-demo-open";
+    previewButton.type = "button";
+    previewButton.setAttribute("aria-label", `Open ${title} video`);
+    card.appendChild(previewButton);
+    return previewButton;
   };
 
-  cards.forEach((card) => prepareCarouselCard(card));
+  const previewButtons = cards.map((card) => prepareCarouselCard(card));
 
   const carouselMaxScroll = () => Math.max(0, carouselViewport.scrollWidth - carouselViewport.clientWidth);
 
@@ -417,8 +420,9 @@ if (carousel && carouselViewport && carouselRange) {
     carouselObserver.observe(carouselViewport);
   }
 
-  cards.forEach((card) => {
-    card.addEventListener("click", (event) => {
+  cards.forEach((card, index) => {
+    const previewButton = previewButtons[index];
+    const openPreview = (event) => {
       if (suppressCardClick) {
         event.preventDefault();
         event.stopPropagation();
@@ -426,12 +430,13 @@ if (carousel && carouselViewport && carouselRange) {
       }
 
       openVideoModal(card);
-    });
+    };
 
-    card.addEventListener("keydown", (event) => {
+    previewButton.addEventListener("click", openPreview);
+    previewButton.addEventListener("keydown", (event) => {
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
-        openVideoModal(card);
+        openPreview(event);
       }
     });
   });
