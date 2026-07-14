@@ -821,6 +821,15 @@ h1 {
   height: auto;
 }
 
+[data-video-preview] {
+  cursor: zoom-in;
+}
+
+[data-video-preview]:focus-visible {
+  outline: 3px solid rgba(42, 168, 187, 0.78);
+  outline-offset: 5px;
+}
+
 .demo-carousel {
   position: relative;
   z-index: 10;

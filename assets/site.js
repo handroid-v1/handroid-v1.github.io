@@ -165,8 +165,13 @@ if ("IntersectionObserver" in window) {
 
 document.querySelectorAll("video").forEach(observeAutoplayVideo);
 
-const getVideoSource = (card) => {
-  const source = card.querySelector("source");
+const getVideoElement = (trigger) => trigger.matches("video")
+  ? trigger
+  : trigger.querySelector("video");
+
+const getVideoSource = (trigger) => {
+  const video = getVideoElement(trigger);
+  const source = video?.querySelector("source");
   return source?.dataset.src || source?.getAttribute("src") || "";
 };
 
@@ -190,10 +195,14 @@ let modalTrigger = null;
 
 modalFrame.tabIndex = -1;
 
-modalVideo.addEventListener("loadedmetadata", () => {
-  const ratio = modalVideo.videoWidth / Math.max(1, modalVideo.videoHeight);
+const setModalRatio = (ratio) => {
   modalFrame.style.setProperty("--modal-ratio", String(ratio));
   modalFrame.style.setProperty("--modal-max-width", ratio >= 1 ? "960px" : "560px");
+};
+
+modalVideo.addEventListener("loadedmetadata", () => {
+  const ratio = modalVideo.videoWidth / Math.max(1, modalVideo.videoHeight);
+  setModalRatio(ratio);
 });
 
 const closeVideoModal = () => {
@@ -208,14 +217,15 @@ const closeVideoModal = () => {
   modalTrigger = null;
 };
 
-const openVideoModal = (card) => {
-  const src = getVideoSource(card);
+const openVideoModal = (trigger) => {
+  const src = getVideoSource(trigger);
   if (!src) return;
 
-  const cardVideo = card.querySelector("video");
-  modalTrigger = card;
-  modalFrame.style.setProperty("--modal-ratio", "0.5625");
-  modalFrame.style.setProperty("--modal-max-width", "560px");
+  const cardVideo = getVideoElement(trigger);
+  const intrinsicRatio = cardVideo?.videoWidth / Math.max(1, cardVideo?.videoHeight || 0);
+  const fallbackRatio = trigger.closest(".portrait-demo") ? 9 / 16 : 16 / 9;
+  modalTrigger = trigger;
+  setModalRatio(Number.isFinite(intrinsicRatio) && intrinsicRatio > 0 ? intrinsicRatio : fallbackRatio);
   modalVideo.src = src;
   modalVideo.poster = cardVideo?.getAttribute("poster") || "";
   modalVideo.muted = true;
@@ -229,6 +239,21 @@ const openVideoModal = (card) => {
     playPromise.catch(() => {});
   }
 };
+
+document.querySelectorAll("[data-video-preview]").forEach((video) => {
+  const title = video.dataset.videoTitle || "demo";
+  video.tabIndex = 0;
+  video.setAttribute("role", "button");
+  video.setAttribute("aria-label", `Open ${title} video`);
+
+  video.addEventListener("click", () => openVideoModal(video));
+  video.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openVideoModal(video);
+    }
+  });
+});
 
 videoModal.addEventListener("click", (event) => {
   if (event.target === videoModal) {
