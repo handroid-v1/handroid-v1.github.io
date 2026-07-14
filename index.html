@@ -8,9 +8,9 @@
     <meta property="og:description" content="A transformable desktop robot bridging dexterous hand and humanoid embodiments.">
     <meta property="og:image" content="assets/images/hero-switching-poster.jpg">
     <title>Handroid: Bridging Dexterous Hand and Humanoid</title>
-    <link rel="stylesheet" href="assets/site.css?v=20260715a">
+    <link rel="stylesheet" href="assets/site.css?v=20260715g">
     <script type="module" src="https://unpkg.com/@google/model-viewer@4.3.1/dist/model-viewer.min.js"></script>
-    <script defer src="assets/site.js?v=20260715a"></script>
+    <script defer src="assets/site.js?v=20260715g"></script>
   </head>
   <body>
     <header class="site-header" data-header>
@@ -78,12 +78,6 @@
 
       <section id="abstract" class="abstract-bridge">
         <div class="abstract-layout">
-          <h2 class="abstract-motto abstract-motto-left">
-            <span>A DEX-HAND</span>
-            <span>WHEN</span>
-            <span class="accent-manipulation">MANIPULATION</span>
-            <span>MATTERS.</span>
-          </h2>
           <article class="abstract-copy" aria-labelledby="abstract-title">
             <div class="abstract-heading">
               <span aria-hidden="true"></span>
@@ -94,12 +88,18 @@
               Robot morphology is generally treated as a fixed design boundary, leaving dexterous hands and humanoid robots as separate embodiments. Dexterous hands provide high-DoF, contact-rich manipulation at the object scale, while humanoids provide mobility and body-scale interaction in human-centered environments. We introduce <strong>Handroid</strong>, a desktop-scale dual-embodiment robot that treats morphology as a reusable hardware resource: one 27-DoF electromechanical body can be physically reconfigured into both a dexterous hand and a desktop humanoid. Handroid is 0.33 m tall, weighs 2.05 kg and has 27 DoFs. In the Dexterous-Hand embodiment, 20 DoFs form an anthropomorphic hand structure whose DoF configuration closely matches that of the human hand. In the Humanoid embodiment, the same modules reconfigure into a 27-DoF whole-body humanoid for locomotion and humanoid motion control. Beyond hardware, Handroid provides a unified control and learning stack for teleoperated data collection, object-conditioned imitation learning, in-hand manipulation, humanoid motion control, gait generation, and interactive motion authoring. Through real-world dexterous manipulation, RL-based motion control, keyframe motion deployment, and a long-horizon task involving embodiment switching, locomotion, docking, and dexterous pick-and-place, we demonstrate that reusable morphology can support both robot design and cross-embodiment learning on a compact, reproducible platform.
             </p>
           </article>
-          <h2 class="abstract-motto abstract-motto-right">
-            <span>A HUMANOID</span>
-            <span>WHEN</span>
-            <span class="accent-locomotion">LOCOMOTION</span>
-            <span>MATTERS.</span>
-          </h2>
+          <div class="abstract-slogans" aria-label="Handroid embodiments">
+            <h2 class="abstract-motto">
+              <span class="motto-prefix">A DEX-HAND WHEN</span>
+              <span class="accent-manipulation">MANIPULATION</span>
+              <span class="motto-suffix">MATTERS.</span>
+            </h2>
+            <h2 class="abstract-motto">
+              <span class="motto-prefix">A HUMANOID WHEN</span>
+              <span class="accent-locomotion">LOCOMOTION</span>
+              <span class="motto-suffix">MATTERS.</span>
+            </h2>
+          </div>
         </div>
       </section>
 
@@ -242,7 +242,7 @@
           </div>
         </div>
         <div class="carousel-control">
-          <input type="range" min="0" max="100" value="0" aria-label="Demo carousel position" data-carousel-range>
+          <input type="range" min="0" max="100" value="0" aria-label="Demo carousel position" tabindex="-1" data-carousel-range>
         </div>
       </section>
 
@@ -354,7 +354,7 @@
   title={Handroid: Bridging Dexterous Hand and Humanoid},
   author={Ruogu Li and Chenyang Ma and Sikai Li and Zhenyu Wei and Yunchao Yao and Haochen Shi and C. Karen Liu and Shuran Song and Mingyu Ding},
   year={2026},
-  url={https://handroid.org}
+  url={https://handroid-v1.github.io/}
 }</code></pre>
         </div>
       </section>

@@ -8,6 +8,8 @@ const heroContent = document.querySelector("[data-hero-content]");
 const navToggle = document.querySelector(".nav-toggle");
 const primaryNav = document.querySelector("#primary-nav");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+const isIOSWebKit = /iPad|iPhone|iPod/.test(navigator.userAgent)
+  || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
 
 let ticking = false;
 
@@ -97,6 +99,24 @@ const handleVideoVisibility = (entries) => {
 const prepareAutoplayVideo = (video) => {
   if (video.dataset.prepared === "true") return;
 
+  if (video.closest(".portrait-demo")) {
+    const card = video.closest(".portrait-demo");
+    const poster = video.getAttribute("poster");
+    if (card && poster && !card.querySelector(".video-poster-fallback")) {
+      const fallback = document.createElement("img");
+      fallback.className = "video-poster-fallback";
+      fallback.src = poster;
+      fallback.alt = "";
+      fallback.setAttribute("aria-hidden", "true");
+      video.insertAdjacentElement("afterend", fallback);
+    }
+
+    const markReady = () => card?.classList.add("is-video-ready");
+    video.addEventListener("loadeddata", markReady, { once: true });
+    video.addEventListener("playing", markReady, { once: true });
+    if (video.readyState >= 2) markReady();
+  }
+
   video.muted = true;
   video.loop = true;
   video.playsInline = true;
@@ -170,10 +190,43 @@ const getVideoElement = (trigger) => trigger.matches("video")
   : trigger.querySelector("video");
 
 const getVideoSource = (trigger) => {
+  if (trigger.dataset?.videoSrc) return trigger.dataset.videoSrc;
+
   const video = getVideoElement(trigger);
   const source = video?.querySelector("source");
   return source?.dataset.src || source?.getAttribute("src") || "";
 };
+
+const getVideoPoster = (trigger) => {
+  if (trigger.dataset?.videoPoster) return trigger.dataset.videoPoster;
+
+  return getVideoElement(trigger)?.getAttribute("poster") || "";
+};
+
+const convertPortraitDemosToPosters = () => {
+  document.querySelectorAll(".portrait-demo video").forEach((video) => {
+    const card = video.closest(".portrait-demo");
+    const source = video.querySelector("source");
+    const src = source?.dataset.src || source?.getAttribute("src") || "";
+    const poster = video.getAttribute("poster") || "";
+    if (!card || !src || !poster) return;
+
+    card.dataset.videoSrc = src;
+    card.dataset.videoPoster = poster;
+    card.classList.add("is-poster-only");
+
+    const image = document.createElement("img");
+    image.className = "portrait-demo-poster";
+    image.src = poster;
+    image.alt = "";
+    image.setAttribute("aria-hidden", "true");
+    video.replaceWith(image);
+  });
+};
+
+if (isIOSWebKit) {
+  convertPortraitDemosToPosters();
+}
 
 const createVideoModal = () => {
   const modal = document.createElement("div");
@@ -243,7 +296,7 @@ const openVideoModal = (trigger) => {
     featuredPreview ? "1720px" : undefined
   );
   modalVideo.src = src;
-  modalVideo.poster = cardVideo?.getAttribute("poster") || "";
+  modalVideo.poster = getVideoPoster(trigger);
   modalVideo.muted = true;
   modalVideo.currentTime = 0;
   videoModal.classList.add("is-open");
@@ -293,7 +346,10 @@ if (carousel && carouselViewport && carouselRange) {
   let carouselVisible = true;
   let suppressCardClick = false;
   let carouselStartX = 0;
+  let carouselStartY = 0;
   let carouselStartScroll = 0;
+  let carouselPressCard = null;
+  let carouselPressMoved = false;
   const carouselSpeed = 48;
   const dragThreshold = 6;
 
@@ -362,17 +418,28 @@ if (carousel && carouselViewport && carouselRange) {
 
   carouselViewport.addEventListener("pointerdown", (event) => {
     carouselUserPaused = true;
+    carouselPressCard = event.isPrimary ? event.target.closest(".portrait-demo") : null;
+    carouselPressMoved = false;
+    carouselStartX = event.clientX;
+    carouselStartY = event.clientY;
     if (!event.isPrimary || event.pointerType !== "mouse" || event.button !== 0) return;
 
     carouselDragging = true;
     carouselMoved = false;
-    carouselStartX = event.clientX;
     carouselStartScroll = carouselViewport.scrollLeft;
     carouselViewport.classList.add("is-dragging");
     carouselViewport.setPointerCapture(event.pointerId);
   });
 
   carouselViewport.addEventListener("pointermove", (event) => {
+    if (carouselPressCard) {
+      const pressDeltaX = event.clientX - carouselStartX;
+      const pressDeltaY = event.clientY - carouselStartY;
+      if (Math.hypot(pressDeltaX, pressDeltaY) > dragThreshold) {
+        carouselPressMoved = true;
+      }
+    }
+
     if (!carouselDragging) return;
 
     const deltaX = event.clientX - carouselStartX;
@@ -383,35 +450,42 @@ if (carousel && carouselViewport && carouselRange) {
     updateCarouselRange();
   });
 
-  const stopCarouselDrag = (event, cancelled = false) => {
-    if (!carouselDragging) return;
+  const finishCarouselPress = (event, cancelled = false) => {
+    const pressedCard = carouselPressCard;
+    const pressMoved = carouselPressMoved;
+    carouselPressCard = null;
+    carouselPressMoved = false;
 
+    const releaseCard = document
+      .elementFromPoint(event.clientX, event.clientY)
+      ?.closest(".portrait-demo");
+
+    if (!cancelled && !pressMoved && pressedCard && releaseCard === pressedCard) {
+      openVideoModal(pressedCard);
+      suppressNextCardClick();
+    }
+  };
+
+  const stopCarouselDrag = (event, cancelled = false) => {
+    const wasDragging = carouselDragging;
     carouselDragging = false;
     carouselViewport.classList.remove("is-dragging");
     if (carouselViewport.hasPointerCapture(event.pointerId)) {
       carouselViewport.releasePointerCapture(event.pointerId);
     }
 
-    if (!cancelled && carouselMoved) {
+    if (wasDragging && !cancelled && carouselMoved) {
       suppressNextCardClick();
+      carouselPressCard = null;
+      carouselPressMoved = false;
+      return;
     }
+
+    finishCarouselPress(event, cancelled);
   };
 
   carouselViewport.addEventListener("pointerup", stopCarouselDrag);
   carouselViewport.addEventListener("pointercancel", (event) => stopCarouselDrag(event, true));
-
-  carouselRange.addEventListener("input", () => {
-    carouselUserPaused = true;
-    carouselViewport.scrollLeft = (Number(carouselRange.value) / 100) * carouselMaxScroll();
-  });
-
-  carouselRange.addEventListener("pointerdown", () => {
-    carouselUserPaused = true;
-  });
-
-  carouselRange.addEventListener("focus", () => {
-    carouselUserPaused = true;
-  });
 
   carouselViewport.addEventListener("scroll", updateCarouselRange, { passive: true });
   window.addEventListener("resize", updateCarouselRange);
