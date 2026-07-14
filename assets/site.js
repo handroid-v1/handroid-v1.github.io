@@ -476,6 +476,59 @@ if (mobileNavigation.addEventListener) {
   mobileNavigation.addListener(handleNavigationBreakpoint);
 }
 
+const bibtexCopyButton = document.querySelector("[data-copy-bibtex]");
+const bibtexContent = document.querySelector("[data-bibtex-content]");
+let bibtexCopyResetTimer;
+
+const fallbackCopyText = (text) => {
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  textarea.setAttribute("readonly", "");
+  textarea.style.position = "fixed";
+  textarea.style.opacity = "0";
+  document.body.appendChild(textarea);
+  textarea.select();
+  const copied = document.execCommand("copy");
+  textarea.remove();
+  return copied;
+};
+
+bibtexCopyButton?.addEventListener("click", async () => {
+  const text = bibtexContent?.textContent?.trim();
+  if (!text) return;
+
+  try {
+    // Keep the legacy copy inside the user gesture for browsers that restrict
+    // asynchronous clipboard access, then use the modern API as a fallback.
+    let copied = fallbackCopyText(text);
+    if (!copied && navigator.clipboard?.writeText) {
+      try {
+        await navigator.clipboard.writeText(text);
+        copied = true;
+      } catch {
+        copied = false;
+      }
+    }
+
+    if (!copied) {
+      throw new Error("Clipboard copy failed");
+    }
+
+    bibtexCopyButton.textContent = "Copied";
+    bibtexCopyButton.dataset.copied = "true";
+    bibtexCopyButton.setAttribute("aria-label", "BibTeX citation copied");
+    window.clearTimeout(bibtexCopyResetTimer);
+    bibtexCopyResetTimer = window.setTimeout(() => {
+      bibtexCopyButton.textContent = "Copy";
+      bibtexCopyButton.dataset.copied = "false";
+      bibtexCopyButton.setAttribute("aria-label", "Copy BibTeX citation");
+    }, 1800);
+  } catch {
+    bibtexCopyButton.textContent = "Retry";
+    bibtexCopyButton.setAttribute("aria-label", "Copy failed; retry copying BibTeX citation");
+  }
+});
+
 window.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && navToggle?.getAttribute("aria-expanded") === "true") {
     setNavigationOpen(false);

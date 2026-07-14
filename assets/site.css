@@ -1064,10 +1064,48 @@ h1 {
   line-height: 1;
 }
 
+.bibtex-code {
+  position: relative;
+}
+
+.bibtex-copy {
+  position: absolute;
+  z-index: 1;
+  top: 16px;
+  right: 16px;
+  min-width: 78px;
+  min-height: 40px;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #f5f7fa;
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 160ms ease, border-color 160ms ease;
+}
+
+.bibtex-copy:hover {
+  border-color: rgba(255, 255, 255, 0.42);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.bibtex-copy:focus-visible {
+  outline: 3px solid rgba(42, 168, 187, 0.78);
+  outline-offset: 3px;
+}
+
+.bibtex-copy[data-copied="true"] {
+  border-color: rgba(96, 211, 170, 0.64);
+  background: rgba(47, 154, 116, 0.2);
+}
+
 .bibtex pre {
   overflow-x: hidden;
   margin-bottom: 0;
-  padding: 24px;
+  padding: 68px 24px 24px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: #101318;
@@ -1393,7 +1431,7 @@ h1 {
   }
 
   .bibtex pre {
-    padding: 18px;
+    padding: 64px 18px 18px;
     font-size: 0.82rem;
   }
 }
