@@ -957,6 +957,15 @@ h1 {
   pointer-events: auto;
 }
 
+.video-modal.is-featured {
+  padding: 12px;
+}
+
+.video-modal.is-featured .video-modal-frame {
+  --modal-max-width: 1720px;
+  --modal-ratio: 1.7777778;
+}
+
 .video-modal-frame {
   --modal-max-width: 560px;
   --modal-ratio: 0.5625;

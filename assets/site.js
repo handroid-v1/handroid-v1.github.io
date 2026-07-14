@@ -195,18 +195,24 @@ let modalTrigger = null;
 
 modalFrame.tabIndex = -1;
 
-const setModalRatio = (ratio) => {
+const setModalRatio = (ratio, maxWidth = ratio >= 1 ? "960px" : "560px") => {
   modalFrame.style.setProperty("--modal-ratio", String(ratio));
-  modalFrame.style.setProperty("--modal-max-width", ratio >= 1 ? "960px" : "560px");
+  modalFrame.style.setProperty("--modal-max-width", maxWidth);
 };
 
 modalVideo.addEventListener("loadedmetadata", () => {
+  if (videoModal.classList.contains("is-featured")) {
+    setModalRatio(16 / 9, "1720px");
+    return;
+  }
+
   const ratio = modalVideo.videoWidth / Math.max(1, modalVideo.videoHeight);
   setModalRatio(ratio);
 });
 
 const closeVideoModal = () => {
   videoModal.classList.remove("is-open");
+  videoModal.classList.remove("is-featured");
   videoModal.setAttribute("aria-hidden", "true");
   document.body.classList.remove("modal-open");
   modalVideo.pause();
@@ -222,10 +228,17 @@ const openVideoModal = (trigger) => {
   if (!src) return;
 
   const cardVideo = getVideoElement(trigger);
+  const featuredPreview = trigger.matches("[data-video-preview]");
   const intrinsicRatio = cardVideo?.videoWidth / Math.max(1, cardVideo?.videoHeight || 0);
-  const fallbackRatio = trigger.closest(".portrait-demo") ? 9 / 16 : 16 / 9;
+  const fallbackRatio = featuredPreview ? 16 / 9 : 9 / 16;
   modalTrigger = trigger;
-  setModalRatio(Number.isFinite(intrinsicRatio) && intrinsicRatio > 0 ? intrinsicRatio : fallbackRatio);
+  videoModal.classList.toggle("is-featured", featuredPreview);
+  setModalRatio(
+    featuredPreview
+      ? fallbackRatio
+      : (Number.isFinite(intrinsicRatio) && intrinsicRatio > 0 ? intrinsicRatio : fallbackRatio),
+    featuredPreview ? "1720px" : undefined
+  );
   modalVideo.src = src;
   modalVideo.poster = cardVideo?.getAttribute("poster") || "";
   modalVideo.muted = true;
@@ -404,25 +417,23 @@ if (carousel && carouselViewport && carouselRange) {
     carouselObserver.observe(carouselViewport);
   }
 
-  carousel.addEventListener("click", (event) => {
-    if (suppressCardClick) {
-      event.preventDefault();
-      event.stopPropagation();
-      return;
-    }
+  cards.forEach((card) => {
+    card.addEventListener("click", (event) => {
+      if (suppressCardClick) {
+        event.preventDefault();
+        event.stopPropagation();
+        return;
+      }
 
-    const card = event.target.closest(".portrait-demo");
-    if (card) {
       openVideoModal(card);
-    }
-  });
+    });
 
-  carousel.addEventListener("keydown", (event) => {
-    const card = event.target.closest(".portrait-demo");
-    if (card && (event.key === "Enter" || event.key === " ")) {
-      event.preventDefault();
-      openVideoModal(card);
-    }
+    card.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openVideoModal(card);
+      }
+    });
   });
 
   updateCarouselRange();
