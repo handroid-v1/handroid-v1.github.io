@@ -821,6 +821,24 @@ h1 {
   height: auto;
 }
 
+.humanoid-video-crop {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #0d1118;
+  box-shadow: var(--shadow);
+}
+
+.humanoid-video-crop video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  box-shadow: none;
+  transform: scale(1.012);
+  transform-origin: center;
+}
+
 [data-video-preview] {
   cursor: zoom-in;
 }
