@@ -370,16 +370,20 @@ h1 {
 
 .abstract-layout {
   display: grid;
-  grid-template-columns: minmax(0, 0.38fr) minmax(540px, 1.2fr) minmax(0, 0.38fr);
-  gap: clamp(24px, 3vw, 64px);
-  align-items: center;
-  width: min(1800px, 100%);
+  grid-template-columns: minmax(220px, 1fr) minmax(620px, 1040px) minmax(220px, 1fr);
+  gap: clamp(24px, 2.4vw, 54px);
+  align-items: stretch;
+  width: min(2200px, 100%);
   margin: 0 auto;
 }
 
 .abstract-motto {
   position: relative;
   z-index: 1;
+  display: grid;
+  grid-template-rows: repeat(4, auto);
+  align-content: space-between;
+  align-self: stretch;
   margin: 0;
   color: var(--ink);
   width: 100%;
@@ -398,6 +402,7 @@ h1 {
 
 .abstract-motto-right {
   justify-self: end;
+  text-align: left;
 }
 
 .abstract-motto span {
@@ -409,7 +414,7 @@ h1 {
   position: relative;
   z-index: 2;
   width: 100%;
-  max-width: 900px;
+  max-width: 1040px;
   min-width: 0;
   justify-self: center;
   color: #06080b;
@@ -443,7 +448,7 @@ h1 {
   margin: 0;
   color: #05070a;
   font-family: "Times New Roman", Times, serif;
-  font-size: clamp(0.8rem, 0.82vw, 0.985rem);
+  font-size: clamp(0.9rem, 0.9vw, 1.11rem);
   line-height: 1.16;
   text-align: justify;
 }
@@ -1142,7 +1147,7 @@ h1 {
   }
 }
 
-@media (max-width: 1080px) {
+@media (max-width: 1200px) {
   .abstract-layout {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 30px clamp(24px, 5vw, 52px);
