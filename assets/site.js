@@ -4,6 +4,10 @@ const header = document.querySelector("[data-header]");
 const hero = document.querySelector("[data-hero]");
 const morph = document.querySelector("[data-morphology]");
 const progressBar = document.querySelector("[data-progress-bar]");
+const heroContent = document.querySelector("[data-hero-content]");
+const navToggle = document.querySelector(".nav-toggle");
+const primaryNav = document.querySelector("#primary-nav");
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 let ticking = false;
 
@@ -25,8 +29,14 @@ const updateHero = () => {
   const progress = sectionProgress(hero);
   const fade = clamp(progress * 2.65);
   root.style.setProperty("--hero-shade", String(1 - fade * 0.32));
-  root.style.setProperty("--title-y", `${-progress * 260}px`);
+  root.style.setProperty("--title-y", reduceMotion.matches ? "0px" : `${-progress * 260}px`);
   root.style.setProperty("--title-opacity", String(1 - fade));
+
+  if (heroContent) {
+    const hidden = fade > 0.98;
+    heroContent.inert = hidden;
+    heroContent.setAttribute("aria-hidden", String(hidden));
+  }
 };
 
 const updateMorph = () => {
@@ -71,6 +81,18 @@ const carousel = document.querySelector("[data-carousel-track]");
 const carouselRange = document.querySelector("[data-carousel-range]");
 
 let videoObserver;
+let carouselVideoObserver;
+
+const handleVideoVisibility = (entries) => {
+  entries.forEach((entry) => {
+    const video = entry.target;
+    if (entry.isIntersecting) {
+      playVisibleVideo(video);
+    } else {
+      video.pause();
+    }
+  });
+};
 
 const prepareAutoplayVideo = (video) => {
   if (video.dataset.prepared === "true") return;
@@ -79,6 +101,15 @@ const prepareAutoplayVideo = (video) => {
   video.loop = true;
   video.playsInline = true;
   video.preload = "none";
+
+  if (reduceMotion.matches) {
+    video.autoplay = false;
+    video.removeAttribute("autoplay");
+    video.pause();
+    if (!video.closest(".scene-media")) video.controls = true;
+    video.dataset.prepared = "true";
+    return;
+  }
 
   video.querySelectorAll("source").forEach((source) => {
     source.dataset.src = source.getAttribute("src") || source.dataset.src;
@@ -102,13 +133,19 @@ const playVisibleVideo = (video) => {
   loadVideo(video);
   const playPromise = video.play();
   if (playPromise) {
-    playPromise.catch(() => {});
+    playPromise.catch(() => {
+      if (!video.closest(".scene-media")) video.controls = true;
+    });
   }
 };
 
 const observeAutoplayVideo = (video) => {
   prepareAutoplayVideo(video);
-  if (videoObserver) {
+  if (reduceMotion.matches) return;
+
+  if (video.closest(".carousel-viewport") && carouselVideoObserver) {
+    carouselVideoObserver.observe(video);
+  } else if (videoObserver) {
     videoObserver.observe(video);
   } else {
     playVisibleVideo(video);
@@ -116,16 +153,14 @@ const observeAutoplayVideo = (video) => {
 };
 
 if ("IntersectionObserver" in window) {
-  videoObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      const video = entry.target;
-      if (entry.isIntersecting) {
-        playVisibleVideo(video);
-      } else {
-        video.pause();
-      }
-    });
-  }, { threshold: 0.18, rootMargin: "420px 0px" });
+  videoObserver = new IntersectionObserver(handleVideoVisibility, {
+    threshold: 0.18,
+    rootMargin: "420px 0px"
+  });
+  carouselVideoObserver = new IntersectionObserver(handleVideoVisibility, {
+    threshold: 0.72,
+    rootMargin: "0px"
+  });
 }
 
 document.querySelectorAll("video").forEach(observeAutoplayVideo);
@@ -150,6 +185,16 @@ const createVideoModal = () => {
 
 const videoModal = createVideoModal();
 const modalVideo = videoModal.querySelector("video");
+const modalFrame = videoModal.querySelector(".video-modal-frame");
+let modalTrigger = null;
+
+modalFrame.tabIndex = -1;
+
+modalVideo.addEventListener("loadedmetadata", () => {
+  const ratio = modalVideo.videoWidth / Math.max(1, modalVideo.videoHeight);
+  modalFrame.style.setProperty("--modal-ratio", String(ratio));
+  modalFrame.style.setProperty("--modal-max-width", ratio >= 1 ? "960px" : "560px");
+});
 
 const closeVideoModal = () => {
   videoModal.classList.remove("is-open");
@@ -159,6 +204,8 @@ const closeVideoModal = () => {
   modalVideo.removeAttribute("src");
   modalVideo.removeAttribute("poster");
   modalVideo.load();
+  modalTrigger?.focus();
+  modalTrigger = null;
 };
 
 const openVideoModal = (card) => {
@@ -166,6 +213,9 @@ const openVideoModal = (card) => {
   if (!src) return;
 
   const cardVideo = card.querySelector("video");
+  modalTrigger = card;
+  modalFrame.style.setProperty("--modal-ratio", "0.5625");
+  modalFrame.style.setProperty("--modal-max-width", "560px");
   modalVideo.src = src;
   modalVideo.poster = cardVideo?.getAttribute("poster") || "";
   modalVideo.muted = true;
@@ -173,6 +223,7 @@ const openVideoModal = (card) => {
   videoModal.classList.add("is-open");
   videoModal.setAttribute("aria-hidden", "false");
   document.body.classList.add("modal-open");
+  modalFrame.focus();
   const playPromise = modalVideo.play();
   if (playPromise) {
     playPromise.catch(() => {});
@@ -197,8 +248,9 @@ if (carousel && carouselViewport && carouselRange) {
   let carouselHover = false;
   let carouselDragging = false;
   let carouselMoved = false;
+  let carouselUserPaused = false;
+  let carouselVisible = true;
   let suppressCardClick = false;
-  let carouselStartCard = null;
   let carouselStartX = 0;
   let carouselStartScroll = 0;
   const carouselSpeed = 48;
@@ -213,10 +265,17 @@ if (carousel && carouselViewport && carouselRange) {
 
   cards.forEach((card) => prepareCarouselCard(card));
 
-  const carouselMaxScroll = () => Math.max(1, carouselViewport.scrollWidth - carouselViewport.clientWidth);
+  const carouselMaxScroll = () => Math.max(0, carouselViewport.scrollWidth - carouselViewport.clientWidth);
 
   const updateCarouselRange = () => {
-    carouselRange.value = String((carouselViewport.scrollLeft / carouselMaxScroll()) * 100);
+    const maxScroll = carouselMaxScroll();
+    const control = carouselRange.closest(".carousel-control");
+    const canScroll = maxScroll > 1;
+    carouselRange.disabled = !canScroll;
+    if (control) control.hidden = !canScroll;
+    carouselRange.value = canScroll
+      ? String((carouselViewport.scrollLeft / maxScroll) * 100)
+      : "0";
   };
 
   const suppressNextCardClick = () => {
@@ -230,11 +289,20 @@ if (carousel && carouselViewport && carouselRange) {
     const deltaSeconds = Math.min(0.05, (time - carouselLastFrame) / 1000);
     carouselLastFrame = time;
 
-    if (!carouselHover && !carouselDragging) {
+    if (
+      carouselVisible &&
+      !document.hidden &&
+      !reduceMotion.matches &&
+      !carouselHover &&
+      !carouselDragging &&
+      !carouselUserPaused
+    ) {
       const maxScroll = carouselMaxScroll();
-      const nextScroll = carouselViewport.scrollLeft + deltaSeconds * carouselSpeed;
-      carouselViewport.scrollLeft = nextScroll >= maxScroll ? 0 : nextScroll;
-      updateCarouselRange();
+      if (maxScroll > 1) {
+        const nextScroll = carouselViewport.scrollLeft + deltaSeconds * carouselSpeed;
+        carouselViewport.scrollLeft = nextScroll >= maxScroll ? 0 : nextScroll;
+        updateCarouselRange();
+      }
     }
 
     window.requestAnimationFrame(animateCarousel);
@@ -249,9 +317,11 @@ if (carousel && carouselViewport && carouselRange) {
   });
 
   carouselViewport.addEventListener("pointerdown", (event) => {
+    carouselUserPaused = true;
+    if (!event.isPrimary || event.pointerType !== "mouse" || event.button !== 0) return;
+
     carouselDragging = true;
     carouselMoved = false;
-    carouselStartCard = event.target.closest(".portrait-demo");
     carouselStartX = event.clientX;
     carouselStartScroll = carouselViewport.scrollLeft;
     carouselViewport.classList.add("is-dragging");
@@ -269,7 +339,7 @@ if (carousel && carouselViewport && carouselRange) {
     updateCarouselRange();
   });
 
-  const stopCarouselDrag = (event) => {
+  const stopCarouselDrag = (event, cancelled = false) => {
     if (!carouselDragging) return;
 
     carouselDragging = false;
@@ -278,25 +348,36 @@ if (carousel && carouselViewport && carouselRange) {
       carouselViewport.releasePointerCapture(event.pointerId);
     }
 
-    if (carouselMoved) {
+    if (!cancelled && carouselMoved) {
       suppressNextCardClick();
-    } else if (carouselStartCard) {
-      suppressNextCardClick();
-      openVideoModal(carouselStartCard);
     }
-
-    carouselStartCard = null;
   };
 
   carouselViewport.addEventListener("pointerup", stopCarouselDrag);
-  carouselViewport.addEventListener("pointercancel", stopCarouselDrag);
+  carouselViewport.addEventListener("pointercancel", (event) => stopCarouselDrag(event, true));
 
   carouselRange.addEventListener("input", () => {
+    carouselUserPaused = true;
     carouselViewport.scrollLeft = (Number(carouselRange.value) / 100) * carouselMaxScroll();
+  });
+
+  carouselRange.addEventListener("pointerdown", () => {
+    carouselUserPaused = true;
+  });
+
+  carouselRange.addEventListener("focus", () => {
+    carouselUserPaused = true;
   });
 
   carouselViewport.addEventListener("scroll", updateCarouselRange, { passive: true });
   window.addEventListener("resize", updateCarouselRange);
+
+  if ("IntersectionObserver" in window) {
+    const carouselObserver = new IntersectionObserver(([entry]) => {
+      carouselVisible = entry.isIntersecting;
+    }, { threshold: 0.02 });
+    carouselObserver.observe(carouselViewport);
+  }
 
   carousel.addEventListener("click", (event) => {
     if (suppressCardClick) {
@@ -322,6 +403,41 @@ if (carousel && carouselViewport && carouselRange) {
   updateCarouselRange();
   window.requestAnimationFrame(animateCarousel);
 }
+
+const setNavigationOpen = (open) => {
+  if (!header || !navToggle) return;
+  header.classList.toggle("is-nav-open", open);
+  navToggle.setAttribute("aria-expanded", String(open));
+  navToggle.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+  const icon = navToggle.querySelector("[data-nav-icon]");
+  if (icon) icon.textContent = open ? "\u00d7" : "\u2630";
+};
+
+navToggle?.addEventListener("click", () => {
+  setNavigationOpen(navToggle.getAttribute("aria-expanded") !== "true");
+});
+
+primaryNav?.addEventListener("click", (event) => {
+  if (event.target.closest("a")) setNavigationOpen(false);
+});
+
+const mobileNavigation = window.matchMedia("(max-width: 720px)");
+const handleNavigationBreakpoint = (event) => {
+  if (!event.matches) setNavigationOpen(false);
+};
+
+if (mobileNavigation.addEventListener) {
+  mobileNavigation.addEventListener("change", handleNavigationBreakpoint);
+} else {
+  mobileNavigation.addListener(handleNavigationBreakpoint);
+}
+
+window.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && navToggle?.getAttribute("aria-expanded") === "true") {
+    setNavigationOpen(false);
+    navToggle.focus();
+  }
+});
 
 window.addEventListener("scroll", requestUpdate, { passive: true });
 window.addEventListener("resize", requestUpdate);
