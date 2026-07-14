@@ -755,7 +755,7 @@ h1 {
   box-shadow: var(--shadow);
 }
 
-.demo-focus div {
+.demo-focus > div:first-child {
   padding: 0 0 clamp(16px, 2vw, 28px);
 }
 
@@ -768,6 +768,24 @@ h1 {
 
 .dp-focus {
   padding-top: clamp(42px, 6vw, 86px);
+}
+
+.dp-video-crop {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #0d1118;
+  box-shadow: var(--shadow);
+}
+
+.dp-video-crop video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  box-shadow: none;
+  transform: scale(1.2);
+  transform-origin: center;
 }
 
 .humanoid-showcase {
@@ -1006,6 +1024,8 @@ h1 {
   width: min(100%, var(--modal-max-width), calc(88vh * var(--modal-ratio)));
   width: min(100%, var(--modal-max-width), calc(88svh * var(--modal-ratio)));
   aspect-ratio: var(--modal-ratio);
+  overflow: hidden;
+  border-radius: 8px;
   outline: none;
 }
 
@@ -1018,6 +1038,11 @@ h1 {
   box-shadow: 0 32px 100px rgba(0, 0, 0, 0.42);
   object-fit: contain;
   object-position: center;
+}
+
+.video-modal.is-dp-crop video {
+  transform: scale(1.2);
+  transform-origin: center;
 }
 
 .modal-open {

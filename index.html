@@ -8,9 +8,9 @@
     <meta property="og:description" content="A transformable desktop robot bridging dexterous hand and humanoid embodiments.">
     <meta property="og:image" content="assets/images/hero-switching-poster.jpg">
     <title>Handroid: Bridging Dexterous Hand and Humanoid</title>
-    <link rel="stylesheet" href="assets/site.css?v=20260714aa">
+    <link rel="stylesheet" href="assets/site.css?v=20260714ab">
     <script type="module" src="https://unpkg.com/@google/model-viewer@4.3.1/dist/model-viewer.min.js"></script>
-    <script defer src="assets/site.js?v=20260714z"></script>
+    <script defer src="assets/site.js?v=20260714ab"></script>
   </head>
   <body>
     <header class="site-header" data-header>
@@ -130,9 +130,11 @@
           <p class="eyebrow">Dex-Hand</p>
           <h2>DP grasping</h2>
         </div>
-        <video data-video-preview data-video-title="DP grasping" autoplay muted loop playsinline preload="metadata" poster="assets/images/dex-hand-dp-grasping-poster.jpg">
-          <source src="assets/videos/dex-hand-dp-grasping.mp4?v=20260711e" type="video/mp4">
-        </video>
+        <div class="dp-video-crop">
+          <video data-video-preview data-video-title="DP grasping" autoplay muted loop playsinline preload="metadata" poster="assets/images/dex-hand-dp-grasping-poster.jpg">
+            <source src="assets/videos/dex-hand-dp-grasping.mp4?v=20260711e" type="video/mp4">
+          </video>
+        </div>
       </section>
 
       <section class="humanoid-showcase" aria-label="Humanoid demos">

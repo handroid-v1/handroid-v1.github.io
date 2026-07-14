@@ -213,6 +213,7 @@ modalVideo.addEventListener("loadedmetadata", () => {
 const closeVideoModal = () => {
   videoModal.classList.remove("is-open");
   videoModal.classList.remove("is-featured");
+  videoModal.classList.remove("is-dp-crop");
   videoModal.setAttribute("aria-hidden", "true");
   document.body.classList.remove("modal-open");
   modalVideo.pause();
@@ -229,10 +230,12 @@ const openVideoModal = (trigger) => {
 
   const cardVideo = getVideoElement(trigger);
   const featuredPreview = trigger.matches("[data-video-preview]");
+  const dpCrop = trigger.matches('[data-video-title="DP grasping"]');
   const intrinsicRatio = cardVideo?.videoWidth / Math.max(1, cardVideo?.videoHeight || 0);
   const fallbackRatio = featuredPreview ? 16 / 9 : 9 / 16;
   modalTrigger = trigger;
   videoModal.classList.toggle("is-featured", featuredPreview);
+  videoModal.classList.toggle("is-dp-crop", dpCrop);
   setModalRatio(
     featuredPreview
       ? fallbackRatio
