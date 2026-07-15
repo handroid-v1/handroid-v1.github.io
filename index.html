@@ -8,9 +8,9 @@
     <meta property="og:description" content="A transformable desktop robot bridging dexterous hand and humanoid embodiments.">
     <meta property="og:image" content="assets/images/hero-switching-poster.jpg">
     <title>Handroid: Bridging Dexterous Hand and Humanoid</title>
-    <link rel="stylesheet" href="assets/site.css?v=20260711e">
+    <link rel="stylesheet" href="assets/site.css?v=20260715k">
     <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-    <script defer src="assets/site.js?v=20260711e"></script>
+    <script defer src="assets/site.js?v=20260715k"></script>
   </head>
   <body>
     <header class="site-header" data-header>
@@ -27,10 +27,10 @@
     </header>
 
     <main id="top">
-      <section class="hero scrub-section" data-hero data-scrub-section>
+      <section class="hero" data-hero>
         <div class="sticky-scene hero-scene">
           <div class="scene-media" aria-hidden="true">
-            <video class="scrub-video" muted playsinline preload="auto" poster="assets/images/hero-switching-poster.jpg" data-scrub-video data-scrub-mode="full">
+            <video autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-switching-poster.jpg">
               <source src="assets/videos/switching-hero.mp4?v=20260711e" type="video/mp4">
             </video>
           </div>
@@ -71,15 +71,15 @@
           </div>
           <div class="scroll-cue" aria-hidden="true">
             <span></span>
-            Scroll to scrub transformation
+            Scroll to continue
           </div>
         </div>
       </section>
 
       <section class="dual-intro">
         <div class="dual-line">
-          <h2>A dex hand when<br><span class="accent-manipulation">manipulation</span> matters.</h2>
-          <h2>A humanoid when<br><span class="accent-locomotion">locomotion</span> matters.</h2>
+          <h2><span class="slogan-line">A dex hand when</span><span class="slogan-line"><span class="accent-manipulation">manipulation</span> matters.</span></h2>
+          <h2><span class="slogan-line">A humanoid when</span><span class="slogan-line"><span class="accent-locomotion">locomotion</span> matters.</span></h2>
         </div>
       </section>
 
@@ -141,37 +141,18 @@
         </div>
       </section>
 
-      <section id="design" class="design scrub-section" data-design-scrub data-scrub-section>
+      <section id="design" class="design">
         <div class="sticky-scene design-scene">
           <div class="scene-media clean" aria-hidden="true">
-            <video class="scrub-video" muted playsinline preload="auto" poster="assets/images/hero-exploded-poster.jpg" data-scrub-video data-scrub-mode="explode">
+            <video autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-exploded-poster.jpg">
               <source src="assets/videos/exploded-view-hero.mp4?v=20260711e" type="video/mp4">
             </video>
           </div>
           <div class="design-title">
             <h2>Design</h2>
-            <p>Explode, inspect, reassemble.</p>
+            <p>Fully 3D-Printed · Modular · Easy to Fabricate</p>
           </div>
         </div>
-      </section>
-
-      <section class="design-details">
-        <article class="detail-panel">
-          <div class="detail-copy">
-            <p class="eyebrow">Structure</p>
-            <h2>27 DoF morphology map</h2>
-            <p>Finger joints double as humanoid limbs, making the mapping legible instead of ornamental.</p>
-          </div>
-          <img src="assets/images/design/structure-design.png" alt="Annotated mechanical structure of Handroid.">
-        </article>
-        <article class="detail-panel">
-          <div class="detail-copy">
-            <p class="eyebrow">Electronics</p>
-            <h2>Integrated control board</h2>
-            <p>Power, sensing, status, and actuator management are packaged for repeatable desktop deployment.</p>
-          </div>
-          <img src="assets/images/design/pcb-design.png" alt="Annotated Handroid PCB design.">
-        </article>
       </section>
 
       <section id="demos" class="demos-heading">
@@ -182,22 +163,50 @@
       </section>
 
       <section class="demo-focus">
-        <video autoplay muted loop playsinline preload="metadata" poster="assets/images/overview-poster.jpg">
-          <source src="assets/videos/long-horizon-task.mp4?v=20260711e" type="video/mp4">
-        </video>
+        <div class="demo-media">
+          <video autoplay muted loop playsinline preload="metadata" poster="assets/images/overview-poster.jpg" data-replay-video>
+            <source src="assets/videos/long-horizon-task.mp4?v=20260711e" type="video/mp4">
+          </video>
+          <button class="replay-button" type="button" data-replay-button aria-label="Replay long-horizon video">Replay</button>
+        </div>
         <div>
           <p class="eyebrow">Long Horizon</p>
           <h2>Mode switching across an extended task</h2>
         </div>
       </section>
 
+      <section class="demo-focus humanoid-focus">
+        <video autoplay muted loop playsinline preload="metadata" poster="assets/images/humanoid-pick-and-place-poster.jpg">
+          <source src="assets/videos/humanoid-pick-and-place.mp4?v=20260711e" type="video/mp4">
+        </video>
+        <div>
+          <p class="eyebrow">Humanoid</p>
+          <h2>Pick-and-Place</h2>
+        </div>
+      </section>
+
+      <section class="demo-focus humanoid-focus humanoid-pair-focus">
+        <div class="humanoid-video-pair">
+          <video autoplay muted loop playsinline preload="metadata" poster="assets/images/humanoid-push-up-poster.jpg">
+            <source src="assets/videos/humanoid-push-up.mp4?v=20260711e" type="video/mp4">
+          </video>
+          <video autoplay muted loop playsinline preload="metadata" poster="assets/images/humanoid-pull-up-poster.jpg">
+            <source src="assets/videos/humanoid-pull-up.mp4?v=20260711e" type="video/mp4">
+          </video>
+        </div>
+        <div>
+          <p class="eyebrow">Humanoid</p>
+          <h2>Push-up and Pull-up</h2>
+        </div>
+      </section>
+
       <section class="demo-focus dp-focus">
-        <video autoplay muted loop playsinline preload="metadata" poster="assets/images/dex-hand-dp-grasping-poster.jpg">
+        <video autoplay muted loop playsinline preload="metadata" poster="assets/images/dex-hand-dp-grasping-poster.jpg" data-playback-rate="2">
           <source src="assets/videos/dex-hand-dp-grasping.mp4?v=20260711e" type="video/mp4">
         </video>
         <div>
           <p class="eyebrow">Dex-Hand</p>
-          <h2>DP grasping</h2>
+          <h2>Grasping with Diffusion Policy</h2>
         </div>
       </section>
 
@@ -301,16 +310,36 @@
         </p>
       </section>
 
+      <section class="design-details">
+        <article class="detail-panel">
+          <div class="detail-copy">
+            <p class="eyebrow">Structure</p>
+            <h2>27 DoF morphology map</h2>
+            <p>Finger joints double as humanoid limbs, making the mapping legible instead of ornamental.</p>
+          </div>
+          <img src="assets/images/design/structure-design.png" alt="Annotated mechanical structure of Handroid.">
+        </article>
+        <article class="detail-panel">
+          <div class="detail-copy">
+            <p class="eyebrow">Electronics</p>
+            <h2>Integrated control board</h2>
+            <p>Power, sensing, status, and actuator management are packaged for repeatable desktop deployment.</p>
+          </div>
+          <img src="assets/images/design/pcb-design.png" alt="Annotated Handroid PCB design.">
+        </article>
+      </section>
+
       <section id="bibtex" class="bibtex">
         <div class="section-heading compact">
           <p class="eyebrow">Citation</p>
           <h2>BibTeX</h2>
         </div>
         <pre><code>@misc{li2026handroid,
-  title={Handroid: Bridging Dexterous Hand and Humanoid},
-  author={Ruogu Li and Chenyang Ma and Sikai Li and Zhenyu Wei and Yunchao Yao and Haochen Shi and C. Karen Liu and Shuran Song and Mingyu Ding},
-  year={2026},
-  url={https://handroid.org}
+  title        = {{Handroid}: Bridging Dexterous Hand and Humanoid},
+  author       = {Li, Ruogu and Ma, Chenyang and Li, Sikai and Wei, Zhenyu and Yao, Yunchao and Shi, Haochen and Liu, C. Karen and Song, Shuran and Ding, Mingyu},
+  year         = {2026},
+  howpublished = {Project page},
+  url          = {https://handroid.org}
 }</code></pre>
       </section>
     </main>

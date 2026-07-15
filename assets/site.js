@@ -4,10 +4,8 @@ const header = document.querySelector("[data-header]");
 const hero = document.querySelector("[data-hero]");
 const morph = document.querySelector("[data-morphology]");
 const progressBar = document.querySelector("[data-progress-bar]");
-const scrubSections = [...document.querySelectorAll("[data-scrub-section]")];
 
 let ticking = false;
-let scrubAnimating = false;
 
 const easeInOut = (progress) => (
   progress < 0.5
@@ -21,87 +19,14 @@ const sectionProgress = (section) => {
   return clamp((0 - rect.top) / travel);
 };
 
-const scrubTime = (video, progress) => {
-  if (!video.duration || Number.isNaN(video.duration)) return;
-
-  const mode = video.dataset.scrubMode;
-  let target = progress * video.duration;
-
-  if (mode === "explode" && video.duration > 50) {
-    const hold = 47.5;
-    if (progress < 0.52) {
-      target = (progress / 0.52) * hold;
-    } else if (progress < 0.76) {
-      target = hold;
-    } else {
-      target = hold + ((progress - 0.76) / 0.24) * (video.duration - hold);
-    }
-  }
-
-  video.dataset.targetTime = String(clamp(target, 0, Math.max(0, video.duration - 0.04)));
-};
-
-const updateScrubVideos = () => {
-  scrubSections.forEach((section) => {
-    const progress = sectionProgress(section);
-    section.querySelectorAll("[data-scrub-video]").forEach((video) => {
-      scrubTime(video, progress);
-    });
-  });
-};
-
-const advanceScrubVideos = () => {
-  let needsMoreFrames = false;
-
-  document.querySelectorAll("[data-scrub-video]").forEach((video) => {
-    const rawTarget = Number(video.dataset.targetTime);
-    if (!Number.isFinite(rawTarget) || !video.duration) return;
-
-    const mode = video.dataset.scrubMode;
-    const diff = rawTarget - video.currentTime;
-    const absDiff = Math.abs(diff);
-    const closeEnough = mode === "explode" ? 0.08 : 0.05;
-
-    if (absDiff < closeEnough) {
-      video.pause();
-      video.currentTime = rawTarget;
-      return;
-    }
-
-    const follow = mode === "explode" ? 0.48 : 0.58;
-    const maxStep = mode === "explode" ? 1.15 : 0.82;
-    const step = clamp(diff * follow, -maxStep, maxStep);
-
-    video.pause();
-    video.currentTime = clamp(video.currentTime + step, 0, Math.max(0, video.duration - 0.04));
-    needsMoreFrames = true;
-  });
-
-  return needsMoreFrames;
-};
-
-const keepScrubbing = () => {
-  const needsMoreFrames = advanceScrubVideos();
-  if (needsMoreFrames) {
-    window.requestAnimationFrame(keepScrubbing);
-  } else {
-    scrubAnimating = false;
-  }
-};
-
-const requestScrubAnimation = () => {
-  if (scrubAnimating) return;
-  scrubAnimating = true;
-  window.requestAnimationFrame(keepScrubbing);
-};
-
 const updateHero = () => {
   if (!hero) return;
 
   const progress = sectionProgress(hero);
-  const fade = clamp(progress * 2.65);
-  root.style.setProperty("--hero-shade", String(1 - fade * 0.32));
-  root.style.setProperty("--title-y", `${-progress * 260}px`);
+  const fade = clamp(progress * 3.1);
+  const shadeFade = clamp(progress * 4.8);
+  root.style.setProperty("--hero-shade", String(1 - shadeFade * 0.68));
+  root.style.setProperty("--title-y", `${-progress * 420}px`);
   root.style.setProperty("--title-opacity", String(1 - fade));
   root.style.setProperty("--cue-opacity", String(clamp(1 - progress * 3.2)));
 };
@@ -131,9 +56,6 @@ const updateHeader = () => {
 };
 
 const update = () => {
-  updateScrubVideos();
-  advanceScrubVideos();
-  requestScrubAnimation();
   updateHero();
   updateMorph();
   updateHeader();
@@ -146,15 +68,11 @@ const requestUpdate = () => {
   window.requestAnimationFrame(update);
 };
 
-document.querySelectorAll("[data-scrub-video]").forEach((video) => {
-  video.currentTime = 0.04;
-  video.addEventListener("loadedmetadata", requestUpdate);
-  video.addEventListener("canplay", requestUpdate, { once: true });
-});
-
 const carouselViewport = document.querySelector("[data-carousel]");
 const carousel = document.querySelector("[data-carousel-track]");
 const carouselRange = document.querySelector("[data-carousel-range]");
+const replayButton = document.querySelector("[data-replay-button]");
+const replayVideo = document.querySelector("[data-replay-video]");
 
 let videoObserver;
 
@@ -165,6 +83,7 @@ const prepareAutoplayVideo = (video) => {
   video.loop = true;
   video.playsInline = true;
   video.preload = "none";
+  video.playbackRate = Number(video.dataset.playbackRate || 1);
 
   video.querySelectorAll("source").forEach((source) => {
     source.dataset.src = source.getAttribute("src") || source.dataset.src;
@@ -186,6 +105,7 @@ const loadVideo = (video) => {
 
 const playVisibleVideo = (video) => {
   loadVideo(video);
+  video.playbackRate = Number(video.dataset.playbackRate || 1);
   const playPromise = video.play();
   if (playPromise) {
     playPromise.catch(() => {});
@@ -214,7 +134,18 @@ if ("IntersectionObserver" in window) {
   }, { threshold: 0.18, rootMargin: "420px 0px" });
 }
 
-document.querySelectorAll("video:not([data-scrub-video])").forEach(observeAutoplayVideo);
+document.querySelectorAll("video").forEach(observeAutoplayVideo);
+
+replayButton?.addEventListener("click", () => {
+  if (!replayVideo) return;
+
+  loadVideo(replayVideo);
+  replayVideo.currentTime = 0;
+  const playPromise = replayVideo.play();
+  if (playPromise) {
+    playPromise.catch(() => {});
+  }
+});
 
 if (carousel && carouselViewport && carouselRange) {
   let carouselLastFrame = performance.now();

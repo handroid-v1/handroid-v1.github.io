@@ -114,9 +114,11 @@ pre {
   text-transform: uppercase;
 }
 
-.scrub-section {
+.hero {
   position: relative;
-  min-height: 260vh;
+  min-height: 205vh;
+  background: var(--dark);
+  color: white;
 }
 
 .sticky-scene {
@@ -124,11 +126,6 @@ pre {
   top: 0;
   height: 100vh;
   overflow: hidden;
-}
-
-.hero {
-  background: var(--dark);
-  color: white;
 }
 
 .hero-scene {
@@ -154,8 +151,8 @@ pre {
 .hero-shade {
   z-index: 1;
   background:
-    linear-gradient(90deg, rgba(5, 8, 12, 0.32), rgba(5, 8, 12, 0.16) 50%, rgba(5, 8, 12, 0.26)),
-    linear-gradient(0deg, rgba(5, 8, 12, 0.72), rgba(5, 8, 12, 0.2) 48%, rgba(5, 8, 12, 0.42));
+    linear-gradient(90deg, rgba(5, 8, 12, 0.54), rgba(5, 8, 12, 0.34) 50%, rgba(5, 8, 12, 0.46)),
+    linear-gradient(0deg, rgba(5, 8, 12, 0.86), rgba(5, 8, 12, 0.38) 48%, rgba(5, 8, 12, 0.62));
   opacity: var(--hero-shade, 1);
   pointer-events: none;
 }
@@ -189,26 +186,24 @@ h1 {
 
 .subtitle {
   margin: 0 auto 20px;
-  color: rgba(255, 255, 255, 0.94);
+  background: linear-gradient(90deg, #ffffff 0 34%, var(--cyan) 45%, var(--rose) 55%, #ffffff 66% 100%);
+  background-size: 320% 100%;
+  color: transparent;
   font-size: clamp(1.6rem, 3.2vw, 3.9rem);
   font-weight: 520;
   line-height: 1.16;
   letter-spacing: 0;
   white-space: nowrap;
-}
-
-.subtitle span {
-  position: relative;
-  display: inline-block;
-  padding-bottom: 0.06em;
-  background: linear-gradient(90deg, #ffffff 0 34%, var(--cyan) 45%, var(--rose) 55%, #ffffff 66% 100%);
-  background-size: 320% 100%;
-  color: transparent;
-  font-weight: 520;
-  line-height: 1.12;
   -webkit-background-clip: text;
   background-clip: text;
   animation: bridgeTextSweep 2.8s linear infinite;
+}
+
+.subtitle span {
+  display: inline-block;
+  color: inherit;
+  font-weight: 520;
+  line-height: 1.12;
 }
 
 .subtitle span::after {
@@ -342,9 +337,14 @@ h1 {
   margin: 0;
   padding-top: 18px;
   border-top: 2px solid rgba(16, 19, 24, 0.16);
-  font-size: clamp(2rem, 3.45vw, 4.25rem);
+  font-size: clamp(1.85rem, 3.05vw, 3.75rem);
   line-height: 0.98;
   letter-spacing: 0;
+}
+
+.slogan-line {
+  display: block;
+  white-space: nowrap;
 }
 
 .accent-manipulation {
@@ -491,7 +491,7 @@ h1 {
 
 .design {
   z-index: 7;
-  min-height: 340vh;
+  min-height: 112vh;
   background: #ffffff;
 }
 
@@ -553,7 +553,7 @@ h1 {
   display: grid;
   gap: clamp(34px, 5vw, 72px);
   padding: clamp(70px, 9vw, 132px) 0;
-  background: #eef3f6;
+  background: #ffffff;
 }
 
 .detail-panel {
@@ -591,7 +591,7 @@ h1 {
   z-index: 9;
   min-height: auto;
   padding: clamp(74px, 10vw, 142px) 0 clamp(26px, 4vw, 52px);
-  background: var(--paper);
+  background: #ffffff;
   color: var(--ink);
 }
 
@@ -619,10 +619,14 @@ h1 {
 .demo-focus {
   position: relative;
   z-index: 10;
-  width: min(1320px, calc(100% - 40px));
+  width: 100%;
   margin: 0 auto;
-  padding: clamp(36px, 5vw, 70px) 0 clamp(28px, 4vw, 54px);
-  background: var(--paper);
+  padding: clamp(36px, 5vw, 70px) max(20px, calc((100% - 1320px) / 2)) clamp(28px, 4vw, 54px);
+  background: #ffffff;
+}
+
+.demo-media {
+  position: relative;
 }
 
 .demo-focus video {
@@ -633,7 +637,31 @@ h1 {
   box-shadow: var(--shadow);
 }
 
-.demo-focus div {
+.replay-button {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  z-index: 2;
+  min-height: 42px;
+  padding: 9px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.48);
+  border-radius: 999px;
+  background: rgba(12, 16, 22, 0.54);
+  color: white;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 760;
+  cursor: pointer;
+  backdrop-filter: blur(14px);
+}
+
+.replay-button:hover,
+.replay-button:focus-visible {
+  border-color: rgba(255, 255, 255, 0.82);
+  background: rgba(12, 16, 22, 0.72);
+}
+
+.demo-focus > div:not(.demo-media) {
   padding: 24px 4px 0;
 }
 
@@ -647,11 +675,26 @@ h1 {
   padding-top: clamp(58px, 7vw, 104px);
 }
 
+.humanoid-focus {
+  padding-top: clamp(36px, 5vw, 76px);
+}
+
+.humanoid-video-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 2.4vw, 30px);
+}
+
+.humanoid-video-pair video {
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
 .demo-carousel {
   position: relative;
   z-index: 10;
   padding: clamp(56px, 8vw, 104px) 0 clamp(76px, 9vw, 132px);
-  background: var(--paper);
+  background: #ffffff;
 }
 
 .carousel-viewport {
@@ -748,6 +791,7 @@ h1 {
 
 .abstract {
   width: 100%;
+  text-align: center;
 }
 
 .abstract h2,
@@ -827,12 +871,12 @@ h1 {
     position: absolute;
   }
 
-  .hero.scrub-section {
-    min-height: 390vh;
+  .hero {
+    min-height: 260vh;
   }
 
-  .design.scrub-section {
-    min-height: 500vh;
+  .design {
+    min-height: 112vh;
   }
 
   nav {
@@ -867,10 +911,13 @@ h1 {
     left: 14px;
   }
 
-  .dual-line h2,
   .design-title h2,
   .demos-heading .demo-title h2 {
     font-size: clamp(2rem, 10vw, 3.2rem);
+  }
+
+  .dual-line h2 {
+    font-size: clamp(1.42rem, 6.9vw, 2.7rem);
   }
 
   .design-title,
@@ -880,6 +927,10 @@ h1 {
 
   .portrait-demo {
     flex-basis: 220px;
+  }
+
+  .humanoid-video-pair {
+    grid-template-columns: 1fr;
   }
 
   .morph-stage {
